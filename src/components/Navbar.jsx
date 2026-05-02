@@ -1,0 +1,244 @@
+import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Menu, X, Search, User, ChevronDown } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { articles } from '../lib/mockData'
+
+const navLinks = [
+  { name: 'Interviews', path: '/interviews' },
+  { name: 'Business', path: '/business' },
+  { name: 'Opinion', path: '/opinion' },
+  { name: 'Lifestyle', path: '/lifestyle' },
+  { name: 'Events', path: '/events' },
+  { name: 'Spotlights', path: '/spotlights' },
+  { name: 'Awards', path: '/awards' },
+  { name: 'Magazine', path: '/digital-magazine' },
+  { name: 'About', path: '/about' },
+  { name: 'Contact', path: '/contact' },
+]
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
+  const [hoveredLink, setHoveredLink] = useState(null)
+  const location = useLocation()
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    setIsOpen(false)
+    setShowSearch(false)
+    setHoveredLink(null)
+  }, [location])
+
+  const getRelatedArticles = (category) => {
+    return articles.filter(a => a.category.toLowerCase().includes(category.toLowerCase())).slice(0, 4)
+  }
+
+  return (
+    <>
+      {/* Main Navbar */}
+      <nav 
+        onMouseLeave={() => setHoveredLink(null)}
+        className={`sticky top-0 z-50 w-full transition-all duration-500 bg-white ${
+        isScrolled ? 'shadow-xl py-3' : 'py-6 md:py-8'
+      }`}>
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Left: Mobile Menu */}
+            <div className="flex lg:hidden">
+              <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-secondary">
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+
+            {/* Left: Desktop Socials/Utilities */}
+            <div className="hidden lg:flex items-center space-x-5">
+              <button onClick={() => setShowSearch(true)} className="hover:text-accent transition-colors">
+                <Search size={20} />
+              </button>
+              <div className="h-4 w-[1px] bg-gray-200" />
+              <Link to="/login" className="hover:text-accent transition-colors">
+                <User size={20} />
+              </Link>
+            </div>
+
+            {/* Center: Logo */}
+            <Link to="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <span className={`font-serif font-bold text-secondary uppercase tracking-tighter transition-all duration-500 ${
+                isScrolled ? 'text-2xl md:text-3xl' : 'text-3xl md:text-5xl lg:text-6xl'
+              }`}>
+                Executives
+              </span>
+              {!isScrolled && (
+                <span className="text-[10px] md:text-[12px] tracking-[0.5em] uppercase text-accent font-bold -mt-1 md:-mt-2">
+                  Magazine
+                </span>
+              )}
+            </Link>
+
+            {/* Right: CTA */}
+            <div className="flex items-center space-x-4">
+              <button className="lg:hidden p-2 text-secondary" onClick={() => setShowSearch(true)}>
+                <Search size={24} />
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop Category Nav */}
+          <div className={`hidden lg:flex justify-center items-center space-x-8 transition-all duration-500 ${
+            isScrolled ? 'mt-4 pb-2' : 'mt-8'
+          }`}>
+            {navLinks.map((link) => (
+              <div 
+                key={link.name}
+                onMouseEnter={() => setHoveredLink(link.name)}
+                className="relative group py-2"
+              >
+                <Link
+                  to={link.path}
+                  className={`font-bold uppercase tracking-[0.2em] text-secondary hover:text-accent flex items-center transition-all ${
+                    isScrolled ? 'text-[9px]' : 'text-[11px]'
+                  }`}
+                >
+                  {link.name}
+                  {getRelatedArticles(link.name).length > 0 && (
+                    <ChevronDown size={10} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
+                  )}
+                </Link>
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mega Menu Overlay */}
+        <AnimatePresence>
+          {hoveredLink && getRelatedArticles(hoveredLink).length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="absolute left-0 w-full bg-white border-t border-gray-100 shadow-2xl z-40 overflow-hidden"
+            >
+              <div className="container mx-auto px-4 lg:px-8 py-12">
+                <div className="grid grid-cols-12 gap-12">
+                  <div className="col-span-3">
+                    <span className="text-accent text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Section</span>
+                    <h3 className="text-4xl font-bold text-secondary tracking-tighter uppercase mb-6">{hoveredLink}</h3>
+                    <p className="text-sm text-gray-400 font-light leading-relaxed mb-8">Exploring the latest insights and featured stories within our {hoveredLink.toLowerCase()} editorial archive.</p>
+                    <Link to={`/category/${hoveredLink.toLowerCase()}`} className="text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors flex items-center">
+                      Explore All <ChevronDown size={12} className="-rotate-90 ml-1" />
+                    </Link>
+                  </div>
+                  <div className="col-span-9">
+                    <div className="grid grid-cols-4 gap-8">
+                      {getRelatedArticles(hoveredLink).map((article) => (
+                        <Link 
+                          key={article.id} 
+                          to={`/article/${article.id}`}
+                          className="group/item space-y-4"
+                        >
+                          <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+                            <img src={article.image} alt={article.title} className="w-full h-full object-cover transition-all duration-700 group-hover/item:scale-105" />
+                          </div>
+                          <div className="space-y-2">
+                            <span className="text-[8px] font-bold uppercase tracking-widest text-accent">{article.author}</span>
+                            <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{article.title}</h4>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-50 py-3 text-center">
+                 <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-300">Premium Editorial Content &copy; 2024 Executives Media</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      {/* Search Overlay */}
+      <AnimatePresence>
+        {showSearch && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-secondary/95 backdrop-blur-xl flex flex-col items-center justify-center p-6"
+          >
+            <button 
+              onClick={() => setShowSearch(false)}
+              className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors"
+            >
+              <X size={40} strokeWidth={1} />
+            </button>
+            <div className="w-full max-w-4xl text-center">
+              <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold mb-8 block">Search the Archive</span>
+              <div className="relative border-b-2 border-white/20 pb-4">
+                <input 
+                  autoFocus
+                  type="text" 
+                  placeholder="Type to search articles, authors, or topics..."
+                  className="w-full bg-transparent text-white text-3xl md:text-5xl font-serif focus:outline-none placeholder:text-white/10"
+                />
+                <Search className="absolute right-0 top-1/2 -translate-y-1/2 text-accent" size={32} />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Nav Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-y-0 left-0 z-[60] w-full md:w-[400px] bg-white shadow-2xl p-8 flex flex-col"
+          >
+            <div className="flex justify-between items-center mb-16">
+              <Link to="/" className="flex flex-col">
+                <span className="font-serif font-bold text-2xl text-secondary uppercase tracking-tighter">Executives</span>
+                <span className="text-[8px] tracking-[0.4em] uppercase text-accent font-bold -mt-1">Magazine</span>
+              </Link>
+              <button onClick={() => setIsOpen(false)} className="p-2 text-secondary"><X size={24} /></button>
+            </div>
+            
+            <div className="flex-grow overflow-y-auto space-y-8 pr-4">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link
+                    to={link.path}
+                    className="text-4xl font-serif font-bold text-secondary hover:text-accent transition-colors block"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="pt-12 border-t border-gray-100 mt-auto">
+              <p className="text-[10px] text-gray-400 uppercase tracking-widest">&copy; 2024 Executives Media Group</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
+
