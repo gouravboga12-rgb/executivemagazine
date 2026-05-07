@@ -201,17 +201,14 @@ export default function CategoryPage({ category: propCategory }) {
            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12">
               {featuredArticles.slice(0, 3).map((article, idx) => (
                 <div key={article.id} className="space-y-6 group">
-                   <div className="relative overflow-hidden aspect-[16/10] bg-gray-100">
+                   <Link to={`/article/${article.id}`} className="relative overflow-hidden aspect-[16/10] bg-gray-100 block">
                       <img 
                         src={article.image} 
                         alt={article.title} 
                         className={`w-full h-full group-hover:scale-105 transition-all duration-700 ${article.imageFit === 'contain' ? 'object-contain bg-gray-50' : 'object-cover'}`} 
                         style={{ objectPosition: article.imagePosition || 'center' }}
                       />
-                      <div className="absolute top-4 left-4 bg-secondary text-white px-3 py-1 text-[9px] font-bold uppercase tracking-widest">
-                         Featured
-                      </div>
-                   </div>
+                   </Link>
                    <div className="space-y-3">
                       {!isOpinion && !isLifestyle && (
                         <span className="text-accent text-[10px] font-bold uppercase tracking-widest">{article.author}</span>
@@ -246,14 +243,14 @@ export default function CategoryPage({ category: propCategory }) {
                  <div className="space-y-12">
                      {remainingArticles.map((article) => (
                        <div key={article.id} className="flex flex-col md:flex-row gap-12 group border-b border-gray-50 pb-12 last:border-0">
-                          <div className={`md:w-1/3 overflow-hidden bg-gray-50 shadow-sm ${article.imageFit === 'contain' ? 'h-fit' : 'aspect-[4/3]'}`}>
+                          <Link to={`/article/${article.id}`} className={`md:w-1/3 overflow-hidden bg-gray-50 shadow-sm block ${article.imageFit === 'contain' ? 'h-fit' : 'aspect-[4/3]'}`}>
                              <img 
                                src={article.image} 
                                alt={article.title} 
                                className={`w-full transition-all duration-700 group-hover:scale-105 ${article.imageFit === 'contain' ? 'h-auto object-contain' : 'h-full object-cover'}`} 
                                style={{ objectPosition: article.imagePosition || 'center' }} 
                              />
-                          </div>
+                          </Link>
                           <div className="md:w-2/3 space-y-4">
                              <div className="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-widest text-accent">
                                 <span>{article.date}</span>
@@ -336,12 +333,12 @@ export default function CategoryPage({ category: propCategory }) {
            </div>
            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {categoryArticles.slice(0, 4).map((art, i) => (
-                <div key={i} className={`relative group overflow-hidden ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+                <Link key={i} to={`/article/${art.id}`} className={`relative group overflow-hidden block ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
                    <img src={art.image} alt="" className={`w-full h-full aspect-square transition-all duration-1000 group-hover:scale-110 ${art.imageFit === 'contain' ? 'object-contain bg-gray-50' : 'object-cover'}`} style={{ objectPosition: art.imagePosition || 'center' }} />
                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                       <span className="text-secondary bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-widest line-clamp-1 shadow-lg">{art.title}</span>
                    </div>
-                </div>
+                </Link>
               ))}
            </div>
         </section>

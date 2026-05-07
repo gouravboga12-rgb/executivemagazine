@@ -121,8 +121,8 @@ export default function Business() {
                 transition={{ delay: idx * 0.1 }}
                 className={`flex flex-col space-y-8 ${idx === 0 ? 'lg:col-span-2' : ''}`}
               >
-                <div 
-                  className={`relative overflow-hidden premium-shadow group cursor-pointer aspect-square md:aspect-[21/9] ${idx === 0 ? 'lg:col-span-2' : ''}`}
+                <button 
+                  className={`relative overflow-hidden premium-shadow group cursor-pointer aspect-square md:aspect-[21/9] w-full text-left ${idx === 0 ? 'lg:col-span-2' : ''}`}
                   onClick={() => setSelectedArticle(insight)}
                 >
                   <img 
@@ -143,17 +143,11 @@ export default function Business() {
                         {insight.title}
                       </h2>
                     </div>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setSelectedArticle(insight)
-                      }}
-                      className="bg-white text-secondary px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all transform group-hover:-translate-y-2"
-                    >
-                      Read Full Analysis
-                    </button>
+                    <div className="bg-white text-secondary px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all transform group-hover:-translate-y-2">
+                       Read Full Analysis
+                    </div>
                   </div>
-                </div>
+                </button>
                 <div className="space-y-4 max-w-3xl">
                    <p className="text-gray-500 text-lg font-light leading-relaxed">
                       {insight.excerpt}

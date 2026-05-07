@@ -48,13 +48,10 @@ export default function Spotlights() {
       <section className="py-24 container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {spotlights.map((spotlight, index) => (
-            <motion.div
+            <Link
               key={spotlight.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="group relative h-[600px] overflow-hidden rounded-sm premium-shadow"
+              to={`/spotlights/${spotlight.id}`}
+              className="group relative h-[600px] overflow-hidden rounded-sm premium-shadow block"
             >
               <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-110">
                 <img 
@@ -83,7 +80,7 @@ export default function Spotlights() {
                   <ArrowRight size={14} />
                 </Link>
               </div>
-            </motion.div>
+            </Link>
           ))}
         </div>
       </section>

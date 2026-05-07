@@ -126,8 +126,8 @@ export default function AIInfo() {
                 transition={{ delay: idx * 0.1 }}
                 className={`group flex flex-col space-y-8 ${idx === 0 ? 'lg:col-span-2' : ''}`}
               >
-                <div 
-                  className={`relative overflow-hidden premium-shadow cursor-pointer ${idx === 0 ? 'aspect-[21/9]' : 'aspect-[16/9]'}`}
+                <button 
+                  className={`relative overflow-hidden premium-shadow cursor-pointer w-full text-left ${idx === 0 ? 'aspect-[21/9]' : 'aspect-[16/9]'}`}
                   onClick={() => setSelectedInsight(insight)}
                 >
                   <img 
@@ -135,7 +135,7 @@ export default function AIInfo() {
                     alt={insight.title}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div className="max-w-2xl space-y-4 text-white">
                       <div className="flex items-center space-x-3">
@@ -148,17 +148,11 @@ export default function AIInfo() {
                         {insight.title}
                       </h2>
                     </div>
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setSelectedInsight(insight)
-                      }}
-                      className="bg-white text-secondary px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all transform group-hover:-translate-y-2"
-                    >
-                      Read Analysis
-                    </button>
+                    <div className="bg-white text-secondary px-8 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-all transform group-hover:-translate-y-2">
+                       Explore Intelligence
+                    </div>
                   </div>
-                </div>
+                </button>
                 <p className="text-gray-500 text-lg font-light leading-relaxed max-w-3xl">
                   {insight.excerpt}
                 </p>

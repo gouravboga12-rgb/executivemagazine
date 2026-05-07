@@ -212,9 +212,9 @@ export default function Home() {
           <SectionHeading title="Executive Opinions" subtitle="The Strategic Perspective" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {opinions.slice(0, 3).map((opi) => (
-              <div 
+              <button 
                 key={opi.id} 
-                className="group cursor-pointer space-y-6"
+                className="group cursor-pointer space-y-6 text-left w-full"
                 onClick={() => setSelectedOpinion(opi)}
               >
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -224,12 +224,12 @@ export default function Home() {
                     <span className="text-accent text-[9px] font-bold uppercase tracking-widest">{opi.author}</span>
                     <h3 className="text-xl font-serif font-bold text-secondary group-hover:text-accent transition-colors">{opi.title}</h3>
                     <p className="text-xs text-gray-500 font-light italic">"{opi.tagline}"</p>
-                    <button className="pt-4 flex items-center space-x-3 text-[9px] font-bold uppercase tracking-widest text-secondary group-hover:text-accent transition-all">
+                    <div className="pt-4 flex items-center space-x-3 text-[9px] font-bold uppercase tracking-widest text-secondary group-hover:text-accent transition-all">
                        <span>Read Full Analysis</span>
                        <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </div>
                   </div>
-              </div>
+              </button>
             ))}
           </div>
           <div className="mt-16 text-center">
@@ -256,15 +256,18 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {articles.filter(a => a.category === 'Lifestyle').slice(0, 3).map((article) => (
-              <div key={article.id} className="group space-y-6">
+              <Link key={article.id} to={`/article/${article.id}`} className="group space-y-6 block">
                 <div className="relative aspect-video overflow-hidden">
                   <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                  <div className="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="bg-white text-secondary px-6 py-2 text-[10px] font-bold uppercase tracking-widest">Read Article</span>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-bold group-hover:text-accent transition-colors">{article.title}</h3>
                   <p className="text-xs text-gray-400 font-light line-clamp-2">{article.excerpt}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -276,7 +279,7 @@ export default function Home() {
           <SectionHeading title="Upcoming Events" subtitle="Global Business Summits" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {events.slice(0, 3).map((event) => (
-              <div key={event.id} className="group relative overflow-hidden bg-white border border-gray-100 hover:border-accent transition-all">
+              <Link key={event.id} to="/events" className="group relative overflow-hidden bg-white border border-gray-100 hover:border-accent transition-all block">
                 <div className="aspect-[16/10] overflow-hidden">
                   <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
@@ -286,9 +289,9 @@ export default function Home() {
                     <span>{event.location}</span>
                   </div>
                   <h3 className="text-xl font-bold text-secondary group-hover:text-accent transition-colors">{event.title}</h3>
-                  <Link to="/events" className="inline-block text-[10px] font-bold uppercase tracking-widest border-b border-secondary/10 pb-1 hover:text-accent hover:border-accent transition-all">Learn More</Link>
+                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest border-b border-secondary/10 pb-1 group-hover:text-accent group-hover:border-accent transition-all">Learn More</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -391,14 +394,14 @@ export default function Home() {
                 <Cpu size={16} />
               </Link>
             </div>
-            <div className="lg:w-1/2 relative">
+            <Link to="/ai-info" className="lg:w-1/2 relative group block">
                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop" alt="AI Header" className="w-full shadow-2xl transition-all duration-1000 group-hover:scale-105" />
                <div className="absolute -bottom-10 -left-10 bg-white p-10 shadow-xl max-w-xs border border-gray-100">
                   <BookOpen className="text-accent mb-4" size={32} />
                   <h4 className="font-bold text-secondary mb-2">White Paper: 2026</h4>
                   <p className="text-[10px] text-gray-400 leading-relaxed">The structural shifts in global compute sovereignty.</p>
                </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>

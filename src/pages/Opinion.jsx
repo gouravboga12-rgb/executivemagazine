@@ -44,13 +44,9 @@ const Opinion = () => {
       <section className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {opinions.map((opinion, idx) => (
-            <motion.div
+            <button
               key={opinion.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer text-left w-full"
               onClick={() => setSelectedOpinion(opinion)}
             >
               <div className="space-y-6">
@@ -68,7 +64,7 @@ const Opinion = () => {
                   <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/90 backdrop-blur-md translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] font-bold uppercase tracking-widest text-secondary">View Analysis</span>
-                      <ArrowUpRight size={16} className="text-accent" />
+                      <ArrowUpRight size={14} className="text-accent" />
                     </div>
                   </div>
                 </div>
@@ -85,10 +81,10 @@ const Opinion = () => {
                   <p className="text-gray-500 text-sm font-light leading-relaxed line-clamp-3 italic">
                     "{opinion.tagline}"
                   </p>
-                  <button className="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-widest text-secondary group-hover:text-accent transition-all pt-2">
+                  <div className="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-widest text-secondary group-hover:text-accent transition-all pt-2">
                     <span>Read Full Analysis</span>
                     <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </button>
+                  </div>
                   <div className="flex items-center space-x-3 pt-4 border-t border-gray-100">
                     <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-[10px] font-bold text-white uppercase tracking-tighter">
                       {opinion.author.split(' ').map(n => n[0]).join('')}
@@ -100,7 +96,7 @@ const Opinion = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </button>
           ))}
         </div>
       </section>
