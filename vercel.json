@@ -1,8 +1,8 @@
 {
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/pdfs/(.*)", "destination": "/pdfs/$1" },
+    { "source": "/interview%20pages/(.*)", "destination": "/interview%20pages/$1" },
+    { "source": "/(.*).pdf", "destination": "/$1.pdf" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

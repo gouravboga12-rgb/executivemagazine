@@ -86,9 +86,9 @@ export default function InterviewViewer() {
             <div className="relative w-full overflow-hidden bg-gray-100" style={{ height: '88vh' }}>
               <iframe
                 src={
-                  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
-                    : `${window.location.origin}${encodeURI(pdfUrl)}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`
+                  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl + '?v=' + Date.now())}&embedded=true`
+                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`
                 }
                 title={title}
                 className="w-full h-full border-none"
