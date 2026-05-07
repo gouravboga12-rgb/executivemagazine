@@ -105,7 +105,11 @@ export default function MagazineViewer() {
             {/* Embedded Iframe Reader */}
             <div className="relative w-full overflow-hidden bg-gray-50" style={{ height: 'calc(100vh - 180px)' }}>
               <iframe
-                src={`${window.location.origin}${encodeURI(magazine.pdf)}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
+                src={
+                  /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true`
+                    : `${window.location.origin}${encodeURI(magazine.pdf)}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`
+                }
                 title={magazine.title}
                 className="w-full h-full border-none"
               />
