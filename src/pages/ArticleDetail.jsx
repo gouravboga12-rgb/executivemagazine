@@ -165,34 +165,125 @@ export default function ArticleDetail() {
                 )}
               </div>
 
-               <div className="mt-16 space-y-16">
+                <div className="mt-16 space-y-16">
                   <div 
-                    className="article-premium-content"
-                    dangerouslySetInnerHTML={{ __html: article.content }} 
+                    className="article-premium-content prose prose-xl max-w-none text-gray-700 leading-relaxed space-y-8"
+                    dangerouslySetInnerHTML={{ __html: article.content || article.fullArticle || article.description }} 
                   />
+
+                  {/* Highlights Section */}
+                  {article.highlights && (
+                    <div className="space-y-10 pt-20 border-t border-gray-100">
+                      <div className="flex items-center gap-3">
+                        <div className="h-[2px] w-12 bg-accent" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Strategic Highlights</span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {article.highlights.map((h, i) => (
+                          <div key={i} className="p-6 bg-gray-50 border border-gray-100 hover:border-accent transition-all flex items-start gap-4">
+                            <div className="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0" />
+                            <p className="text-sm font-bold text-secondary leading-tight">{h}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Pros & Cons */}
+                  {(article.pros || article.cons) && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 pt-20 border-t border-gray-100">
+                      {article.pros && (
+                        <div className="space-y-8">
+                          <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-green-600 flex items-center gap-3">
+                            <div className="h-[2px] w-8 bg-green-600" />
+                            Key Advantages
+                          </h4>
+                          <ul className="space-y-4">
+                            {article.pros.map((p, i) => (
+                              <li key={i} className="flex items-start gap-4 text-sm text-gray-500 font-light">
+                                <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-1.5 flex-shrink-0" />
+                                {p}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {article.cons && (
+                        <div className="space-y-8">
+                          <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-red-600 flex items-center gap-3">
+                            <div className="h-[2px] w-8 bg-red-600" />
+                            Challenges
+                          </h4>
+                          <ul className="space-y-4">
+                            {article.cons.map((c, i) => (
+                              <li key={i} className="flex items-start gap-4 text-sm text-gray-500 font-light">
+                                <div className="w-1.5 h-1.5 bg-red-600 rounded-full mt-1.5 flex-shrink-0" />
+                                {c}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Impact Analysis */}
+                  {article.impact && (
+                    <div className="space-y-10 pt-20 border-t border-gray-100">
+                      <div className="flex items-center gap-3">
+                        <div className="h-[2px] w-12 bg-accent" />
+                        <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Impact Analysis</span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="p-8 bg-secondary text-white relative overflow-hidden group">
+                           <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                              <TrendingUp size={80} />
+                           </div>
+                           <h5 className="text-[10px] font-bold uppercase tracking-widest text-accent mb-4">Short-term Outlook</h5>
+                           <p className="text-base font-light leading-relaxed relative z-10">{article.impact.shortTerm}</p>
+                        </div>
+                        <div className="p-8 bg-gray-50 border border-gray-100 relative overflow-hidden group">
+                           <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                              <TrendingUp size={80} />
+                           </div>
+                           <h5 className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-4">Long-term Vision</h5>
+                           <p className="text-base text-gray-600 font-light leading-relaxed relative z-10">{article.impact.longTerm}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Business Angle */}
+                  {article.businessAngle && (
+                    <div className="bg-accent/5 p-12 md:p-16 border-l-8 border-accent space-y-6 mt-20">
+                      <div className="flex items-center gap-4 text-accent">
+                        <ArrowUpRight size={32} />
+                        <h4 className="text-xs font-bold uppercase tracking-[0.5em]">The Strategic Perspective</h4>
+                      </div>
+                      <p className="text-2xl font-serif italic text-secondary leading-relaxed">
+                        "{article.businessAngle}"
+                      </p>
+                    </div>
+                  )}
                  
-                 {article.category === 'Opinion' && (
-                   <div className="space-y-16 border-t border-gray-100 pt-20">
+                  {article.tagline && (
+                    <div className="space-y-16 border-t border-gray-100 pt-20">
                       <div className="bg-secondary text-white p-16 relative overflow-hidden group">
                          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 -translate-y-1/2 translate-x-1/2 rounded-full group-hover:scale-110 transition-transform duration-1000" />
                          <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-accent mb-8 block">Executive Insight</span>
                          <p className="text-3xl font-serif leading-relaxed relative z-10 italic">
-                           "The true differentiator in 2026 is not what you know, but the clarity with which you navigate the unknown."
+                           "{article.tagline}"
                          </p>
                       </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-                         <div className="bg-gray-50 p-10 border-l-4 border-accent">
-                            <h4 className="text-sm font-bold uppercase tracking-widest mb-4">Strategic Imperative</h4>
-                            <p className="text-gray-500 text-sm leading-relaxed">Prioritize behavioral regulation and stakeholder trust above short-term technical gains.</p>
-                         </div>
-                         <div className="bg-gray-50 p-10 border-l-4 border-secondary">
-                            <h4 className="text-sm font-bold uppercase tracking-widest mb-4">Market Outlook</h4>
-                            <p className="text-gray-500 text-sm leading-relaxed">Companies embracing transparency see a 22% higher retention of elite global talent.</p>
-                         </div>
-                      </div>
-                   </div>
-                 )}
+                    </div>
+                  )}
+
+                  {article.futureOutlook && (
+                    <div className="p-12 bg-gray-50 border-y border-gray-100 space-y-4">
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Future Outlook</span>
+                      <p className="text-xl font-serif italic text-secondary">{article.futureOutlook}</p>
+                    </div>
+                  )}
               </div>
             </div>
 
