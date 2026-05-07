@@ -25,7 +25,7 @@ export default function Contact() {
       if (error) throw error
 
       // 2. Prepare WhatsApp message
-      const phoneNumber = "919000000000" // Replace with your actual WhatsApp number
+      const phoneNumber = "918341528822" 
       const message = `*New Inquiry from Executives Magazine*%0A%0A` +
         `*Name:* ${formData.name}%0A` +
         `*Email:* ${formData.email}%0A` +
@@ -82,12 +82,12 @@ export default function Contact() {
                   Our editorial and commercial teams are located in the world's major financial hubs. Reach out for partnerships, interviews, or advertising inquiries.
                </p>
             </div>
-            
-            <div className="space-y-12">
+                        <div className="space-y-12">
                {[
-                 { label: "Editorial Inquiry", val: "editorial@executivesmagazine.com", icon: <Mail size={18} /> },
-                 { label: "London Headquarters", val: "+44 (0) 20 7123 4567", icon: <Globe size={18} /> },
-                 { label: "Press & Media", val: "press@executivesmagazine.com", icon: <Send size={18} /> }
+                 { label: "Official Email", val: "connect@executivesmagazine.com", icon: <Mail size={18} /> },
+                 { label: "Executive Line 1", val: "+91 83415 28822", icon: <Phone size={18} /> },
+                 { label: "Executive Line 2", val: "+91 95155 74546", icon: <Phone size={18} /> },
+                 { label: "Corporate HQ", val: "Hyderabad, India", icon: <MapPin size={18} /> }
                ].map((item, i) => (
                  <div key={i} className="flex items-start space-x-6 group">
                     <div className="p-3 bg-white text-accent rounded-sm group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
@@ -104,7 +104,7 @@ export default function Contact() {
             <div className="pt-16 border-t border-gray-200">
                <h3 className="text-[10px] font-bold uppercase tracking-widest text-accent mb-8">Direct Executive Line</h3>
                <a 
-                 href="https://wa.me/yournumber" 
+                 href="https://wa.me/918341528822" 
                  className="flex items-center justify-between group bg-white border border-gray-100 p-6 hover:bg-secondary hover:text-white transition-all shadow-sm"
                >
                  <div className="flex items-center space-x-4">
@@ -193,22 +193,16 @@ export default function Contact() {
       </div>
 
 
-      {/* Global Presence Map / Visual */}
-      <section className="mt-32 container mx-auto px-4 lg:px-8">
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              { city: "London", region: "Canary Wharf", contact: "+44 20 7123 4567" },
-              { city: "New York", region: "Hudson Yards", contact: "+1 212 987 6543" },
-              { city: "Dubai", region: "DIFC", contact: "+971 4 567 8901" }
-            ].map((office, i) => (
-              <div key={i} className="border-l border-gray-100 pl-10 py-4 hover:border-accent transition-colors">
-                 <h4 className="text-2xl font-serif font-bold text-secondary mb-2">{office.city}</h4>
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-accent mb-4">{office.region}</p>
-                 <p className="text-sm text-gray-400">{office.contact}</p>
-              </div>
-            ))}
-         </div>
-      </section>
+       {/* Global Presence Map / Visual */}
+       <section className="mt-32 container mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-12">
+            <div className="border-l border-gray-100 pl-10 py-4 border-accent transition-colors">
+               <h4 className="text-2xl font-serif font-bold text-secondary mb-2">Hyderabad Headquarters</h4>
+               <p className="text-[10px] font-bold uppercase tracking-widest text-accent mb-4">India Bureau</p>
+               <p className="text-sm text-gray-400 max-w-md">201, Vamsiram Building Spring wood, Kondapur, Hitech city, Hyderabad</p>
+            </div>
+          </div>
+       </section>
     </div>
   )
 }

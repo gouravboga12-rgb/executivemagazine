@@ -36,10 +36,6 @@
 }
 
 /* Premium Utilities */
-.drop-cap::first-letter {
-  @apply float-left text-7xl font-serif font-bold text-secondary mr-3 mt-2 leading-[0.8];
-}
-
 .decorative-line {
   @apply relative;
 }
@@ -103,4 +99,64 @@
 }
 .aos-animate {
   pointer-events: auto;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Opinion Page Typography */
+.prose-opinion {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.article-premium-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.article-premium-content p {
+  margin-bottom: 2rem;
+  line-height: 1.95;
+  color: #444;
+}
+
+.article-premium-content img {
+  width: 100%;
+  height: auto;
+  margin: 4rem 0;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.article-premium-content p.lead {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 3rem;
+}
+
+.article-premium-content blockquote {
+  border-left: 4px solid var(--color-accent);
+  padding: 2rem 0 2rem 3rem;
+  margin: 4rem 0;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.75rem;
+  color: var(--color-secondary);
+  background: #f9f9f9;
 }

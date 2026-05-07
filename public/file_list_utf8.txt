@@ -1,0 +1,163 @@
+﻿
+
+    Directory: C:\COMPANY PROJECTS\Executives Magazine dynamic website\public\interview pages
+
+
+Mode                 LastWriteTime         Length Name                                                                 
+----                 -------------         ------ ----                                                                 
+-a----        04-05-2026     15:45         607217 Agreeya.pdf                                                          
+-a----        06-05-2026     12:32          20069 Agreeya.txt                                                          
+-a----        04-05-2026     15:45         398922 AIG Hospitals.pdf                                                    
+-a----        06-05-2026     12:34           6685 AIG Hospitals.txt                                                    
+-a----        04-05-2026     15:46        7023447 Akshara Spinning Mills Private Limited.pdf                           
+-a----        06-05-2026     12:34            110 Akshara Spinning Mills Private Limited.txt                           
+-a----        04-05-2026     15:46        3965034 Al Adil Group.pdf                                                    
+-a----        06-05-2026     12:34             66 Al Adil Group.txt                                                    
+-a----        04-05-2026     15:47        1558739 Alfa Laval India Limited-story.pdf                                   
+-a----        06-05-2026     12:34          19719 Alfa Laval India Limited-story.txt                                   
+-a----        04-05-2026     15:47        2640890 ALP-Group.pdf                                                        
+-a----        06-05-2026     12:48            132 ALP-Group.txt                                                        
+-a----        04-05-2026     15:47        1773827 Alpex-Solar-Limited.pdf                                              
+-a----        06-05-2026     12:48             61 Alpex-Solar.txt                                                      
+-a----        06-05-2026     12:48             61 Ample-Story.txt                                                      
+-a----        06-05-2026     12:48             62 Amplus-Solar.txt                                                     
+-a----        06-05-2026     12:48             59 Angel-One.txt                                                        
+-a----        06-05-2026     12:48             56 Ansell.txt                                                           
+-a----        06-05-2026     12:48             60 APL-APOLLO.txt                                                       
+-a----        04-05-2026     15:47         273971 APOLLO HOSPITAL.pdf                                                  
+-a----        06-05-2026     12:48             62 Apollo-Tyres.txt                                                     
+-a----        06-05-2026     12:48             62 APR-Projects.txt                                                     
+-a----        04-05-2026     15:48        7689420 Aquatech-International-India_.pdf                                    
+-a----        04-05-2026     15:49         551158 aragen.pdf                                                           
+-a----        06-05-2026     12:48          14091 Aragen.txt                                                           
+-a----        06-05-2026     12:49             63 Archies-story.txt                                                    
+-a----        06-05-2026     12:49             61 Aris-Global.txt                                                      
+-a----        04-05-2026     15:49         298084 Asahi Songwon.pdf                                                    
+-a----        06-05-2026     12:49             64 Ashirvad-Pipes.txt                                                   
+-a----        04-05-2026     15:49        3555005 Asian-Star.pdf                                                       
+-a----        06-05-2026     12:49             61 Astro-Pipes.txt                                                      
+-a----        04-05-2026     15:49        1908824 BEML Pvt Ltd Story.pdf                                               
+-a----        06-05-2026     13:36           5739 BEML Pvt Ltd Story.txt                                               
+-a----        04-05-2026     15:52        2625335 BMW-Group-India (1).pdf                                              
+-a----        06-05-2026     12:32             88 BMW-Group-India (1).txt                                              
+-a----        04-05-2026     15:50        2625335 BMW-Group-India.pdf                                                  
+-a----        06-05-2026     12:33             88 BMW-Group-India.txt                                                  
+-a----        04-05-2026     15:53        2071150 CARESTREAM.pdf                                                       
+-a----        06-05-2026     13:44             44 CARESTREAM.txt                                                       
+-a----        04-05-2026     15:53         564975 Comau India.pdf                                                      
+-a----        04-05-2026     15:54        1270529 DB Schenker-story.pdf                                                
+-a----        06-05-2026     13:46          10496 DB Schenker-story.txt                                                
+-a----        04-05-2026     15:54        5631099 Design Tech Systems Ltd.pdf                                          
+-a----        06-05-2026     13:47             88 Design Tech Systems Ltd.txt                                          
+-a----        04-05-2026     15:54        4703424 Electronica-Plastic-Machines-Limited.pdf                             
+-a----        06-05-2026     13:52            110 Electronica-Plastic-Machines-Limited.txt                             
+-a----        04-05-2026     15:54        4684771 Epitome-Components.pdf                                               
+-a----        06-05-2026     13:52            198 Epitome-Components.txt                                               
+-a----        04-05-2026     15:54         424037 Garware.pdf                                                          
+-a----        06-05-2026     13:52           7200 Garware.txt                                                          
+-a----        04-05-2026     15:55        6033883 Gera Developemtns.pdf                                                
+-a----        06-05-2026     13:52             88 Gera Developemtns.txt                                                
+-a----        04-05-2026     15:55        1850619 Global Gleneagles Hospital-Story.pdf                                 
+-a----        06-05-2026     13:52          22732 Global Gleneagles Hospital-Story.txt                                 
+-a----        06-05-2026     13:57             74 Gokul Agro Resources Ltd.txt                                         
+-a----        04-05-2026     15:55        1485011 Gokul-Agro-Ltd.pdf                                                   
+-a----        06-05-2026     13:59             44 Gokul-Agro-Ltd.txt                                                   
+-a----        06-05-2026     13:57             74 Granules India Ltd Story.txt                                         
+-a----        04-05-2026     15:56        2984219 Granules-India-Ltd.pdf                                               
+-a----        06-05-2026     13:59            132 Granules-India-Ltd.txt                                               
+-a----        06-05-2026     13:57             84 Great White Global Private Limited.txt                               
+-a----        04-05-2026     15:56        2525776 Great-White-Global-Private-Limited.pdf                               
+-a----        06-05-2026     13:59             88 Great-White-Global-Private-Limited.txt                               
+-a----        06-05-2026     13:57             99 Gujarat Mineral Development Corporation Ltd-story.txt                
+-a----        04-05-2026     15:56        2267789 Gujarat-Mineral-Development-Corporation-Ltd.pdf                      
+-a----        06-05-2026     13:59             88 Gujarat-Mineral-Development-Corporation-Ltd.txt                      
+-a----        04-05-2026     15:56         344758 Gulf Petroleum -.pdf                                                 
+-a----        06-05-2026     13:59          12164 Gulf Petroleum -.txt                                                 
+-a----        06-05-2026     13:57             64 Gulf Petroleum.txt                                                   
+-a----        04-05-2026     11:27       10331094 HiMedia-Laboratories_3.pdf                                           
+-a----        06-05-2026     12:46             88 HiMedia-Laboratories_3.txt                                           
+-a----        04-05-2026     11:36       14595661 IRM Energy Private Limited.pdf                                       
+-a----        06-05-2026     14:04             66 IRM Energy Private Limited.txt                                       
+-a----        04-05-2026     11:36        3638239 ITD Cementation.pdf                                                  
+-a----        06-05-2026     14:04             66 ITD Cementation.txt                                                  
+-a----        04-05-2026     11:37         338541 Johnson controls.pdf                                                 
+-a----        06-05-2026     14:04          11199 Johnson controls.txt                                                 
+-a----        04-05-2026     11:50        3311811 Jos Alukkas Story.pdf                                                
+-a----        06-05-2026     14:04           8069 Jos Alukkas Story.txt                                                
+-a----        04-05-2026     11:50        3940978 Jupiter Hospitals-Story.pdf                                          
+-a----        06-05-2026     14:04          12254 Jupiter Hospitals-Story.txt                                          
+-a----        04-05-2026     11:50        7700013 KIMS-Hospitals-.pdf                                                  
+-a----        06-05-2026     14:10            110 KIMS-Hospitals-.txt                                                  
+-a----        04-05-2026     14:35         770308 Kirloskar-Oil-Engine (1).pdf                                         
+-a----        04-05-2026     11:50         770308 Kirloskar-Oil-Engine.pdf                                             
+-a----        06-05-2026     14:10           9756 Kirloskar-Oil-Engine.txt                                             
+-a----        04-05-2026     11:51        7858714 Kitex Garments - Vision & Culture_pdf.pdf                            
+-a----        06-05-2026     14:17            110 Kitex Garments - Vision & Culture_pdf.txt                            
+-a----        04-05-2026     11:51       24089448 KNR.pdf                                                              
+-a----        06-05-2026     14:10           8345 KNR.txt                                                              
+-a----        04-05-2026     11:51        5365717 KONE INDIA.pdf                                                       
+-a----        06-05-2026     14:10             88 KONE INDIA.txt                                                       
+-a----        04-05-2026     11:51         244945 Lilly India.pdf                                                      
+-a----        06-05-2026     14:22          13733 Lilly India.txt                                                      
+-a----        04-05-2026     11:56        2967524 MMP-Industries-Limited.pdf                                           
+-a----        06-05-2026     14:23            110 MMP-Industries-Limited.txt                                           
+-a----        04-05-2026     11:56        2819559 Nagarjuna-Construction-Company-Ltd.pdf                               
+-a----        06-05-2026     14:24             88 Nagarjuna-Construction-Company-Ltd.txt                               
+-a----        04-05-2026     11:56        6234985 National Engineering Industries Ltd-story - Copy.pdf                 
+-a----        06-05-2026     14:24          14560 National Engineering Industries Ltd-story - Copy.txt                 
+-a----        04-05-2026     11:56        4220122 Nephroplus-.pdf                                                      
+-a----        06-05-2026     14:24            154 Nephroplus-.txt                                                      
+-a----        04-05-2026     15:11        4220122 Nephroplus.pdf                                                       
+-a----        04-05-2026     16:57        3211836 Nexteer-Automotive-India (1).pdf                                     
+-a----        04-05-2026     11:56        3211836 Nexteer-Automotive-India.pdf                                         
+-a----        06-05-2026     14:38            132 Nexteer-Automotive-India.txt                                         
+-a----        04-05-2026     11:56         261799 Novozymes (1).pdf                                                    
+-a----        06-05-2026     14:38          14740 Novozymes (1).txt                                                    
+-a----        04-05-2026     12:23        7542243 Olectra-Greentech-Limited.pdf                                        
+-a----        06-05-2026     14:38            132 Olectra-Greentech-Limited.txt                                        
+-a----        04-05-2026     12:23         539992 PRECISION CAMSHAFTS.pdf                                              
+-a----        06-05-2026     14:38          20180 PRECISION CAMSHAFTS.txt                                              
+-a----        04-05-2026     12:23         196534 Prince Pipes.pdf                                                     
+-a----        06-05-2026     14:38          10492 Prince Pipes.txt                                                     
+-a----        04-05-2026     12:23        3417704 Rama Phosphates.pdf                                                  
+-a----        06-05-2026     14:41             75 Rane Madras Limited-story.txt                                        
+-a----        04-05-2026     12:24        2145627 Reliance-Entertainment-Studios-Pvt-Ltd.pdf                           
+-a----        04-05-2026     12:25        2869980 Rishichem-Distributors.pdf                                           
+-a----        04-05-2026     12:27        9028044 Rithwik Projects.pdf                                                 
+-a----        04-05-2026     12:27         448047 ROTO PUMPS.pdf                                                       
+-a----        06-05-2026     14:41             68 Safe Water Network.txt                                               
+-a----        04-05-2026     12:27        2411329 Safran-Engineering-Services-India-Pvt.-Ltd-.pdf                      
+-a----        04-05-2026     12:28        1946212 Sai-Silks-Kalamandir-Ltd-.pdf                                        
+-a----        04-05-2026     12:28        2191935 Sandur Manganese.pdf                                                 
+-a----        04-05-2026     12:28         461569 Sanghi Industries.pdf                                                
+-a----        04-05-2026     12:28        1903641 Sarovar Hotels and Resorts-story.pdf                                 
+-a----        06-05-2026     14:41             66 SATO Argox India.txt                                                 
+-a----        04-05-2026     12:29        4331749 SCC-Infrastructure-Pvt.-Ltd.pdf                                      
+-a----        06-05-2026     14:41             80 Schaefer Systems International.txt                                   
+-a----        04-05-2026     12:29        6507350 Seedworks International Private Limited.pdf                          
+-a----        04-05-2026     12:29        3033914 SEG  automotive 2.pdf                                                
+-a----        06-05-2026     14:41             62 SEOYON E-HWA.txt                                                     
+-a----        06-05-2026     14:41             59 SGS India.txt                                                        
+-a----        04-05-2026     12:30         294580 Shakti Pumps.pdf                                                     
+-a----        04-05-2026     12:30        5843286 Shakti-Hormann-Pvt-Ltd.pdf                                           
+-a----        04-05-2026     12:31        9653244 Shv Energy.pdf                                                       
+-a----        04-05-2026     12:31        4015065 SI-Interpack-Pvt.-Ltd (1).pdf                                        
+-a----        04-05-2026     15:38        5528739 Sintercom (1).pdf                                                    
+-a----        04-05-2026     15:35        5528739 Sintercom.pdf                                                        
+-a----        04-05-2026     15:38       11430069 Smartr-Logistics.pdf                                                 
+-a----        04-05-2026     15:39       10460444 Sneha Group.pdf                                                      
+-a----        04-05-2026     15:39        5742795 Star Paper Mills pdf.pdf                                             
+-a----        04-05-2026     15:39         291643 Steel Bird.pdf                                                       
+-a----        04-05-2026     15:39         311131 Suryalakshmi.pdf                                                     
+-a----        04-05-2026     15:40        2981824 Swani-Spices-Mills-Pvt (1).pdf                                       
+-a----        04-05-2026     15:41        1627117 Thejo-Engineering.pdf                                                
+-a----        04-05-2026     15:41         201836 Tide Water Oil Company (India) Ltd Story - Copy.pdf                  
+-a----        04-05-2026     15:41       12742545 Udaipur Cement.pdf                                                   
+-a----        04-05-2026     15:41         273432 vardhman steel.pdf                                                   
+-a----        04-05-2026     15:42        2826728 Vasudha-Pharma.pdf                                                   
+-a----        04-05-2026     15:43        1468841 Vibe-Realty.pdf                                                      
+-a----        04-05-2026     15:43         342371 Vibgyor.pdf                                                          
+-a----        04-05-2026     15:44         174393 WALCHANDNAGAR.pdf                                                    
+-a----        04-05-2026     15:44        7148997 Windsor Machines.pdf                                                 
+
+

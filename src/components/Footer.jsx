@@ -30,7 +30,7 @@ export default function Footer() {
       if (error) throw error
 
       // 2. Prepare WhatsApp message
-      const phoneNumber = "919000000000" // Replace with your actual WhatsApp number
+      const phoneNumber = "918341528822" 
       const message = `*Footer Inquiry - Executives Magazine*%0A%0A` +
         `*Name:* ${formData.name}%0A` +
         `*Email:* ${formData.email}%0A` +

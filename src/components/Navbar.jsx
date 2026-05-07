@@ -3,18 +3,49 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Search, User, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { articles } from '../lib/mockData'
+import { events } from '../lib/eventsData'
+import { spotlights } from '../lib/spotlightsData'
+import { opinions } from '../lib/opinionsData.jsx'
 
 const navLinks = [
+  { name: 'Home', path: '/' },
   { name: 'Interviews', path: '/interviews' },
   { name: 'Business', path: '/business' },
   { name: 'Opinion', path: '/opinion' },
   { name: 'Lifestyle', path: '/lifestyle' },
   { name: 'Events', path: '/events' },
   { name: 'Spotlights', path: '/spotlights' },
-  { name: 'Awards', path: '/awards' },
+  { name: 'AI Info', path: '/ai-info' },
   { name: 'Magazine', path: '/digital-magazine' },
   { name: 'About', path: '/about' },
   { name: 'Contact', path: '/contact' },
+]
+
+const priorityInterviews = [
+  {
+    id: 'himedia-laboratories',
+    company: 'HiMedia Laboratories',
+    preview: '/interview-covers/himedia-cover.png',
+    pdf: '/interview pages/HiMedia-Laboratories_3.pdf'
+  },
+  {
+    id: 'agreeya',
+    company: 'Agreeya',
+    preview: '/interview-images/agreeya/page_1.png',
+    pdf: '/interview pages/Agreeya.pdf'
+  },
+  {
+    id: 'aig-hospitals',
+    company: 'AIG Hospitals',
+    preview: '/interview-images/aig-hospitals/page_1.png',
+    pdf: '/interview pages/AIG Hospitals.pdf'
+  },
+  {
+    id: 'alfa-laval',
+    company: 'Alfa Laval India Limited',
+    preview: '/interview-covers/alfalaval-cover.png',
+    pdf: '/interview pages/Alfa Laval India Limited-story.pdf'
+  }
 ]
 
 export default function Navbar() {
@@ -70,13 +101,13 @@ export default function Navbar() {
 
             {/* Center: Logo */}
             <Link to="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <span className={`font-serif font-bold text-secondary uppercase tracking-tighter transition-all duration-500 ${
-                isScrolled ? 'text-2xl md:text-3xl' : 'text-3xl md:text-5xl lg:text-6xl'
+              <span className={`font-serif font-bold text-secondary uppercase tracking-tighter transition-all duration-700 ${
+                isScrolled ? 'text-xl md:text-2xl' : 'text-3xl md:text-4xl lg:text-5xl'
               }`}>
                 Executives
               </span>
               {!isScrolled && (
-                <span className="text-[10px] md:text-[12px] tracking-[0.5em] uppercase text-accent font-bold -mt-1 md:-mt-2">
+                <span className="text-[8px] md:text-[10px] tracking-[0.6em] uppercase text-accent font-bold -mt-1 md:-mt-2">
                   Magazine
                 </span>
               )}
@@ -91,7 +122,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Category Nav */}
-          <div className={`hidden lg:flex justify-center items-center space-x-8 transition-all duration-500 ${
+          <div className={`hidden lg:flex justify-center items-center space-x-5 transition-all duration-500 ${
             isScrolled ? 'mt-4 pb-2' : 'mt-8'
           }`}>
             {navLinks.map((link) => (
@@ -102,7 +133,7 @@ export default function Navbar() {
               >
                 <Link
                   to={link.path}
-                  className={`font-bold uppercase tracking-[0.2em] text-secondary hover:text-accent flex items-center transition-all ${
+                  className={`font-bold uppercase tracking-[0.2em] text-secondary hover:text-accent flex items-center transition-all whitespace-nowrap ${
                     isScrolled ? 'text-[9px]' : 'text-[11px]'
                   }`}
                 >
@@ -131,28 +162,103 @@ export default function Navbar() {
                   <div className="col-span-3">
                     <span className="text-accent text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Section</span>
                     <h3 className="text-4xl font-bold text-secondary tracking-tighter uppercase mb-6">{hoveredLink}</h3>
-                    <p className="text-sm text-gray-400 font-light leading-relaxed mb-8">Exploring the latest insights and featured stories within our {hoveredLink.toLowerCase()} editorial archive.</p>
-                    <Link to={`/category/${hoveredLink.toLowerCase()}`} className="text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors flex items-center">
+                    <p className="text-sm text-gray-400 font-light leading-relaxed mb-8">
+                      {hoveredLink === 'Interviews' 
+                        ? 'Access our exclusive collection of deep-dive conversations with industry titans in their original archival format.'
+                        : `Exploring the latest insights and featured stories within our ${hoveredLink.toLowerCase()} editorial archive.`}
+                    </p>
+                    <Link to={hoveredLink === 'Interviews' || hoveredLink === 'Events' ? hoveredLink.toLowerCase() : `/category/${hoveredLink.toLowerCase()}`} className="text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors flex items-center">
                       Explore All <ChevronDown size={12} className="-rotate-90 ml-1" />
                     </Link>
                   </div>
                   <div className="col-span-9">
                     <div className="grid grid-cols-4 gap-8">
-                      {getRelatedArticles(hoveredLink).map((article) => (
-                        <Link 
-                          key={article.id} 
-                          to={`/article/${article.id}`}
-                          className="group/item space-y-4"
-                        >
-                          <div className="aspect-[4/3] overflow-hidden bg-gray-100">
-                            <img src={article.image} alt={article.title} className="w-full h-full object-cover transition-all duration-700 group-hover/item:scale-105" />
-                          </div>
-                          <div className="space-y-2">
-                            <span className="text-[8px] font-bold uppercase tracking-widest text-accent">{article.author}</span>
-                            <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{article.title}</h4>
-                          </div>
-                        </Link>
-                      ))}
+                      {hoveredLink === 'Interviews' ? (
+                        priorityInterviews.map((item) => (
+                          <Link 
+                            key={item.id} 
+                            to={`/interview/${item.id}`}
+                            className="group/item space-y-4"
+                          >
+                            <div className="aspect-[3/4] overflow-hidden bg-gray-50 border border-gray-100 relative shadow-sm group-hover/item:shadow-md transition-all">
+                              <img src={item.preview} alt={item.company} className="w-full h-full object-contain p-2 transition-all duration-700 group-hover/item:scale-105" />
+                              <div className="absolute inset-0 bg-secondary/5 group-hover/item:bg-secondary/0 transition-colors" />
+                            </div>
+                            <div className="space-y-2">
+                              <span className="text-[8px] font-bold uppercase tracking-widest text-accent">PDF Archive</span>
+                              <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{item.company}</h4>
+                            </div>
+                          </Link>
+                        ))
+                      ) : hoveredLink === 'Events' ? (
+                        events.slice(0, 4).map((event) => (
+                          <Link 
+                            key={event.id} 
+                            to="/events"
+                            className="group/item space-y-4"
+                          >
+                            <div className="aspect-[16/10] overflow-hidden bg-gray-100 relative shadow-sm">
+                              <img src={event.image} alt={event.title} className="w-full h-full object-cover transition-all duration-700 group-hover/item:scale-105" />
+                            </div>
+                            <div className="space-y-2">
+                              <span className="text-[8px] font-bold uppercase tracking-widest text-accent">{event.category}</span>
+                              <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{event.title}</h4>
+                            </div>
+                          </Link>
+                        ))
+                      ) : hoveredLink === 'Spotlights' ? (
+                        spotlights.map((spotlight) => (
+                          <Link 
+                            key={spotlight.id} 
+                            to={`/spotlights/${spotlight.id}`}
+                            className="group/item space-y-4"
+                          >
+                            <div className="aspect-[4/3] overflow-hidden bg-gray-100 relative shadow-sm">
+                              <img src={spotlight.image} alt={spotlight.title} className="w-full h-full object-cover transition-all duration-700 group-hover/item:scale-105" />
+                              <div 
+                                className="absolute inset-0 opacity-20"
+                                style={{ backgroundColor: spotlight.color }}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <span className="text-[8px] font-bold uppercase tracking-widest text-accent">Spotlight Series</span>
+                              <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{spotlight.title}</h4>
+                            </div>
+                          </Link>
+                        ))
+                      ) : hoveredLink === 'Opinion' ? (
+                        opinions.slice(0, 4).map((opi) => (
+                          <Link 
+                            key={opi.id} 
+                            to="/opinion"
+                            className="group/item space-y-4"
+                          >
+                            <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+                              <img src={opi.image} alt={opi.title} className="w-full h-full object-cover transition-all duration-700 group-hover/item:scale-105" />
+                            </div>
+                            <div className="space-y-2">
+                              <span className="text-[8px] font-bold uppercase tracking-widest text-accent">{opi.author}</span>
+                              <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{opi.title}</h4>
+                            </div>
+                          </Link>
+                        ))
+                      ) : (
+                        getRelatedArticles(hoveredLink).map((article) => (
+                          <Link 
+                            key={article.id} 
+                            to={`/article/${article.id}`}
+                            className="group/item space-y-4"
+                          >
+                            <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+                              <img src={article.image} alt={article.title} className="w-full h-full object-cover transition-all duration-700 group-hover/item:scale-105" />
+                            </div>
+                            <div className="space-y-2">
+                              <span className="text-[8px] font-bold uppercase tracking-widest text-accent">{article.author}</span>
+                              <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{article.title}</h4>
+                            </div>
+                          </Link>
+                        ))
+                      )}
                     </div>
                   </div>
                 </div>

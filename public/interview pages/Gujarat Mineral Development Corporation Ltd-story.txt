@@ -1,0 +1,1 @@
+Error: no such file: 'public/interview pages/Gujarat Mineral Development Corporation Ltd-story.pdf'

@@ -1,131 +1,260 @@
-import { Target, Eye, ShieldCheck, Users, Quote } from 'lucide-react'
+import { 
+  Target, Eye, ShieldCheck, Users, Quote, Globe, 
+  MapPin, Award, BookOpen, Fingerprint, Star, ExternalLink,
+  ChevronRight, ArrowUpRight, CheckCircle2, History
+} from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 export default function About() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+  }
+
   return (
-    <div className="pb-32 bg-white">
-      {/* Cinematic Hero */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-secondary">
-        <div className="absolute inset-0">
+    <div className="pb-32 bg-white selection:bg-accent selection:text-white">
+      {/* ── Cinematic Hero ── */}
+      <section className="relative h-[90vh] flex items-center overflow-hidden bg-secondary">
+        <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2069&auto=format&fit=crop" 
             alt="About Executives" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-20 scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
+          <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 via-secondary to-secondary" />
         </div>
-        <div className="container relative z-10 px-4 text-center">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="caps-heading mb-6 block text-accent"
-          >
-            The Masthead
-          </motion.span>
-          <motion.h1 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="text-6xl md:text-8xl lg:text-[10rem] font-bold text-secondary uppercase tracking-tighter leading-none"
-          >
-            Defining Power
-          </motion.h1>
+        
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center space-x-4 mb-8"
+            >
+              <div className="h-[1px] w-12 bg-accent" />
+              <span className="text-accent text-[11px] font-bold uppercase tracking-[0.6em]">EST. 2024</span>
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-7xl md:text-9xl lg:text-[11rem] font-bold text-white uppercase tracking-tighter leading-[0.85] mb-12"
+            >
+              Legacy <br/> <span className="text-accent italic font-serif lowercase tracking-normal">of</span> Vision.
+            </motion.h1>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1 }}
+              className="flex flex-col md:flex-row items-start md:items-center gap-12"
+            >
+              <p className="text-xl md:text-2xl text-white/50 font-light leading-relaxed max-w-2xl font-serif italic border-l border-white/10 pl-8">
+                "Executives Magazine serves as the ultimate journal of record for global leadership, architecting the dialogue between today's innovators and tomorrow's legacy."
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/20 animate-bounce">
+          <ChevronRight size={32} className="rotate-90" />
         </div>
       </section>
 
-      {/* Narrative Section */}
-      <section className="py-32">
-        <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
-             <div className="lg:col-span-4">
-                <h2 className="text-4xl font-serif font-bold text-secondary leading-tight italic">
-                  "We don't just report on business; we analyze the architecture of leadership."
+      {/* ── The Manifesto ── */}
+      <section className="py-32 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+            <motion.div {...fadeInUp} className="space-y-12">
+              <div className="space-y-6">
+                <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Manifesto</span>
+                <h2 className="text-5xl md:text-7xl font-serif font-bold text-secondary leading-[1.1]">
+                  Defining the <br/> C-Suite Standard.
                 </h2>
-             </div>
-             <div className="lg:col-span-8 space-y-10">
-                <p className="text-2xl text-gray-500 leading-relaxed font-light first-letter:text-7xl first-letter:font-bold first-letter:text-secondary first-letter:mr-3 first-letter:float-left">
-                  Executives Magazine was established with a singular focus: to provide the world's most influential decision-makers with the clarity and insight required to navigate the complexities of modern industry. From boardrooms in London to innovation hubs in Silicon Valley, we bridge the gap between corporate strategy and executive lifestyle.
+                <p className="text-xl text-gray-500 leading-relaxed font-light">
+                  We believe that leadership is not a title, but a continuous pursuit of excellence. Executives Magazine was founded to bridge the gap between abstract corporate strategy and human-centric leadership.
                 </p>
-                <p className="text-xl text-gray-400 leading-relaxed font-light">
-                  Our team of veteran journalists and industry analysts bring a combined 20+ years of experience in global markets, investigative reporting, and leadership psychology. We believe that true power lies in the intersection of data-driven strategy and human-centric empathy.
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8">
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-gray-50 flex items-center justify-center text-accent"><History size={24} /></div>
+                  <h4 className="text-lg font-bold text-secondary uppercase tracking-tight">Decades of Context</h4>
+                  <p className="text-xs text-gray-400 leading-relaxed">Our archives span the most significant industrial shifts of the 21st century, providing unmatched historical context.</p>
+                </div>
+                <div className="space-y-4">
+                  <div className="w-12 h-12 bg-gray-50 flex items-center justify-center text-accent"><Globe size={24} /></div>
+                  <h4 className="text-lg font-bold text-secondary uppercase tracking-tight">Global Sovereignty</h4>
+                  <p className="text-xs text-gray-400 leading-relaxed">Independent editorial bureaus in London, Singapore, and Dubai ensure a truly globalized perspective.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 1.1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5 }}
+              className="relative aspect-[4/5] bg-gray-100 group overflow-hidden"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop" 
+                alt="Executive Dialogue" 
+                className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-secondary/10" />
+              <div className="absolute bottom-0 left-0 right-0 p-12 glass-morphism border-none">
+                <Quote size={40} className="text-accent mb-6" />
+                <p className="text-lg font-serif italic text-secondary leading-relaxed mb-6">
+                  "Authenticity is the soul of leadership. In an era of noise, Executives Magazine provides the signal."
                 </p>
-             </div>
+                <div className="flex items-center space-x-4">
+                   <div className="w-8 h-[1px] bg-secondary/20" />
+                   <span className="text-[10px] font-bold uppercase tracking-widest text-secondary">The Editorial Board</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Visual Identity Section */}
-      <section className="py-24 bg-gray-50 border-y border-gray-100">
-         <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-               <div className="relative group">
-                  <div className="absolute -inset-4 border border-accent/20 group-hover:border-accent transition-colors duration-1000" />
+      {/* ── Authority Metrics ── */}
+      <section className="py-32 bg-secondary relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] flex items-center justify-center">
+          <span className="text-[30rem] font-bold text-white select-none">IMPACT</span>
+        </div>
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-24">
+            {[
+              { val: "250K+", label: "Monthly Digital Readers" },
+              { val: "150+", label: "Executive Interviews" },
+              { val: "45+", label: "Global Hubs & Bureaus" },
+              { val: "2026", label: "Future Intelligence Goal" }
+            ].map((stat, i) => (
+              <motion.div 
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="space-y-4 text-center lg:text-left"
+              >
+                <span className="block text-6xl md:text-7xl font-serif font-bold text-white leading-none">{stat.val}</span>
+                <p className="text-accent text-[9px] font-bold uppercase tracking-[0.3em]">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Editorial Pillars ── */}
+      <section className="py-32 bg-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-24 space-y-6">
+             <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Framework</span>
+             <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary">Our Core Pillars.</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { 
+                icon: <ShieldCheck size={32} />, 
+                title: "Absolute Integrity", 
+                desc: "Every interview is verified, double-transcribed, and vetted for strategic accuracy." 
+              },
+              { 
+                icon: <Target size={32} />, 
+                title: "Strategic Impact", 
+                desc: "We prioritize stories that offer actionable insights for boardrooms and decision-makers." 
+              },
+              { 
+                icon: <Fingerprint size={32} />, 
+                title: "Exclusive Access", 
+                desc: "securing sit-downs with reclusive leaders who rarely engage with mainstream media." 
+              }
+            ].map((pillar, i) => (
+              <motion.div 
+                key={pillar.title}
+                {...fadeInUp}
+                transition={{ delay: i * 0.1 }}
+                className="p-12 bg-gray-50 border border-gray-100 group hover:bg-secondary transition-all duration-700 hover:-translate-y-2"
+              >
+                <div className="text-accent mb-8 group-hover:text-white transition-colors">{pillar.icon}</div>
+                <h4 className="text-2xl font-serif font-bold text-secondary group-hover:text-white mb-4 transition-colors">{pillar.title}</h4>
+                <p className="text-sm text-gray-500 group-hover:text-gray-400 leading-relaxed font-light transition-colors">{pillar.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── The Global Network ── */}
+      <section className="py-32 border-t border-gray-100">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex flex-col lg:flex-row gap-24 items-center">
+            <div className="lg:w-1/3 space-y-8">
+              <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">Global Presence</span>
+              <h2 className="text-4xl font-serif font-bold text-secondary leading-tight">Every Major <br/> Economic Hub.</h2>
+              <p className="text-gray-500 font-light leading-relaxed">
+                From the financial districts of London and New York to the tech corridors of Singapore, our team is embedded in the locations where the world's future is being written.
+              </p>
+              <div className="space-y-4 pt-4">
+                {['London HQ', 'New York Bureau', 'Dubai Regional Office', 'Singapore APAC Hub'].map(hub => (
+                  <div key={hub} className="flex items-center space-x-4 group cursor-pointer">
+                    <div className="w-2 h-2 rounded-full bg-accent scale-0 group-hover:scale-100 transition-transform" />
+                    <span className="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-accent transition-colors">{hub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="lg:w-2/3">
+               <div className="relative aspect-video rounded-sm overflow-hidden shadow-2xl bg-gray-100">
                   <img 
-                    src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop" 
-                    alt="The Visionary"
-                    className="w-full hover:scale-105 transition-all duration-1000"
+                    src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2044&auto=format&fit=crop" 
+                    alt="World Hubs" 
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute bottom-10 -right-10 bg-secondary p-12 text-white hidden xl:block shadow-2xl">
-                     <Quote size={40} className="text-accent mb-6" />
-                     <p className="text-lg font-serif italic mb-4 max-w-xs">Integrity is the only currency that never devalues in global business.</p>
-                     <span className="text-xs font-bold uppercase tracking-widest text-accent">— Editorial Board</span>
-                  </div>
-               </div>
-               <div className="space-y-12">
-                  <span className="caps-heading">Our Core Pillars</span>
-                  <div className="space-y-16">
-                     {[
-                       { title: "Radical Transparency", desc: "We uphold the highest standards of journalistic ethics, ensuring every perspective is backed by rigorous analysis.", icon: <ShieldCheck className="text-accent" size={32} /> },
-                       { title: "Intellectual Rigor", desc: "Our content is curated for those who demand more than just headlines. We dive deep into the 'why' behind the market shifts.", icon: <Target className="text-accent" size={32} /> },
-                       { title: "Global Perspective", desc: "In a connected world, leadership has no borders. We provide a truly international lens on innovation and power.", icon: <Users className="text-accent" size={32} /> }
-                     ].map((pillar, i) => (
-                       <motion.div 
-                         key={i}
-                         initial={{ opacity: 0, x: 20 }}
-                         whileInView={{ opacity: 1, x: 0 }}
-                         transition={{ delay: i * 0.2 }}
-                         className="flex items-start space-x-8 group"
-                       >
-                          <div className="mt-1">{pillar.icon}</div>
-                          <div className="space-y-2">
-                             <h3 className="text-2xl font-serif font-bold text-secondary group-hover:text-accent transition-colors">{pillar.title}</h3>
-                             <p className="text-gray-500 leading-relaxed max-w-md">{pillar.desc}</p>
-                          </div>
-                       </motion.div>
-                     ))}
+                  <div className="absolute inset-0 bg-secondary/40 backdrop-blur-[1px]" />
+                  <div className="absolute inset-0 flex items-center justify-center p-6">
+                     <div className="bg-white p-12 text-center max-w-sm border border-white/20 shadow-2xl">
+                        <Globe size={40} className="text-accent mx-auto mb-6 animate-pulse" />
+                        <h4 className="text-xl font-serif font-bold text-secondary mb-2">Network Expansion 2026</h4>
+                        <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-relaxed">Scaling our editorial presence to 60+ countries.</p>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
+          </div>
+        </div>
       </section>
 
-      {/* Global Impact Counter */}
-      <section className="py-32">
-         <div className="container mx-auto px-4 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
-               {[
-                 { label: "Monthly Readers", val: "250K+" },
-                 { label: "Global Editions", val: "12" },
-                 { label: "Industry Awards", val: "45" },
-                 { label: "CEO Interviews", val: "1.2K" }
-               ].map((stat, i) => (
-                 <div key={i} className="space-y-2">
-                    <h4 className="text-5xl md:text-6xl font-bold text-secondary tracking-tighter">{stat.val}</h4>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">{stat.label}</p>
-                 </div>
-               ))}
+      {/* ── Final Call to Action ── */}
+      <section className="py-24 bg-secondary">
+        <div className="container mx-auto px-4 lg:px-8">
+          <motion.div 
+            {...fadeInUp}
+            className="bg-white p-16 md:p-24 text-center space-y-10 border-b-[10px] border-accent"
+          >
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-secondary tracking-tight">Collaborate With Authority.</h2>
+            <p className="text-xl text-gray-500 font-light max-w-2xl mx-auto leading-relaxed italic">
+              "We invite the world's most innovative executives to join our global network and share their vision."
+            </p>
+            <div className="flex flex-wrap justify-center gap-8 pt-6">
+              <Link to="/contact" className="bg-secondary text-white px-12 py-5 text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-xl">
+                Begin Application
+              </Link>
+              <Link to="/digital-magazine" className="flex items-center space-x-4 text-secondary text-[11px] font-bold uppercase tracking-[0.3em] group">
+                <span>View Digital Archive</span>
+                <ArrowUpRight size={18} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
-         </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-24 bg-secondary text-white">
-         <div className="container mx-auto px-4 lg:px-8 text-center max-w-4xl">
-            <h2 className="text-4xl md:text-6xl font-serif font-bold italic mb-10 leading-tight">Join the Inner Circle of Global Leadership.</h2>
-            <div className="flex flex-col md:flex-row justify-center gap-6">
-               <button className="bg-accent text-white px-12 py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white hover:text-secondary transition-all">Subscribe to Edition</button>
-               <button className="border border-white/20 text-white px-12 py-5 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-white hover:text-secondary transition-all">View Archive</button>
-            </div>
-         </div>
+          </motion.div>
+        </div>
       </section>
     </div>
   )

@@ -1,0 +1,611 @@
+[
+    {
+        "filename": "Agreeya.pdf",
+        "slug": "agreeya",
+        "text_file": "agreeya.txt",
+        "image_dir": "/interview-images/agreeya/",
+        "featured_image": "/interview-images/agreeya/cover.png"
+    },
+    {
+        "filename": "AIG Hospitals.pdf",
+        "slug": "aig-hospitals",
+        "text_file": "aig-hospitals.txt",
+        "image_dir": "/interview-images/aig-hospitals/",
+        "featured_image": "/interview-images/aig-hospitals/cover.png"
+    },
+    {
+        "filename": "Akshara Spinning Mills Private Limited.pdf",
+        "slug": "akshara-spinning-mills-private-limited",
+        "text_file": "akshara-spinning-mills-private-limited.txt",
+        "image_dir": "/interview-images/akshara-spinning-mills-private-limited/",
+        "featured_image": "/interview-images/akshara-spinning-mills-private-limited/cover.png"
+    },
+    {
+        "filename": "Al Adil Group.pdf",
+        "slug": "al-adil-group",
+        "text_file": "al-adil-group.txt",
+        "image_dir": "/interview-images/al-adil-group/",
+        "featured_image": "/interview-images/al-adil-group/cover.png"
+    },
+    {
+        "filename": "Alfa Laval India Limited-story.pdf",
+        "slug": "alfa-laval-india-limited-story",
+        "text_file": "alfa-laval-india-limited-story.txt",
+        "image_dir": "/interview-images/alfa-laval-india-limited-story/",
+        "featured_image": "/interview-images/alfa-laval-india-limited-story/cover.png"
+    },
+    {
+        "filename": "ALP-Group.pdf",
+        "slug": "alp-group",
+        "text_file": "alp-group.txt",
+        "image_dir": "/interview-images/alp-group/",
+        "featured_image": "/interview-images/alp-group/cover.png"
+    },
+    {
+        "filename": "Alpex-Solar-Limited.pdf",
+        "slug": "alpex-solar-limited",
+        "text_file": "alpex-solar-limited.txt",
+        "image_dir": "/interview-images/alpex-solar-limited/",
+        "featured_image": "/interview-images/alpex-solar-limited/cover.png"
+    },
+    {
+        "filename": "APOLLO HOSPITAL.pdf",
+        "slug": "apollo-hospital",
+        "text_file": "apollo-hospital.txt",
+        "image_dir": "/interview-images/apollo-hospital/",
+        "featured_image": "/interview-images/apollo-hospital/cover.png"
+    },
+    {
+        "filename": "Aquatech-International-India_.pdf",
+        "slug": "aquatech-international-india",
+        "text_file": "aquatech-international-india.txt",
+        "image_dir": "/interview-images/aquatech-international-india/",
+        "featured_image": "/interview-images/aquatech-international-india/cover.png"
+    },
+    {
+        "filename": "aragen.pdf",
+        "slug": "aragen",
+        "text_file": "aragen.txt",
+        "image_dir": "/interview-images/aragen/",
+        "featured_image": "/interview-images/aragen/cover.png"
+    },
+    {
+        "filename": "Asahi Songwon.pdf",
+        "slug": "asahi-songwon",
+        "text_file": "asahi-songwon.txt",
+        "image_dir": "/interview-images/asahi-songwon/",
+        "featured_image": "/interview-images/asahi-songwon/cover.png"
+    },
+    {
+        "filename": "Asian-Star.pdf",
+        "slug": "asian-star",
+        "text_file": "asian-star.txt",
+        "image_dir": "/interview-images/asian-star/",
+        "featured_image": "/interview-images/asian-star/cover.png"
+    },
+    {
+        "filename": "BEML Pvt Ltd Story.pdf",
+        "slug": "beml-pvt-ltd-story",
+        "text_file": "beml-pvt-ltd-story.txt",
+        "image_dir": "/interview-images/beml-pvt-ltd-story/",
+        "featured_image": "/interview-images/beml-pvt-ltd-story/cover.png"
+    },
+    {
+        "filename": "BMW-Group-India (1).pdf",
+        "slug": "bmw-group-india-1",
+        "text_file": "bmw-group-india-1.txt",
+        "image_dir": "/interview-images/bmw-group-india-1/",
+        "featured_image": "/interview-images/bmw-group-india-1/cover.png"
+    },
+    {
+        "filename": "BMW-Group-India.pdf",
+        "slug": "bmw-group-india",
+        "text_file": "bmw-group-india.txt",
+        "image_dir": "/interview-images/bmw-group-india/",
+        "featured_image": "/interview-images/bmw-group-india/cover.png"
+    },
+    {
+        "filename": "CARESTREAM.pdf",
+        "slug": "carestream",
+        "text_file": "carestream.txt",
+        "image_dir": "/interview-images/carestream/",
+        "featured_image": "/interview-images/carestream/cover.png"
+    },
+    {
+        "filename": "Comau India.pdf",
+        "slug": "comau-india",
+        "text_file": "comau-india.txt",
+        "image_dir": "/interview-images/comau-india/",
+        "featured_image": "/interview-images/comau-india/cover.png"
+    },
+    {
+        "filename": "DB Schenker-story.pdf",
+        "slug": "db-schenker-story",
+        "text_file": "db-schenker-story.txt",
+        "image_dir": "/interview-images/db-schenker-story/",
+        "featured_image": "/interview-images/db-schenker-story/cover.png"
+    },
+    {
+        "filename": "Design Tech Systems Ltd.pdf",
+        "slug": "design-tech-systems-ltd",
+        "text_file": "design-tech-systems-ltd.txt",
+        "image_dir": "/interview-images/design-tech-systems-ltd/",
+        "featured_image": "/interview-images/design-tech-systems-ltd/cover.png"
+    },
+    {
+        "filename": "Electronica-Plastic-Machines-Limited.pdf",
+        "slug": "electronica-plastic-machines-limited",
+        "text_file": "electronica-plastic-machines-limited.txt",
+        "image_dir": "/interview-images/electronica-plastic-machines-limited/",
+        "featured_image": "/interview-images/electronica-plastic-machines-limited/cover.png"
+    },
+    {
+        "filename": "Epitome-Components.pdf",
+        "slug": "epitome-components",
+        "text_file": "epitome-components.txt",
+        "image_dir": "/interview-images/epitome-components/",
+        "featured_image": "/interview-images/epitome-components/cover.png"
+    },
+    {
+        "filename": "Garware.pdf",
+        "slug": "garware",
+        "text_file": "garware.txt",
+        "image_dir": "/interview-images/garware/",
+        "featured_image": "/interview-images/garware/cover.png"
+    },
+    {
+        "filename": "Gera Developemtns.pdf",
+        "slug": "gera-developemtns",
+        "text_file": "gera-developemtns.txt",
+        "image_dir": "/interview-images/gera-developemtns/",
+        "featured_image": "/interview-images/gera-developemtns/cover.png"
+    },
+    {
+        "filename": "Global Gleneagles Hospital-Story.pdf",
+        "slug": "global-gleneagles-hospital-story",
+        "text_file": "global-gleneagles-hospital-story.txt",
+        "image_dir": "/interview-images/global-gleneagles-hospital-story/",
+        "featured_image": "/interview-images/global-gleneagles-hospital-story/cover.png"
+    },
+    {
+        "filename": "Gokul-Agro-Ltd.pdf",
+        "slug": "gokul-agro-ltd",
+        "text_file": "gokul-agro-ltd.txt",
+        "image_dir": "/interview-images/gokul-agro-ltd/",
+        "featured_image": "/interview-images/gokul-agro-ltd/cover.png"
+    },
+    {
+        "filename": "Granules-India-Ltd.pdf",
+        "slug": "granules-india-ltd",
+        "text_file": "granules-india-ltd.txt",
+        "image_dir": "/interview-images/granules-india-ltd/",
+        "featured_image": "/interview-images/granules-india-ltd/cover.png"
+    },
+    {
+        "filename": "Great-White-Global-Private-Limited.pdf",
+        "slug": "great-white-global-private-limited",
+        "text_file": "great-white-global-private-limited.txt",
+        "image_dir": "/interview-images/great-white-global-private-limited/",
+        "featured_image": "/interview-images/great-white-global-private-limited/cover.png"
+    },
+    {
+        "filename": "Gujarat-Mineral-Development-Corporation-Ltd.pdf",
+        "slug": "gujarat-mineral-development-corporation-ltd",
+        "text_file": "gujarat-mineral-development-corporation-ltd.txt",
+        "image_dir": "/interview-images/gujarat-mineral-development-corporation-ltd/",
+        "featured_image": "/interview-images/gujarat-mineral-development-corporation-ltd/cover.png"
+    },
+    {
+        "filename": "Gulf Petroleum -.pdf",
+        "slug": "gulf-petroleum",
+        "text_file": "gulf-petroleum.txt",
+        "image_dir": "/interview-images/gulf-petroleum/",
+        "featured_image": "/interview-images/gulf-petroleum/cover.png"
+    },
+    {
+        "filename": "HiMedia-Laboratories_3.pdf",
+        "slug": "himedia-laboratories-3",
+        "text_file": "himedia-laboratories-3.txt",
+        "image_dir": "/interview-images/himedia-laboratories-3/",
+        "featured_image": "/interview-images/himedia-laboratories-3/cover.png"
+    },
+    {
+        "filename": "IRM Energy Private Limited.pdf",
+        "slug": "irm-energy-private-limited",
+        "text_file": "irm-energy-private-limited.txt",
+        "image_dir": "/interview-images/irm-energy-private-limited/",
+        "featured_image": "/interview-images/irm-energy-private-limited/cover.png"
+    },
+    {
+        "filename": "ITD Cementation.pdf",
+        "slug": "itd-cementation",
+        "text_file": "itd-cementation.txt",
+        "image_dir": "/interview-images/itd-cementation/",
+        "featured_image": "/interview-images/itd-cementation/cover.png"
+    },
+    {
+        "filename": "Johnson controls.pdf",
+        "slug": "johnson-controls",
+        "text_file": "johnson-controls.txt",
+        "image_dir": "/interview-images/johnson-controls/",
+        "featured_image": "/interview-images/johnson-controls/cover.png"
+    },
+    {
+        "filename": "Jos Alukkas Story.pdf",
+        "slug": "jos-alukkas-story",
+        "text_file": "jos-alukkas-story.txt",
+        "image_dir": "/interview-images/jos-alukkas-story/",
+        "featured_image": "/interview-images/jos-alukkas-story/cover.png"
+    },
+    {
+        "filename": "Jupiter Hospitals-Story.pdf",
+        "slug": "jupiter-hospitals-story",
+        "text_file": "jupiter-hospitals-story.txt",
+        "image_dir": "/interview-images/jupiter-hospitals-story/",
+        "featured_image": "/interview-images/jupiter-hospitals-story/cover.png"
+    },
+    {
+        "filename": "KIMS-Hospitals-.pdf",
+        "slug": "kims-hospitals",
+        "text_file": "kims-hospitals.txt",
+        "image_dir": "/interview-images/kims-hospitals/",
+        "featured_image": "/interview-images/kims-hospitals/cover.png"
+    },
+    {
+        "filename": "Kirloskar-Oil-Engine (1).pdf",
+        "slug": "kirloskar-oil-engine-1",
+        "text_file": "kirloskar-oil-engine-1.txt",
+        "image_dir": "/interview-images/kirloskar-oil-engine-1/",
+        "featured_image": "/interview-images/kirloskar-oil-engine-1/cover.png"
+    },
+    {
+        "filename": "Kirloskar-Oil-Engine.pdf",
+        "slug": "kirloskar-oil-engine",
+        "text_file": "kirloskar-oil-engine.txt",
+        "image_dir": "/interview-images/kirloskar-oil-engine/",
+        "featured_image": "/interview-images/kirloskar-oil-engine/cover.png"
+    },
+    {
+        "filename": "Kitex Garments - Vision & Culture_pdf.pdf",
+        "slug": "kitex-garments-vision-culture-pdf",
+        "text_file": "kitex-garments-vision-culture-pdf.txt",
+        "image_dir": "/interview-images/kitex-garments-vision-culture-pdf/",
+        "featured_image": "/interview-images/kitex-garments-vision-culture-pdf/cover.png"
+    },
+    {
+        "filename": "KNR.pdf",
+        "slug": "knr",
+        "text_file": "knr.txt",
+        "image_dir": "/interview-images/knr/",
+        "featured_image": "/interview-images/knr/cover.png"
+    },
+    {
+        "filename": "KONE INDIA.pdf",
+        "slug": "kone-india",
+        "text_file": "kone-india.txt",
+        "image_dir": "/interview-images/kone-india/",
+        "featured_image": "/interview-images/kone-india/cover.png"
+    },
+    {
+        "filename": "Lilly India.pdf",
+        "slug": "lilly-india",
+        "text_file": "lilly-india.txt",
+        "image_dir": "/interview-images/lilly-india/",
+        "featured_image": "/interview-images/lilly-india/cover.png"
+    },
+    {
+        "filename": "MMP-Industries-Limited.pdf",
+        "slug": "mmp-industries-limited",
+        "text_file": "mmp-industries-limited.txt",
+        "image_dir": "/interview-images/mmp-industries-limited/",
+        "featured_image": "/interview-images/mmp-industries-limited/cover.png"
+    },
+    {
+        "filename": "Nagarjuna-Construction-Company-Ltd.pdf",
+        "slug": "nagarjuna-construction-company-ltd",
+        "text_file": "nagarjuna-construction-company-ltd.txt",
+        "image_dir": "/interview-images/nagarjuna-construction-company-ltd/",
+        "featured_image": "/interview-images/nagarjuna-construction-company-ltd/cover.png"
+    },
+    {
+        "filename": "National Engineering Industries Ltd-story - Copy.pdf",
+        "slug": "national-engineering-industries-ltd-story-copy",
+        "text_file": "national-engineering-industries-ltd-story-copy.txt",
+        "image_dir": "/interview-images/national-engineering-industries-ltd-story-copy/",
+        "featured_image": "/interview-images/national-engineering-industries-ltd-story-copy/cover.png"
+    },
+    {
+        "filename": "Nephroplus-.pdf",
+        "slug": "nephroplus",
+        "text_file": "nephroplus.txt",
+        "image_dir": "/interview-images/nephroplus/",
+        "featured_image": "/interview-images/nephroplus/cover.png"
+    },
+    {
+        "filename": "Nephroplus.pdf",
+        "slug": "nephroplus",
+        "text_file": "nephroplus.txt",
+        "image_dir": "/interview-images/nephroplus/",
+        "featured_image": "/interview-images/nephroplus/cover.png"
+    },
+    {
+        "filename": "Nexteer-Automotive-India (1).pdf",
+        "slug": "nexteer-automotive-india-1",
+        "text_file": "nexteer-automotive-india-1.txt",
+        "image_dir": "/interview-images/nexteer-automotive-india-1/",
+        "featured_image": "/interview-images/nexteer-automotive-india-1/cover.png"
+    },
+    {
+        "filename": "Nexteer-Automotive-India.pdf",
+        "slug": "nexteer-automotive-india",
+        "text_file": "nexteer-automotive-india.txt",
+        "image_dir": "/interview-images/nexteer-automotive-india/",
+        "featured_image": "/interview-images/nexteer-automotive-india/cover.png"
+    },
+    {
+        "filename": "Novozymes (1).pdf",
+        "slug": "novozymes-1",
+        "text_file": "novozymes-1.txt",
+        "image_dir": "/interview-images/novozymes-1/",
+        "featured_image": "/interview-images/novozymes-1/cover.png"
+    },
+    {
+        "filename": "Olectra-Greentech-Limited.pdf",
+        "slug": "olectra-greentech-limited",
+        "text_file": "olectra-greentech-limited.txt",
+        "image_dir": "/interview-images/olectra-greentech-limited/",
+        "featured_image": "/interview-images/olectra-greentech-limited/cover.png"
+    },
+    {
+        "filename": "PRECISION CAMSHAFTS.pdf",
+        "slug": "precision-camshafts",
+        "text_file": "precision-camshafts.txt",
+        "image_dir": "/interview-images/precision-camshafts/",
+        "featured_image": "/interview-images/precision-camshafts/cover.png"
+    },
+    {
+        "filename": "Prince Pipes.pdf",
+        "slug": "prince-pipes",
+        "text_file": "prince-pipes.txt",
+        "image_dir": "/interview-images/prince-pipes/",
+        "featured_image": "/interview-images/prince-pipes/cover.png"
+    },
+    {
+        "filename": "Rama Phosphates.pdf",
+        "slug": "rama-phosphates",
+        "text_file": "rama-phosphates.txt",
+        "image_dir": "/interview-images/rama-phosphates/",
+        "featured_image": "/interview-images/rama-phosphates/cover.png"
+    },
+    {
+        "filename": "Reliance-Entertainment-Studios-Pvt-Ltd.pdf",
+        "slug": "reliance-entertainment-studios-pvt-ltd",
+        "text_file": "reliance-entertainment-studios-pvt-ltd.txt",
+        "image_dir": "/interview-images/reliance-entertainment-studios-pvt-ltd/",
+        "featured_image": "/interview-images/reliance-entertainment-studios-pvt-ltd/cover.png"
+    },
+    {
+        "filename": "Rishichem-Distributors.pdf",
+        "slug": "rishichem-distributors",
+        "text_file": "rishichem-distributors.txt",
+        "image_dir": "/interview-images/rishichem-distributors/",
+        "featured_image": "/interview-images/rishichem-distributors/cover.png"
+    },
+    {
+        "filename": "Rithwik Projects.pdf",
+        "slug": "rithwik-projects",
+        "text_file": "rithwik-projects.txt",
+        "image_dir": "/interview-images/rithwik-projects/",
+        "featured_image": "/interview-images/rithwik-projects/cover.png"
+    },
+    {
+        "filename": "ROTO PUMPS.pdf",
+        "slug": "roto-pumps",
+        "text_file": "roto-pumps.txt",
+        "image_dir": "/interview-images/roto-pumps/",
+        "featured_image": "/interview-images/roto-pumps/cover.png"
+    },
+    {
+        "filename": "Safran-Engineering-Services-India-Pvt.-Ltd-.pdf",
+        "slug": "safran-engineering-services-india-pvt-ltd",
+        "text_file": "safran-engineering-services-india-pvt-ltd.txt",
+        "image_dir": "/interview-images/safran-engineering-services-india-pvt-ltd/",
+        "featured_image": "/interview-images/safran-engineering-services-india-pvt-ltd/cover.png"
+    },
+    {
+        "filename": "Sai-Silks-Kalamandir-Ltd-.pdf",
+        "slug": "sai-silks-kalamandir-ltd",
+        "text_file": "sai-silks-kalamandir-ltd.txt",
+        "image_dir": "/interview-images/sai-silks-kalamandir-ltd/",
+        "featured_image": "/interview-images/sai-silks-kalamandir-ltd/cover.png"
+    },
+    {
+        "filename": "Sandur Manganese.pdf",
+        "slug": "sandur-manganese",
+        "text_file": "sandur-manganese.txt",
+        "image_dir": "/interview-images/sandur-manganese/",
+        "featured_image": "/interview-images/sandur-manganese/cover.png"
+    },
+    {
+        "filename": "Sanghi Industries.pdf",
+        "slug": "sanghi-industries",
+        "text_file": "sanghi-industries.txt",
+        "image_dir": "/interview-images/sanghi-industries/",
+        "featured_image": "/interview-images/sanghi-industries/cover.png"
+    },
+    {
+        "filename": "Sarovar Hotels and Resorts-story.pdf",
+        "slug": "sarovar-hotels-and-resorts-story",
+        "text_file": "sarovar-hotels-and-resorts-story.txt",
+        "image_dir": "/interview-images/sarovar-hotels-and-resorts-story/",
+        "featured_image": "/interview-images/sarovar-hotels-and-resorts-story/cover.png"
+    },
+    {
+        "filename": "SCC-Infrastructure-Pvt.-Ltd.pdf",
+        "slug": "scc-infrastructure-pvt-ltd",
+        "text_file": "scc-infrastructure-pvt-ltd.txt",
+        "image_dir": "/interview-images/scc-infrastructure-pvt-ltd/",
+        "featured_image": "/interview-images/scc-infrastructure-pvt-ltd/cover.png"
+    },
+    {
+        "filename": "Seedworks International Private Limited.pdf",
+        "slug": "seedworks-international-private-limited",
+        "text_file": "seedworks-international-private-limited.txt",
+        "image_dir": "/interview-images/seedworks-international-private-limited/",
+        "featured_image": "/interview-images/seedworks-international-private-limited/cover.png"
+    },
+    {
+        "filename": "SEG  automotive 2.pdf",
+        "slug": "seg-automotive-2",
+        "text_file": "seg-automotive-2.txt",
+        "image_dir": "/interview-images/seg-automotive-2/",
+        "featured_image": "/interview-images/seg-automotive-2/cover.png"
+    },
+    {
+        "filename": "Shakti Pumps.pdf",
+        "slug": "shakti-pumps",
+        "text_file": "shakti-pumps.txt",
+        "image_dir": "/interview-images/shakti-pumps/",
+        "featured_image": "/interview-images/shakti-pumps/cover.png"
+    },
+    {
+        "filename": "Shakti-Hormann-Pvt-Ltd.pdf",
+        "slug": "shakti-hormann-pvt-ltd",
+        "text_file": "shakti-hormann-pvt-ltd.txt",
+        "image_dir": "/interview-images/shakti-hormann-pvt-ltd/",
+        "featured_image": "/interview-images/shakti-hormann-pvt-ltd/cover.png"
+    },
+    {
+        "filename": "Shv Energy.pdf",
+        "slug": "shv-energy",
+        "text_file": "shv-energy.txt",
+        "image_dir": "/interview-images/shv-energy/",
+        "featured_image": "/interview-images/shv-energy/cover.png"
+    },
+    {
+        "filename": "SI-Interpack-Pvt.-Ltd (1).pdf",
+        "slug": "si-interpack-pvt-ltd-1",
+        "text_file": "si-interpack-pvt-ltd-1.txt",
+        "image_dir": "/interview-images/si-interpack-pvt-ltd-1/",
+        "featured_image": "/interview-images/si-interpack-pvt-ltd-1/cover.png"
+    },
+    {
+        "filename": "Sintercom (1).pdf",
+        "slug": "sintercom-1",
+        "text_file": "sintercom-1.txt",
+        "image_dir": "/interview-images/sintercom-1/",
+        "featured_image": "/interview-images/sintercom-1/cover.png"
+    },
+    {
+        "filename": "Sintercom.pdf",
+        "slug": "sintercom",
+        "text_file": "sintercom.txt",
+        "image_dir": "/interview-images/sintercom/",
+        "featured_image": "/interview-images/sintercom/cover.png"
+    },
+    {
+        "filename": "Smartr-Logistics.pdf",
+        "slug": "smartr-logistics",
+        "text_file": "smartr-logistics.txt",
+        "image_dir": "/interview-images/smartr-logistics/",
+        "featured_image": "/interview-images/smartr-logistics/cover.png"
+    },
+    {
+        "filename": "Sneha Group.pdf",
+        "slug": "sneha-group",
+        "text_file": "sneha-group.txt",
+        "image_dir": "/interview-images/sneha-group/",
+        "featured_image": "/interview-images/sneha-group/cover.png"
+    },
+    {
+        "filename": "Star Paper Mills pdf.pdf",
+        "slug": "star-paper-mills-pdf",
+        "text_file": "star-paper-mills-pdf.txt",
+        "image_dir": "/interview-images/star-paper-mills-pdf/",
+        "featured_image": "/interview-images/star-paper-mills-pdf/cover.png"
+    },
+    {
+        "filename": "Steel Bird.pdf",
+        "slug": "steel-bird",
+        "text_file": "steel-bird.txt",
+        "image_dir": "/interview-images/steel-bird/",
+        "featured_image": "/interview-images/steel-bird/cover.png"
+    },
+    {
+        "filename": "Suryalakshmi.pdf",
+        "slug": "suryalakshmi",
+        "text_file": "suryalakshmi.txt",
+        "image_dir": "/interview-images/suryalakshmi/",
+        "featured_image": "/interview-images/suryalakshmi/cover.png"
+    },
+    {
+        "filename": "Swani-Spices-Mills-Pvt (1).pdf",
+        "slug": "swani-spices-mills-pvt-1",
+        "text_file": "swani-spices-mills-pvt-1.txt",
+        "image_dir": "/interview-images/swani-spices-mills-pvt-1/",
+        "featured_image": "/interview-images/swani-spices-mills-pvt-1/cover.png"
+    },
+    {
+        "filename": "Thejo-Engineering.pdf",
+        "slug": "thejo-engineering",
+        "text_file": "thejo-engineering.txt",
+        "image_dir": "/interview-images/thejo-engineering/",
+        "featured_image": "/interview-images/thejo-engineering/cover.png"
+    },
+    {
+        "filename": "Tide Water Oil Company (India) Ltd Story - Copy.pdf",
+        "slug": "tide-water-oil-company-india-ltd-story-copy",
+        "text_file": "tide-water-oil-company-india-ltd-story-copy.txt",
+        "image_dir": "/interview-images/tide-water-oil-company-india-ltd-story-copy/",
+        "featured_image": "/interview-images/tide-water-oil-company-india-ltd-story-copy/cover.png"
+    },
+    {
+        "filename": "Udaipur Cement.pdf",
+        "slug": "udaipur-cement",
+        "text_file": "udaipur-cement.txt",
+        "image_dir": "/interview-images/udaipur-cement/",
+        "featured_image": "/interview-images/udaipur-cement/cover.png"
+    },
+    {
+        "filename": "vardhman steel.pdf",
+        "slug": "vardhman-steel",
+        "text_file": "vardhman-steel.txt",
+        "image_dir": "/interview-images/vardhman-steel/",
+        "featured_image": "/interview-images/vardhman-steel/cover.png"
+    },
+    {
+        "filename": "Vasudha-Pharma.pdf",
+        "slug": "vasudha-pharma",
+        "text_file": "vasudha-pharma.txt",
+        "image_dir": "/interview-images/vasudha-pharma/",
+        "featured_image": "/interview-images/vasudha-pharma/cover.png"
+    },
+    {
+        "filename": "Vibe-Realty.pdf",
+        "slug": "vibe-realty",
+        "text_file": "vibe-realty.txt",
+        "image_dir": "/interview-images/vibe-realty/",
+        "featured_image": "/interview-images/vibe-realty/cover.png"
+    },
+    {
+        "filename": "Vibgyor.pdf",
+        "slug": "vibgyor",
+        "text_file": "vibgyor.txt",
+        "image_dir": "/interview-images/vibgyor/",
+        "featured_image": "/interview-images/vibgyor/cover.png"
+    },
+    {
+        "filename": "WALCHANDNAGAR.pdf",
+        "slug": "walchandnagar",
+        "text_file": "walchandnagar.txt",
+        "image_dir": "/interview-images/walchandnagar/",
+        "featured_image": "/interview-images/walchandnagar/cover.png"
+    },
+    {
+        "filename": "Windsor Machines.pdf",
+        "slug": "windsor-machines",
+        "text_file": "windsor-machines.txt",
+        "image_dir": "/interview-images/windsor-machines/",
+        "featured_image": "/interview-images/windsor-machines/cover.png"
+    }
+]

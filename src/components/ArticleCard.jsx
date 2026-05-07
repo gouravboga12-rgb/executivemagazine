@@ -10,7 +10,8 @@ export default function ArticleCard({ article, variant = 'default' }) {
           <img 
             src={article.image} 
             alt={article.title}
-            className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
+            className={`h-full w-full group-hover:scale-110 transition-transform duration-700 ${article.imageFit === 'contain' ? 'object-contain bg-gray-50' : 'object-cover'}`}
+            style={{ objectPosition: article.imagePosition || 'center' }}
           />
         </div>
         <div className="flex-grow">
@@ -67,11 +68,12 @@ export default function ArticleCard({ article, variant = 'default' }) {
       className="group"
     >
       <Link to={`/article/${article.id}`} className="block">
-        <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 mb-8 premium-shadow">
+        <div className={`relative overflow-hidden bg-gray-100 mb-8 premium-shadow ${article.imageFit === 'contain' ? 'h-fit' : 'aspect-[16/10]'}`}>
           <img 
             src={article.image} 
             alt={article.title}
-            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+            className={`w-full transition-transform duration-1000 ease-out group-hover:scale-105 ${article.imageFit === 'contain' ? 'h-auto object-contain' : 'h-full object-cover'}`}
+            style={{ objectPosition: article.imagePosition || 'center' }}
           />
           <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/10 transition-colors duration-500" />
           <div className="absolute top-6 left-6 overflow-hidden">
