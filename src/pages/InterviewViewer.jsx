@@ -142,11 +142,7 @@ export default function InterviewViewer() {
             <div className="relative w-full overflow-auto bg-gray-100 flex justify-center" style={{ height: 'calc(100vh - 100px)' }}>
               <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
                 <iframe
-                  src={
-                    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-                      ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true&cb=${Date.now()}`
-                      : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
-                  }
+                  src={`/pdf-viewer.html?file=${encodeURIComponent(pdfUrl)}`}
                   title={title}
                   className="w-full h-full border-none"
                 />

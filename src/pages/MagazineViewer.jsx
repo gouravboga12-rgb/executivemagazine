@@ -164,11 +164,7 @@ export default function MagazineViewer() {
             <div className="relative w-full overflow-auto bg-gray-50 flex justify-center" style={{ height: 'calc(100vh - 120px)' }}>
               <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
                 <iframe
-                  src={
-                    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
-                      ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true&cb=${Date.now()}`
-                      : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
-                  }
+                  src={`/pdf-viewer.html?file=${encodeURIComponent(magazine.pdf)}`}
                   title={magazine.title}
                   className="w-full h-full border-none"
                 />
