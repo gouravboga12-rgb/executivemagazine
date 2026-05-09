@@ -322,59 +322,5 @@ export const spotlights = [
       text: "Support Modern Work",
       content: "Reach the decision-makers shaping the future of work. Sponsorship provides elite positioning among global workforce leaders."
     }
-  },
-  {
-    id: 'sustainable-practices',
-    title: "Sustainable Business",
-    subtitle: "The Eco-Friendly Revolution",
-    color: '#22c55e', // Green 500
-    colorSecondary: '#f0fdf4', // Green 50
-    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb773b09?q=80&w=2026&auto=format&fit=crop',
-    about: {
-      title: "About Sustainable Business Practices",
-      content: "Global companies are increasingly focusing on sustainability and environmentally responsible operations. Businesses are adopting eco-friendly packaging, renewable energy, and green technologies to reduce carbon footprints. Customers today prefer brands that support ethical practices, transparency, and social responsibility, making sustainability a major business strategy in 2026.",
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
-    },
-    keyDates: [
-      { event: "Applications Open", date: "August 1, 2026" },
-      { event: "Applications Close", date: "October 15, 2026" },
-      { event: "Spotlight Goes Live", date: "December 20, 2026" }
-    ],
-    whyApply: [
-      {
-        title: "Eco Recognition",
-        description: "Validate your environmental stewardship to a global audience.",
-        icon: "Leaf"
-      },
-      {
-        title: "Ethical Branding",
-        description: "Showcase your transparency and social responsibility commitments.",
-        icon: "CheckCircle"
-      },
-      {
-        title: "Green Tech Showcase",
-        description: "Demonstrate your adoption of renewable energy and green technologies.",
-        icon: "Sun"
-      }
-    ],
-    whoShouldApply: {
-      title: "Who should apply?",
-      content: "Businesses adopting eco-friendly packaging, renewable energy, and ethical practices across their entire supply chain.",
-      criteria: [
-        "Carbon footprint reduction",
-        "Renewable energy adoption",
-        "Eco-friendly packaging",
-        "Supply chain transparency"
-      ]
-    },
-    applyNow: {
-      url: "https://zoho.com/forms/sustainability-apply",
-      text: "Submit Your Eco-Impact"
-    },
-    sponsorNow: {
-      url: "https://zoho.com/forms/sustainability-sponsor",
-      text: "Partner for the Planet",
-      content: "Align your brand with ethical leadership. Sponsorship provides visibility among the world's most environmentally responsible brands."
-    }
   }
 ]
