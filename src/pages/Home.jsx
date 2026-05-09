@@ -130,11 +130,11 @@ export default function Home() {
             <p className="text-gray-400 font-light italic">"Access the complete library of Executives Magazine in high-fidelity digital format."</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            {magazines.map((mag) => (
+            {magazines.map((mag, index) => (
               <Link 
                 key={mag.id} 
                 to={`/magazine/${mag.id}`}
-                className="group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer"
+                className={`group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer ${index >= 4 ? 'hidden md:block' : ''}`}
               >
                 <img src={mag.image} alt={mag.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 {/* Overlay (Desktop) */}
@@ -148,8 +148,8 @@ export default function Home() {
           </div>
           <div className="mt-16 text-center">
              <Link to="/digital-magazine" className="inline-flex items-center space-x-6 text-accent font-bold uppercase tracking-[0.3em] text-[11px] group border-b border-accent/20 pb-2 hover:text-white hover:border-white transition-all">
-                <span>Access Full Library</span>
-                <Globe size={16} />
+                <span>View All Magazines</span>
+                <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
              </Link>
           </div>
         </div>
