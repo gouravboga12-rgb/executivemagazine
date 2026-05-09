@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Search, User, ChevronDown } from 'lucide-react'
+import { Menu, X, User, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { articles } from '../lib/mockData'
 import { events } from '../lib/eventsData'
@@ -51,7 +51,6 @@ const priorityInterviews = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [showSearch, setShowSearch] = useState(false)
   const [hoveredLink, setHoveredLink] = useState(null)
   const location = useLocation()
 
@@ -63,7 +62,6 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsOpen(false)
-    setShowSearch(false)
     setHoveredLink(null)
   }, [location])
 
@@ -90,10 +88,6 @@ export default function Navbar() {
 
             {/* Left: Desktop Socials/Utilities */}
             <div className="hidden lg:flex items-center space-x-5">
-              <button onClick={() => setShowSearch(true)} className="hover:text-accent transition-colors">
-                <Search size={20} />
-              </button>
-              <div className="h-4 w-[1px] bg-gray-200" />
               <Link to="/login" className="hover:text-accent transition-colors">
                 <User size={20} />
               </Link>
@@ -115,9 +109,7 @@ export default function Navbar() {
 
             {/* Right: CTA */}
             <div className="flex items-center space-x-4">
-              <button className="lg:hidden p-2 text-secondary" onClick={() => setShowSearch(true)}>
-                <Search size={24} />
-              </button>
+              {/* Add any other right-side utilities here if needed */}
             </div>
           </div>
 
@@ -125,26 +117,34 @@ export default function Navbar() {
           <div className={`hidden lg:flex justify-center items-center space-x-5 transition-all duration-500 ${
             isScrolled ? 'mt-4 pb-2' : 'mt-8'
           }`}>
-            {navLinks.map((link) => (
-              <div 
-                key={link.name}
-                onMouseEnter={() => setHoveredLink(link.name)}
-                className="relative group py-2"
-              >
-                <Link
-                  to={link.path}
-                  className={`font-bold uppercase tracking-[0.2em] text-secondary hover:text-accent flex items-center transition-all whitespace-nowrap ${
-                    isScrolled ? 'text-[9px]' : 'text-[11px]'
-                  }`}
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path || 
+                              (link.path !== '/' && location.pathname.startsWith(link.path)) ||
+                              (link.path.startsWith('/category/') && location.pathname === link.path);
+
+              return (
+                <div 
+                  key={link.name}
+                  onMouseEnter={() => setHoveredLink(link.name)}
+                  className="relative group py-2"
                 >
-                  {link.name}
-                  {getRelatedArticles(link.name).length > 0 && (
-                    <ChevronDown size={10} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
-                  )}
-                </Link>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full" />
-              </div>
-            ))}
+                  <Link
+                    to={link.path}
+                    className={`font-bold uppercase tracking-[0.2em] flex items-center transition-all whitespace-nowrap ${
+                      isScrolled ? 'text-[9px]' : 'text-[11px]'
+                    } ${isActive ? 'text-accent' : 'text-secondary hover:text-accent'}`}
+                  >
+                    {link.name}
+                    {getRelatedArticles(link.name).length > 0 && (
+                      <ChevronDown size={10} className="ml-1 opacity-20 group-hover:opacity-100 transition-opacity" />
+                    )}
+                  </Link>
+                  <span className={`absolute bottom-0 left-0 h-[2px] bg-accent transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -175,9 +175,11 @@ export default function Navbar() {
                     <div className="grid grid-cols-4 gap-8">
                       {hoveredLink === 'Interviews' ? (
                         priorityInterviews.map((item) => (
-                          <Link 
+                          <a 
                             key={item.id} 
-                            to={`/interview/${item.id}`}
+                            href={item.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="group/item space-y-4"
                           >
                             <div className="aspect-[3/4] overflow-hidden bg-gray-50 border border-gray-100 relative shadow-sm group-hover/item:shadow-md transition-all">
@@ -188,7 +190,7 @@ export default function Navbar() {
                               <span className="text-[8px] font-bold uppercase tracking-widest text-accent">PDF Archive</span>
                               <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{item.company}</h4>
                             </div>
-                          </Link>
+                          </a>
                         ))
                       ) : hoveredLink === 'Events' ? (
                         events.slice(0, 4).map((event) => (
@@ -271,36 +273,7 @@ export default function Navbar() {
         </AnimatePresence>
       </nav>
 
-      {/* Search Overlay */}
-      <AnimatePresence>
-        {showSearch && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-secondary/95 backdrop-blur-xl flex flex-col items-center justify-center p-6"
-          >
-            <button 
-              onClick={() => setShowSearch(false)}
-              className="absolute top-10 right-10 text-white/50 hover:text-white transition-colors"
-            >
-              <X size={40} strokeWidth={1} />
-            </button>
-            <div className="w-full max-w-4xl text-center">
-              <span className="text-accent uppercase tracking-[0.3em] text-xs font-bold mb-8 block">Search the Archive</span>
-              <div className="relative border-b-2 border-white/20 pb-4">
-                <input 
-                  autoFocus
-                  type="text" 
-                  placeholder="Type to search articles, authors, or topics..."
-                  className="w-full bg-transparent text-white text-3xl md:text-5xl font-serif focus:outline-none placeholder:text-white/10"
-                />
-                <Search className="absolute right-0 top-1/2 -translate-y-1/2 text-accent" size={32} />
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* Mobile Nav Overlay */}
       <AnimatePresence>

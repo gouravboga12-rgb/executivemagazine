@@ -44,41 +44,172 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Editorial Vision - High-End Quote Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" 
-            alt="Editorial Background" 
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-secondary/60 backdrop-blur-[2px]" />
+      {/* 1. The Editorial Library / Executive Archives */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        {/* Decorative background element */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
+          <span className="absolute top-20 left-10 text-[20rem] font-black uppercase rotate-90">ARCHIVE</span>
         </div>
-        
-        <div className="container mx-auto px-4 lg:px-8 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto space-y-8"
-          >
-            <Quote size={48} className="text-accent mx-auto opacity-50" />
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white leading-tight tracking-tight">
-              "True leadership is not about being in charge. It is about taking care of those in your charge."
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
+          <div className="max-w-3xl mb-20">
+            <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold mb-6 block">In-Depth Corporate Intel</span>
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-secondary tracking-tighter uppercase leading-tight transform-gpu">
+              THE CORPORATE <br />
+              <span className="text-accent">Portfolios</span>
             </h2>
-            <div className="flex flex-col items-center space-y-6 pt-8">
-              <span className="text-accent uppercase tracking-[0.4em] text-xs font-bold">— The Editorial Vision 2026</span>
-              <Link 
-                to="/interviews" 
-                className="inline-flex items-center space-x-6 text-white font-bold uppercase tracking-[0.3em] text-[11px] group border-b border-white/20 pb-2 hover:text-accent hover:border-accent transition-all"
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+            {[
+              { id: 'himedia-laboratories', company: 'HiMedia Laboratories', img: '/interview-covers/himedia-cover.png', pdf: '/single pdfs/HiMedia-Laboratories_3_SinglePages.pdf', tag: 'Biotechnology' },
+              { id: 'alfa-laval', company: 'Alfa Laval India Limited', img: '/interview-covers/alfa-laval-cover.png', pdf: '/single pdfs/Alfa Laval India Limited-story (2)_SinglePages.pdf', tag: 'Manufacturing' },
+              { id: 'vitabiotics', company: 'Vitabiotics', img: '/interview-covers/vitabiotics-cover.png', pdf: '/interview pages/Vitabiotics-.pdf', tag: 'Healthcare' },
+              { id: 'national-engineering', company: 'National Engineering Industries', img: '/interview-covers/national-engineering-cover.png', pdf: '/single pdfs/National Engineering Industries Ltd-story - Copy (1)_SinglePages.pdf', tag: 'Engineering' },
+              { id: 'irm-energy', company: 'IRM Energy', img: '/interview-covers/irm-energy-cover.png', pdf: '/single pdfs/IRM Energy Private Limited (1)_SinglePages.pdf', tag: 'Energy' },
+              { id: 'aig-hospitals', company: 'AIG Hospitals', img: '/interview-images/aig-hospitals/page_1.png', pdf: '/interview pages/AIG Hospitals.pdf', tag: 'Medical' },
+              { id: 'kitex-garments', company: 'Kitex Garments', img: '/interview-images/kitex-garments---vision-&-culture_pdf/page_1.png', pdf: '/interview pages/Kitex Garments - Vision & Culture_pdf.pdf', tag: 'Textiles' },
+              { id: 'itd-cementation', company: 'ITD Cementation', img: '/interview-images/itd-cementation/page_1.png', pdf: '/interview pages/ITD Cementation.pdf', tag: 'Construction' }
+            ].map((item, idx) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group relative"
               >
-                <span>Access Full Interview Archive</span>
-                <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
-              </Link>
-            </div>
-          </motion.div>
+                <Link 
+                  to={`/interview/${item.id}`}
+                  state={{ pdfUrl: item.pdf, title: item.company }}
+                  className="block space-y-6"
+                >
+                  <div className="relative aspect-[3/4] overflow-hidden bg-gray-50 shadow-xl transition-all duration-700 group-hover:-translate-y-2 group-hover:shadow-2xl">
+                    <img 
+                      src={item.img} 
+                      alt={item.company} 
+                      className="w-full h-full object-contain bg-white transition-all duration-1000 group-hover:scale-105"
+                      onError={(e) => {
+                        e.target.src = "https://images.unsplash.com/photo-1586339949916-3e9457bed613?q=80&w=2070&auto=format&fit=crop"
+                      }}
+                    />
+                    <div className="absolute inset-0 border-[15px] border-white/0 group-hover:border-white/40 transition-all duration-500" />
+                  </div>
+                  <div className="space-y-4">
+                    <div className="space-y-1">
+                      <span className="text-accent text-[9px] font-bold uppercase tracking-[0.3em]">{item.tag}</span>
+                      <h4 className="text-lg font-bold text-secondary uppercase tracking-tight group-hover:text-accent transition-colors line-clamp-1">
+                        {item.company}
+                      </h4>
+                    </div>
+                    <div className="flex items-center space-x-3 text-secondary group-hover:text-accent transition-all">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] border-b border-secondary/10 group-hover:border-accent/30 pb-1">View Full Profile</span>
+                      <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-24 text-center">
+             <Link to="/interviews" className="inline-flex items-center gap-6 bg-secondary text-white px-12 py-6 text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-2xl group rounded-full">
+                <span>View Complete Library</span>
+                <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+             </Link>
+          </div>
         </div>
       </section>
+
+      {/* 2. Print Tradition / Digital Magazine Archive */}
+      <section className="py-24 bg-secondary text-white">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+            <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Print Tradition</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold">Digital Magazine Archive</h2>
+            <p className="text-gray-400 font-light italic">"Access the complete library of Executives Magazine in high-fidelity digital format."</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+            {magazines.map((mag) => (
+              <Link 
+                key={mag.id} 
+                to={`/magazine/${mag.id}`}
+                className="group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer"
+              >
+                <img src={mag.image} alt={mag.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                {/* Overlay (Desktop) */}
+                <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center p-6 text-center space-y-4 pointer-events-none">
+                  <span className="text-accent text-[8px] font-bold uppercase tracking-widest">{mag.edition}</span>
+                  <h4 className="text-sm font-bold text-white leading-tight">{mag.title}</h4>
+                  <div className="bg-white text-secondary px-6 py-3 text-[9px] font-bold uppercase tracking-widest transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">Open Edition</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-16 text-center">
+             <Link to="/digital-magazine" className="inline-flex items-center space-x-6 text-accent font-bold uppercase tracking-[0.3em] text-[11px] group border-b border-accent/20 pb-2 hover:text-white hover:border-white transition-all">
+                <span>Access Full Library</span>
+                <Globe size={16} />
+             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Get Listed in Executives */}
+      <section className="py-32 bg-white overflow-hidden">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+            <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">Featured Opportunities</span>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary tracking-tight">Get Listed in Executives</h2>
+            <p className="text-gray-500 font-light leading-relaxed">
+              Showcase your leadership journey to our global audience of decision-makers. Follow our streamlined section
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-gray-100 -z-10" />
+            
+            {[
+              { step: "01", title: "Fill the Form", desc: "Submit your profile and company details for initial review.", icon: <FileText className="text-accent" /> },
+              { step: "02", title: "Schedule Meeting", desc: "Our board connects with you for a strategic briefing.", icon: <UserCheck className="text-accent" /> },
+              { step: "03", title: "Complete Interview", desc: "Engage in an in-depth editorial interview with our experts.", icon: <MessageSquare className="text-accent" /> },
+              { step: "04", title: "Publish & Share", desc: "Your feature goes live across our global executive network.", icon: <CheckCircle2 className="text-accent" /> }
+            ].map((item, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white p-8 border border-gray-50 premium-shadow text-center space-y-6 relative group hover:border-accent transition-all"
+              >
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold group-hover:bg-accent transition-colors">
+                  {item.step}
+                </div>
+                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto group-hover:bg-accent/10 transition-colors">
+                  {item.icon}
+                </div>
+                <h3 className="text-lg font-bold text-secondary">{item.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed font-light">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-20 text-center">
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center space-x-6 bg-secondary text-white px-12 py-5 font-bold uppercase tracking-widest text-[11px] hover:bg-accent transition-all shadow-xl"
+            >
+              <span>Begin Your Application</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Rest of the sections */}
+      
 
 
       {/* Legacy & Authority - About Teaser */}
@@ -133,62 +264,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEW: Get Listed Section */}
-      <section className="py-32 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
-            <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">Featured Opportunities</span>
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary tracking-tight">Get Listed in Executives</h2>
-            <p className="text-gray-500 font-light leading-relaxed">
-              Showcase your leadership journey to our global audience of decision-makers. Follow our streamlined editorial process to get featured.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-gray-100 -z-10" />
-            
-            {[
-              { step: "01", title: "Fill the Form", desc: "Submit your profile and company details for initial review.", icon: <FileText className="text-accent" /> },
-              { step: "02", title: "Schedule Meeting", desc: "Our board connects with you for a strategic briefing.", icon: <UserCheck className="text-accent" /> },
-              { step: "03", title: "Complete Interview", desc: "Engage in an in-depth editorial interview with our experts.", icon: <MessageSquare className="text-accent" /> },
-              { step: "04", title: "Publish & Share", desc: "Your feature goes live across our global executive network.", icon: <CheckCircle2 className="text-accent" /> }
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white p-8 border border-gray-50 premium-shadow text-center space-y-6 relative group hover:border-accent transition-all"
-              >
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold group-hover:bg-accent transition-colors">
-                  {item.step}
-                </div>
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto group-hover:bg-accent/10 transition-colors">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-bold text-secondary">{item.title}</h3>
-                <p className="text-xs text-gray-400 leading-relaxed font-light">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-20 text-center">
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center space-x-6 bg-secondary text-white px-12 py-5 font-bold uppercase tracking-widest text-[11px] hover:bg-accent transition-all shadow-xl"
-            >
-              <span>Begin Your Application</span>
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* --- HEADER PAGES PREVIEWS --- */}
-
-      {/* 1. Business Preview */}
+      {/* 4. Business Preview */}
       <section className="py-24 bg-gray-50 border-y border-gray-100">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Business & Leadership" subtitle="Corporate Intelligence" />
@@ -206,7 +282,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Opinion Preview */}
+      {/* 5. Opinion Preview */}
       <section className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Executive Opinions" subtitle="The Strategic Perspective" />
@@ -241,7 +317,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. Lifestyle Preview */}
+      {/* 6. Lifestyle Preview */}
       <section className="py-24 bg-secondary text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <img src="https://images.unsplash.com/photo-1511144080777-5e74473bba7a?q=80&w=2070&auto=format&fit=crop" alt="Lifestyle bg" className="w-full h-full object-cover" />
@@ -273,7 +349,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Events Preview */}
+      {/* 7. Events Preview */}
       <section className="py-24 border-b border-gray-100">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Upcoming Events" subtitle="Global Business Summits" />
@@ -297,7 +373,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Spotlights Preview */}
+      {/* 8. Spotlights Preview */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Corporate Spotlights" subtitle="Strategic Brand Features" />
@@ -322,56 +398,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. Featured Interviews Archive */}
-      <section className="py-32 bg-white relative">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div className="space-y-4">
-              <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">The Editorial Library</span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary tracking-tighter uppercase">Executive <span className="text-accent italic font-normal tracking-normal lowercase">Archives</span></h2>
-            </div>
-            <Link to="/interviews" className="inline-flex items-center space-x-4 text-secondary font-bold uppercase tracking-[0.3em] text-[10px] group border-b border-secondary/20 pb-2 hover:text-accent hover:border-accent transition-all">
-              <span>Explore Complete Library</span>
-              <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {[
-              { id: 'himedia-laboratories', company: 'HiMedia Laboratories', img: '/interview-covers/himedia-cover.png', pdf: '/interview%20pages/HiMedia-Laboratories_3.pdf' },
-              { id: 'alfa-laval', company: 'Alfa Laval India Limited', img: '/interview-covers/alfa-laval-cover.png', pdf: '/interview%20pages/Alfa%20Laval%20India%20Limited-story.pdf' },
-              { id: 'vitabiotics', company: 'Vitabiotics', img: '/interview-covers/vitabiotics-cover.png', pdf: '/interview%20pages/Vitabiotics-.pdf' },
-              { id: 'national-engineering', company: 'National Engineering Industries', img: '/interview-covers/national-engineering-cover.png', pdf: '/interview%20pages/National%20Engineering%20Industries%20Ltd-story%20-%20Copy.pdf' },
-              { id: 'irm-energy', company: 'IRM Energy', img: '/interview-covers/irm-energy-cover.png', pdf: '/interview%20pages/IRM%20Energy%20Private%20Limited.pdf' },
-              { id: 'aig-hospitals', company: 'AIG Hospitals', img: '/interview-images/aig-hospitals/page_1.png', pdf: '/interview%20pages/AIG%20Hospitals.pdf' }
-            ].map((item) => (
-              <Link 
-                key={item.id} 
-                to={`/interview/${item.id}`}
-                state={{ pdfUrl: item.pdf, title: item.company }}
-                className="group space-y-4"
-              >
-                <div className="aspect-[3/4] overflow-hidden bg-gray-50 border border-gray-100 relative shadow-sm group-hover:shadow-2xl transition-all duration-500">
-                  <img 
-                    src={item.img} 
-                    alt={item.company} 
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                    onError={(e) => {
-                      e.target.src = "https://images.unsplash.com/photo-1586339949916-3e9457bed613?q=80&w=2070&auto=format&fit=crop"
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/20 transition-colors" />
-                </div>
-                <h4 className="text-[10px] font-bold text-secondary uppercase tracking-widest leading-tight group-hover:text-accent transition-colors line-clamp-2">
-                  {item.company}
-                </h4>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. AI Info Preview */}
+      {/* 9. AI Info Preview */}
       <section className="py-24">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-20">
@@ -406,39 +433,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Magazine Preview */}
-      <section className="py-24 bg-secondary text-white">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-            <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Print Tradition</span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold">Digital Magazine Archive</h2>
-            <p className="text-gray-400 font-light italic">"Access the complete library of Executives Magazine in high-fidelity digital format."</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            {magazines.map((mag) => (
-              <Link 
-                key={mag.id} 
-                to={`/magazine/${mag.id}`}
-                className="group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer"
-              >
-                <img src={mag.image} alt={mag.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                {/* Overlay (Desktop) */}
-                <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center p-6 text-center space-y-4 pointer-events-none">
-                  <span className="text-accent text-[8px] font-bold uppercase tracking-widest">{mag.edition}</span>
-                  <h4 className="text-sm font-bold text-white leading-tight">{mag.title}</h4>
-                  <div className="bg-white text-secondary px-6 py-3 text-[9px] font-bold uppercase tracking-widest transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">Read Issue</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-16 text-center">
-             <Link to="/digital-magazine" className="inline-flex items-center space-x-6 text-accent font-bold uppercase tracking-[0.3em] text-[11px] group border-b border-accent/20 pb-2 hover:text-white hover:border-white transition-all">
-                <span>Access Full Library</span>
-                <Globe size={16} />
-             </Link>
-          </div>
-        </div>
-      </section>
       {/* Modal - Reader Experience */}
       <AnimatePresence>
         {selectedOpinion && (
@@ -633,7 +627,16 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Floating Back to Top */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-28 right-8 z-[100] bg-secondary text-white p-4 rounded-full shadow-2xl hover:bg-accent transition-all group"
+      >
+        <ArrowUpRight size={24} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+      </motion.button>
     </div>
   )
 }
-

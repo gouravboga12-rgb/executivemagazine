@@ -1,19 +1,20 @@
-import { Link } from 'react-router-dom'
+import { Download, Eye, FileText, ArrowRight, Search, ArrowLeft, ArrowUpRight } from 'lucide-react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Download, Eye, FileText, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const interviews = [
   {
     id: 'alfa-laval',
     company: 'Alfa Laval India Limited',
     preview: '/interview-covers/alfa-laval-cover.png',
-    pdf: '/interview pages/Alfa Laval India Limited-story.pdf'
+    pdf: '/single pdfs/Alfa Laval India Limited-story (2)_SinglePages.pdf'
   },
   {
     id: 'himedia-laboratories',
     company: 'HiMedia Laboratories',
     preview: '/interview-covers/himedia-cover.png',
-    pdf: '/interview pages/HiMedia-Laboratories_3.pdf'
+    pdf: '/single pdfs/HiMedia-Laboratories_3_SinglePages.pdf'
   },
   {
     id: 'kitex-garments',
@@ -31,7 +32,7 @@ const interviews = [
     id: 'national-engineering',
     company: 'National Engineering Industries',
     preview: '/interview-covers/national-engineering-cover.png',
-    pdf: '/interview pages/National Engineering Industries Ltd-story - Copy.pdf'
+    pdf: '/single pdfs/National Engineering Industries Ltd-story - Copy (1)_SinglePages.pdf'
   },
   {
     id: 'sandur-manganese',
@@ -49,7 +50,7 @@ const interviews = [
     id: 'irm-energy',
     company: 'IRM Energy Private Limited',
     preview: '/interview-covers/irm-energy-cover.png',
-    pdf: '/interview pages/IRM Energy Private Limited.pdf'
+    pdf: '/single pdfs/IRM Energy Private Limited (1)_SinglePages.pdf'
   },
   {
     id: 'itd-cementation',
@@ -78,6 +79,11 @@ const interviews = [
 ]
 
 export default function Interviews() {
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredInterviews = interviews.filter(item => 
+    item.company.toLowerCase().includes(searchQuery.toLowerCase())
+  )
   return (
     <div className="pb-32 bg-white min-h-screen">
       {/* Hero */}
@@ -89,8 +95,18 @@ export default function Interviews() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="text-accent text-xs font-bold uppercase tracking-[0.5em] mb-6 block">Editorial Library</span>
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 uppercase">
+            <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
+              <Link
+                to="/"
+                className="flex items-center gap-2 text-accent text-[10px] font-bold uppercase tracking-[0.4em] hover:text-white transition-colors group"
+              >
+                <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                Back to Home
+              </Link>
+              <div className="h-[1px] w-12 bg-accent/20 hidden md:block" />
+              <span className="text-accent/60 text-[10px] font-bold uppercase tracking-[0.5em]">Editorial Library</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 uppercase leading-[0.9]">
               THE <br /> <span className="text-accent">INTERVIEWS</span>
             </h1>
             <p className="text-gray-400 text-xl font-light leading-relaxed font-serif italic">
@@ -100,10 +116,48 @@ export default function Interviews() {
         </div>
       </section>
 
+      {/* Search Bar */}
+      <div className="container mx-auto px-4 lg:px-8 -mt-10 relative z-30">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white/90 backdrop-blur-xl p-1.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 flex items-center group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.15)] focus-within:ring-4 focus-within:ring-accent/5">
+            <div className="pl-6 pr-4 text-gray-400 group-focus-within:text-accent transition-colors">
+              <Search size={22} strokeWidth={1.5} />
+            </div>
+            <input 
+              type="text" 
+              placeholder="Search by company or executive..."
+              className="flex-1 bg-transparent border-none focus:ring-0 text-secondary font-serif italic text-lg placeholder:text-gray-300 py-4"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="pr-4 text-[10px] font-bold uppercase tracking-widest text-gray-300 hover:text-accent transition-colors"
+              >
+                Clear
+              </button>
+            )}
+            <div className="bg-secondary text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-lg hidden md:block">
+               Find Feature
+            </div>
+          </div>
+          <div className="mt-6 flex items-center justify-center space-x-8">
+            <div className="flex items-center space-x-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                {filteredInterviews.length} Archives Available
+              </span>
+            </div>
+            <div className="h-4 w-[1px] bg-gray-200" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Real-time indexing enabled</span>
+          </div>
+        </div>
+      </div>
       {/* Grid */}
-      <div className="container mx-auto px-4 lg:px-8 -mt-20 relative z-20">
+      <div className="container mx-auto px-4 lg:px-8 relative z-20 mt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {interviews.map((item, idx) => (
+          {filteredInterviews.map((item, idx) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 30 }}
@@ -129,7 +183,7 @@ export default function Interviews() {
                 <div className="absolute inset-0 bg-secondary/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center pointer-events-none">
                   <div className="flex items-center space-x-3 bg-white text-secondary px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
                     <Eye size={14} />
-                    <span>Open Reader</span>
+                    <span>Open PDF</span>
                   </div>
                 </div>
               </Link>
@@ -166,6 +220,15 @@ export default function Interviews() {
           </button>
         </div>
       </div>
+      {/* Floating Back to Top */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-28 right-8 z-[100] bg-secondary text-white p-4 rounded-full shadow-2xl hover:bg-accent transition-all group"
+      >
+        <ArrowUpRight size={24} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+      </motion.button>
     </div>
   )
 }

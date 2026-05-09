@@ -1,12 +1,20 @@
+import { BookOpen, Download, ChevronRight, Star, ArrowRight, Search, ArrowLeft, ArrowUpRight } from 'lucide-react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { BookOpen, Download, ChevronRight, Star, ArrowRight } from 'lucide-react'
 import { magazines } from '../lib/magazinesData'
 
 const featured = magazines[0]
 const library = magazines.slice(1)
 
 export default function DigitalMagazine() {
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const filteredLibrary = library.filter(mag => 
+    mag.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    mag.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    mag.tag.toLowerCase().includes(searchQuery.toLowerCase())
+  )
   return (
     <div className="pb-32">
       {/* ── Hero Header ── */}
@@ -15,13 +23,21 @@ export default function DigitalMagazine() {
           <span className="text-[12rem] lg:text-[22rem] font-black uppercase leading-none text-secondary">LIBRARY</span>
         </div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block text-accent"
-          >
-            Digital Archive
-          </motion.span>
+          <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-accent text-[10px] font-bold uppercase tracking-[0.4em] hover:text-secondary transition-colors group"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              Back to Home
+            </Link>
+            <div className="h-[1px] w-12 bg-accent/20 hidden md:block" />
+            <motion.span
+              className="text-[10px] font-bold uppercase tracking-[0.5em] text-accent"
+            >
+              Digital Archive
+            </motion.span>
+          </div>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
@@ -57,7 +73,10 @@ export default function DigitalMagazine() {
                   <Star size={18} className="text-white fill-white lg:w-[22px] lg:h-[22px]" />
                 </div>
               </div>
-              <Link to={`/magazine/${featured.id}`} className="block relative z-10">
+              <Link 
+                to={`/magazine/${featured.id}`}
+                className="block relative z-10"
+              >
                 <img
                   src={featured.image}
                   alt={featured.title}
@@ -93,7 +112,7 @@ export default function DigitalMagazine() {
                   className="flex items-center gap-3 bg-secondary text-white px-10 py-5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-accent transition-all"
                 >
                   <BookOpen size={14} />
-                  Read Now
+                  Open Edition
                 </Link>
                 <a
                   href={featured.pdf}
@@ -119,14 +138,28 @@ export default function DigitalMagazine() {
                 All Editions
               </h2>
             </div>
-            <p className="text-gray-400 text-sm font-light max-w-xs md:text-right">
-              Each edition is completely independent — explore any one at your own pace.
-            </p>
+            <div className="flex-1 max-w-lg">
+              <div className="bg-white p-1 rounded-full shadow-[0_15px_40px_rgba(0,0,0,0.08)] border border-gray-100 flex items-center group focus-within:ring-4 focus-within:ring-accent/5 transition-all">
+                <div className="pl-5 pr-3 text-gray-400 group-focus-within:text-accent transition-colors">
+                  <Search size={18} strokeWidth={1.5} />
+                </div>
+                <input 
+                  type="text" 
+                  placeholder="Filter by title, year or tag..."
+                  className="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium placeholder:text-gray-300 py-3"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <div className="bg-gray-50 text-secondary px-6 py-2 rounded-full text-[9px] font-bold uppercase tracking-widest mr-1 hidden sm:block">
+                  {filteredLibrary.length} Editions
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* 4-column grid for remaining issues */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-            {library.map((mag, i) => (
+            {filteredLibrary.map((mag, i) => (
               <motion.div
                 key={mag.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -149,7 +182,7 @@ export default function DigitalMagazine() {
                   {/* Overlay (Desktop) */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-center justify-center p-6 pointer-events-none">
                     <div className="translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white text-secondary px-8 py-3 text-[10px] font-bold uppercase tracking-widest">
-                      Read Issue
+                      Open Edition
                     </div>
                   </div>
                   {/* Tag badge */}
@@ -177,7 +210,7 @@ export default function DigitalMagazine() {
                       to={`/magazine/${mag.id}`}
                       className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-secondary hover:text-accent transition-colors"
                     >
-                      Read <ChevronRight size={10} />
+                      Open Edition <ChevronRight size={10} />
                     </Link>
                     <a
                       href={mag.pdf}
@@ -234,6 +267,15 @@ export default function DigitalMagazine() {
           </div>
         </div>
       </section>
+      {/* Floating Back to Top */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-28 right-8 z-[100] bg-secondary text-white p-4 rounded-full shadow-2xl hover:bg-accent transition-all group"
+      >
+        <ArrowUpRight size={24} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+      </motion.button>
     </div>
   )
 }

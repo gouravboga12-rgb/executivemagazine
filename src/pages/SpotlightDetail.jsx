@@ -3,13 +3,17 @@ import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   ArrowRight, Calendar, CheckCircle2, Globe, FileText, 
-  Users, Award, Cpu, Share2, Info, ChevronRight, Star 
+  Users, Award, Cpu, Share2, Info, ChevronRight, Star,
+  Zap, Activity, TrendingUp, DollarSign, BarChart, Navigation,
+  ShoppingBag, MessageSquare, Shield, Heart, Lock, Leaf, CheckCircle, Sun
 } from 'lucide-react'
 import { spotlights } from '../lib/spotlightsData'
 import SpotlightForm from '../components/SpotlightForm'
 
 const iconMap = {
-  Globe, FileText, Users, Award, Cpu, Share2
+  Globe, FileText, Users, Award, Cpu, Share2,
+  Zap, Activity, TrendingUp, DollarSign, BarChart, Navigation,
+  ShoppingBag, MessageSquare, Shield, Heart, Lock, Leaf, CheckCircle, Sun
 }
 
 export default function SpotlightDetail() {

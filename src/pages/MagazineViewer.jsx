@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Maximize2, Globe, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { magazines } from '../lib/magazinesData'
 
 export default function MagazineViewer() {
@@ -9,6 +9,12 @@ export default function MagazineViewer() {
   const navigate = useNavigate()
   const magazineIndex = magazines.findIndex((m) => m.id === id)
   const magazine = magazines[magazineIndex]
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -41,7 +47,7 @@ export default function MagazineViewer() {
       <nav className="bg-[#111] border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between relative z-50">
         <div className="flex items-center gap-8">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/digital-magazine')}
             className="flex items-center gap-3 text-white/40 hover:text-white transition-all text-[10px] font-bold uppercase tracking-[0.3em] group"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform text-accent" />
@@ -79,7 +85,7 @@ export default function MagazineViewer() {
             download
             className="bg-accent text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
           >
-            Download Issue
+            Download PDF
           </a>
         </div>
       </nav>
@@ -92,10 +98,41 @@ export default function MagazineViewer() {
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40rem] font-bold text-white uppercase tracking-tighter">Edition</span>
         </div>
 
+        {/* Cinematic Loading Overlay */}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div 
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center"
+            >
+              <motion.div 
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="text-center space-y-8"
+              >
+                <div className="flex flex-col items-center">
+                  <span className="text-accent text-[10px] font-bold uppercase tracking-[0.8em] mb-4 animate-pulse">Retrieving Edition</span>
+                  <div className="w-64 h-[1px] bg-white/5 relative overflow-hidden">
+                    <motion.div 
+                      initial={{ x: '-100%' }}
+                      animate={{ x: '100%' }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-0 bg-accent"
+                    />
+                  </div>
+                </div>
+                <h2 className="text-white font-serif italic text-2xl opacity-40">Compiling Premium Content...</h2>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Immersive Magazine Frame */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: isLoading ? 0 : 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-6xl mx-auto px-4 md:px-0 z-10"
         >
@@ -108,7 +145,7 @@ export default function MagazineViewer() {
                 src={
                   ('ontouchstart' in window || navigator.maxTouchPoints > 0)
                     ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf + '?v=' + Date.now())}&embedded=true`
-                    : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`
+                    : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#page=1&toolbar=0&navpanes=0&scrollbar=1&view=Fit`
                 }
                 title={magazine.title}
                 className="w-full h-full border-none"
@@ -147,7 +184,7 @@ export default function MagazineViewer() {
       {/* ── Mobile Control Bar ── */}
       <div className="md:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[300] flex items-center gap-4 bg-[#111]/90 backdrop-blur-xl px-8 py-4 rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
          <button 
-           onClick={() => navigate(-1)}
+           onClick={() => navigate('/digital-magazine')}
            className="text-white/60 text-[10px] font-bold uppercase tracking-widest px-4 border-r border-white/10"
          >
            Exit

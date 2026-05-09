@@ -1,14 +1,18 @@
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Printer, Maximize2, Globe, ShieldCheck } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function InterviewViewer() {
   const { id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  
-  // Try to get data from state, or use ID as fallback
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
   const { pdfUrl, title } = location.state || { 
     pdfUrl: `/interview pages/${id}.pdf`,
     title: id?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
@@ -29,7 +33,7 @@ export default function InterviewViewer() {
       <nav className="bg-[#111] border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between relative z-50">
         <div className="flex items-center gap-8">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/interviews')}
             className="flex items-center gap-3 text-white/40 hover:text-white transition-all text-[10px] font-bold uppercase tracking-[0.3em] group"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform text-accent" />
@@ -59,7 +63,7 @@ export default function InterviewViewer() {
             download
             className="bg-accent text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
           >
-            Download Issue
+            Download PDF
           </a>
         </div>
       </nav>
@@ -72,10 +76,41 @@ export default function InterviewViewer() {
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40rem] font-bold text-white">ARCHIVE</span>
         </div>
 
+        {/* Cinematic Loading Overlay */}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div 
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center"
+            >
+              <motion.div 
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="text-center space-y-8"
+              >
+                <div className="flex flex-col items-center">
+                  <span className="text-accent text-[10px] font-bold uppercase tracking-[0.8em] mb-4 animate-pulse">Loading Archive</span>
+                  <div className="w-64 h-[1px] bg-white/5 relative overflow-hidden">
+                    <motion.div 
+                      initial={{ x: '-100%' }}
+                      animate={{ x: '100%' }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      className="absolute inset-0 bg-accent"
+                    />
+                  </div>
+                </div>
+                <h2 className="text-white font-serif italic text-2xl opacity-40">Decrypting Editorial Data...</h2>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* The Magazine Frame */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: isLoading ? 0 : 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-6xl mx-auto px-4 md:px-0 z-10"
         >
@@ -88,7 +123,7 @@ export default function InterviewViewer() {
                 src={
                   ('ontouchstart' in window || navigator.maxTouchPoints > 0)
                     ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl + '?v=' + Date.now())}&embedded=true`
-                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`
+                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#page=1&toolbar=0&navpanes=0&scrollbar=1&view=Fit`
                 }
                 title={title}
                 className="w-full h-full border-none"
@@ -131,7 +166,7 @@ export default function InterviewViewer() {
       {/* ── Mobile Context Menu ── */}
       <div className="md:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[300] flex items-center gap-4 bg-[#111]/80 backdrop-blur-lg px-8 py-4 rounded-full border border-white/10 shadow-2xl">
          <button 
-           onClick={() => navigate(-1)}
+           onClick={() => navigate('/interviews')}
            className="text-white/60 text-[10px] font-bold uppercase tracking-widest px-4 border-r border-white/10"
          >
            Close

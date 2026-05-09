@@ -64,14 +64,14 @@ export default function Contact() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-6xl md:text-8xl font-bold text-secondary uppercase tracking-tighter leading-none"
+              className="text-6xl md:text-8xl font-bold text-secondary uppercase tracking-tighter leading-[0.9]"
             >
               Connect with <br/> the <span className="text-accent italic font-serif lowercase tracking-normal">Board</span>
             </motion.h1>
          </div>
       </header>
 
-      <div className="container mx-auto px-4 lg:px-8 -mt-20 relative z-20">
+      <div className="container mx-auto px-4 lg:px-8 -mt-12 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white premium-shadow border border-gray-100">
           
           {/* Info Sidebar - Light Luxe Style */}
