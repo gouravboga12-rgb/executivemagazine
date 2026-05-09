@@ -123,7 +123,7 @@ export default function InterviewViewer() {
                 src={
                   ('ontouchstart' in window || navigator.maxTouchPoints > 0)
                     ? `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
-                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#view=Fit`
+                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
                 }
                 title={title}
                 className="w-full h-full border-none"

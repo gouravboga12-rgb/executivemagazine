@@ -147,7 +147,7 @@ export default function MagazineViewer() {
                 src={
                   ('ontouchstart' in window || navigator.maxTouchPoints > 0)
                     ? `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true`
-                    : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#view=Fit`
+                    : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
                 }
                 title={magazine.title}
                 className="w-full h-full border-none"
