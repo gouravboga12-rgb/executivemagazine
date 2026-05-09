@@ -120,7 +120,11 @@ export default function InterviewViewer() {
             {/* Custom Iframe Reader */}
             <div className="relative w-full overflow-hidden bg-gray-100" style={{ height: 'calc(100vh - 100px)' }}>
               <iframe
-                src={`${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#view=Fit`}
+                src={
+                  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+                    ? `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
+                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#view=Fit`
+                }
                 title={title}
                 className="w-full h-full border-none"
               />
