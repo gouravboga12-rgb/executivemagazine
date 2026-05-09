@@ -326,19 +326,82 @@ export default function Events() {
         )}
       </AnimatePresence>
 
-      {/* Footer CTA */}
-      <div className="container mx-auto px-4 lg:px-8 mt-32 text-center" data-aos="fade-up">
-        <div className="max-w-2xl mx-auto space-y-8 p-16 bg-gray-50 border border-gray-100">
-          <Info size={40} className="text-accent mx-auto" />
-          <h4 className="text-3xl font-bold text-secondary uppercase tracking-tighter">Event Submissions</h4>
-          <p className="text-gray-400 text-sm font-light leading-relaxed">
-            Are you organizing a high-impact business summit or a specialized tech event? Submit your event for editorial review and placement in our strategic outlook calendar.
-          </p>
-          <button className="px-12 py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-accent transition-all">
-            Contact Editorial Team
-          </button>
+      {/* Event Submission Contact Form */}
+      <section className="container mx-auto px-4 lg:px-8 mt-32" data-aos="fade-up">
+        <div className="grid grid-cols-1 lg:grid-cols-2 bg-secondary text-white overflow-hidden shadow-2xl">
+          <div className="p-12 md:p-20 flex flex-col justify-center space-y-8 bg-accent/5 relative">
+            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+              <Calendar size={200} />
+            </div>
+            <div className="relative z-10">
+              <span className="text-accent text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Event Submissions</span>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase leading-none mb-6">
+                Submit Your <br />
+                <span className="italic font-serif normal-case text-accent">Summit</span> for Review
+              </h2>
+              <p className="text-white/60 text-sm font-light leading-relaxed max-w-md">
+                Organizing a high-impact business summit or a specialized tech event? Submit your details for editorial review and placement in our strategic outlook calendar.
+              </p>
+            </div>
+            
+            <div className="space-y-4 pt-8">
+              <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/40">
+                <div className="w-1.5 h-1.5 bg-accent rounded-full" />
+                Editorial Review within 48 Hours
+              </div>
+              <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/40">
+                <div className="w-1.5 h-1.5 bg-accent rounded-full" />
+                Featured Strategic Placement
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white p-12 md:p-20">
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Your Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="John Doe"
+                    className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary placeholder:text-gray-300 focus:border-accent outline-none transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Organization</label>
+                  <input 
+                    type="text" 
+                    placeholder="Company Name"
+                    className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary placeholder:text-gray-300 focus:border-accent outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Event Category</label>
+                <select className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary outline-none focus:border-accent transition-all appearance-none">
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Brief Description</label>
+                <textarea 
+                  rows="4"
+                  placeholder="Tell us about the summit goals..."
+                  className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary placeholder:text-gray-300 focus:border-accent outline-none transition-all resize-none"
+                ></textarea>
+              </div>
+
+              <button className="w-full py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-accent transition-all shadow-xl shadow-secondary/10">
+                Submit for Editorial Review
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }
