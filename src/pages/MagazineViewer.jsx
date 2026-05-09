@@ -10,6 +10,7 @@ export default function MagazineViewer() {
   const magazineIndex = magazines.findIndex((m) => m.id === id)
   const magazine = magazines[magazineIndex]
   const [isLoading, setIsLoading] = useState(true)
+  const [zoom, setZoom] = useState(100)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
@@ -65,6 +66,24 @@ export default function MagazineViewer() {
         </div>
 
         <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 bg-white/5 rounded-full px-3 py-1.5 border border-white/10">
+            <button 
+              onClick={() => setZoom(Math.max(50, zoom - 10))}
+              className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              title="Zoom Out"
+            >
+              -
+            </button>
+            <span className="text-[10px] font-bold text-white/40 w-12 text-center uppercase tracking-widest">{zoom}%</span>
+            <button 
+              onClick={() => setZoom(Math.min(200, zoom + 10))}
+              className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              title="Zoom In"
+            >
+              +
+            </button>
+          </div>
+
           <div className="hidden lg:flex items-center gap-8 mr-6">
              {prevMag && (
                <Link to={`/magazine/${prevMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
@@ -142,16 +161,18 @@ export default function MagazineViewer() {
           <div className="relative bg-white shadow-[0_60px_120px_-30px_rgba(0,0,0,1)] border border-white/5 overflow-hidden">
             
             {/* Embedded Iframe Reader */}
-            <div className="relative w-full overflow-hidden bg-gray-50" style={{ height: 'calc(100vh - 120px)' }}>
-              <iframe
-                src={
-                  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true`
-                    : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
-                }
-                title={magazine.title}
-                className="w-full h-full border-none"
-              />
+            <div className="relative w-full overflow-auto bg-gray-50 flex justify-center" style={{ height: 'calc(100vh - 120px)' }}>
+              <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
+                <iframe
+                  src={
+                    ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+                      ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true`
+                      : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
+                  }
+                  title={magazine.title}
+                  className="w-full h-full border-none"
+                />
+              </div>
               
               {/* Overlay shadow for depth */}
               <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.03)]" />

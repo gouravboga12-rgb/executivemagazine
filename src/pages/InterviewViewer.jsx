@@ -8,6 +8,7 @@ export default function InterviewViewer() {
   const navigate = useNavigate()
   const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
+  const [zoom, setZoom] = useState(100)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
@@ -50,21 +51,41 @@ export default function InterviewViewer() {
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-          <ShieldCheck size={12} className="text-accent" />
-          <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest">Verified Secured Source</span>
-        </div>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 bg-white/5 rounded-full px-3 py-1.5 border border-white/10">
+            <button 
+              onClick={() => setZoom(Math.max(50, zoom - 10))}
+              className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              title="Zoom Out"
+            >
+              -
+            </button>
+            <span className="text-[10px] font-bold text-white/40 w-12 text-center uppercase tracking-widest">{zoom}%</span>
+            <button 
+              onClick={() => setZoom(Math.min(200, zoom + 10))}
+              className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              title="Zoom In"
+            >
+              +
+            </button>
+          </div>
 
-        <div className="flex items-center gap-4">
-          <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
+          <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
+            <ShieldCheck size={12} className="text-accent" />
+            <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest">Verified Secured Source</span>
+          </div>
 
-          <a
-            href={pdfUrl}
-            download
-            className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
-          >
-            Download <span className="hidden md:inline">PDF</span>
-          </a>
+          <div className="flex items-center gap-4">
+            <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
+
+            <a
+              href={pdfUrl}
+              download
+              className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
+            >
+              Download <span className="hidden md:inline">PDF</span>
+            </a>
+          </div>
         </div>
       </nav>
 
@@ -118,16 +139,18 @@ export default function InterviewViewer() {
           <div className="relative bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] border border-white/10 overflow-hidden">
             
             {/* Custom Iframe Reader */}
-            <div className="relative w-full overflow-hidden bg-gray-100" style={{ height: 'calc(100vh - 100px)' }}>
-              <iframe
-                src={
-                  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
-                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
-                }
-                title={title}
-                className="w-full h-full border-none"
-              />
+            <div className="relative w-full overflow-auto bg-gray-100 flex justify-center" style={{ height: 'calc(100vh - 100px)' }}>
+              <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
+                <iframe
+                  src={
+                    ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+                      ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
+                      : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
+                  }
+                  title={title}
+                  className="w-full h-full border-none"
+                />
+              </div>
               
               {/* Subtle Inner Glow */}
               <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.05)]" />
