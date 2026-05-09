@@ -142,11 +142,7 @@ export default function MagazineViewer() {
             {/* Embedded Iframe Reader */}
             <div className="relative w-full overflow-hidden bg-gray-50" style={{ height: 'calc(100vh - 180px)' }}>
               <iframe
-                src={
-                  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf + '?v=' + Date.now())}&embedded=true`
-                    : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#page=1&toolbar=0&navpanes=0&scrollbar=1&view=Fit`
-                }
+                src={`${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#view=Fit`}
                 title={magazine.title}
                 className="w-full h-full border-none"
               />
@@ -181,22 +177,6 @@ export default function MagazineViewer() {
         </motion.div>
       </div>
 
-      {/* ── Mobile Control Bar ── */}
-      <div className="md:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[300] flex items-center gap-4 bg-[#111]/90 backdrop-blur-xl px-8 py-4 rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-         <button 
-           onClick={() => navigate('/digital-magazine')}
-           className="text-white/60 text-[10px] font-bold uppercase tracking-widest px-4 border-r border-white/10"
-         >
-           Exit
-         </button>
-         <a 
-          href={magazine.pdf} 
-          download
-          className="text-accent text-[10px] font-bold uppercase tracking-widest px-4"
-         >
-           Download
-         </a>
-      </div>
     </div>
   )
 }

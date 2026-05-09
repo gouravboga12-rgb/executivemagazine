@@ -120,11 +120,7 @@ export default function InterviewViewer() {
             {/* Custom Iframe Reader */}
             <div className="relative w-full overflow-hidden bg-gray-100" style={{ height: '88vh' }}>
               <iframe
-                src={
-                  ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl + '?v=' + Date.now())}&embedded=true`
-                    : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#page=1&toolbar=0&navpanes=0&scrollbar=1&view=Fit`
-                }
+                src={`${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#view=Fit`}
                 title={title}
                 className="w-full h-full border-none"
               />
@@ -163,22 +159,6 @@ export default function InterviewViewer() {
         </motion.div>
       </div>
 
-      {/* ── Mobile Context Menu ── */}
-      <div className="md:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[300] flex items-center gap-4 bg-[#111]/80 backdrop-blur-lg px-8 py-4 rounded-full border border-white/10 shadow-2xl">
-         <button 
-           onClick={() => navigate('/interviews')}
-           className="text-white/60 text-[10px] font-bold uppercase tracking-widest px-4 border-r border-white/10"
-         >
-           Close
-         </button>
-         <a 
-          href={pdfUrl} 
-          download
-          className="text-accent text-[10px] font-bold uppercase tracking-widest px-4"
-         >
-           Download
-         </a>
-      </div>
     </div>
   )
 }
