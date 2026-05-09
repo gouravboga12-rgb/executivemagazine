@@ -52,7 +52,7 @@ export default function MagazineViewer() {
             className="flex items-center gap-3 text-white/40 hover:text-white transition-all text-[10px] font-bold uppercase tracking-[0.3em] group"
           >
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform text-accent" />
-            <span>Close Edition</span>
+            <span className="hidden md:inline">Close Edition</span>
           </button>
           
           <div className="h-8 w-[1px] bg-white/10 hidden md:block" />
@@ -66,18 +66,18 @@ export default function MagazineViewer() {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 bg-white/5 rounded-full px-3 py-1.5 border border-white/10">
+          <div className="flex items-center gap-1 md:gap-2 bg-white/5 rounded-full px-2 md:px-3 py-1 md:py-1.5 border border-white/10">
             <button 
               onClick={() => setZoom(Math.max(50, zoom - 10))}
-              className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all text-xs"
               title="Zoom Out"
             >
               -
             </button>
-            <span className="text-[10px] font-bold text-white/40 w-12 text-center uppercase tracking-widest">{zoom}%</span>
+            <span className="text-[8px] md:text-[10px] font-bold text-white/40 w-8 md:w-12 text-center uppercase tracking-widest">{zoom}%</span>
             <button 
               onClick={() => setZoom(Math.min(200, zoom + 10))}
-              className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all"
+              className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all text-xs"
               title="Zoom In"
             >
               +
@@ -103,9 +103,11 @@ export default function MagazineViewer() {
             <a
               href={magazine.pdf}
               download
-              className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
+              className="bg-accent text-white px-3 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20 flex items-center gap-2"
             >
-              Download <span className="hidden md:inline">PDF</span>
+              <Download size={14} className="md:hidden" />
+              <span className="hidden md:inline">Download PDF</span>
+              <span className="md:hidden">PDF</span>
             </a>
           </div>
         </div>
