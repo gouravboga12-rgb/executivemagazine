@@ -13,7 +13,7 @@ export default function AuthorPage() {
   return (
     <div className="pb-32 bg-white">
       {/* Author Header - Luxury Columnist Style - Bright */}
-      <header className="relative py-32 bg-white border-b border-gray-100 text-secondary overflow-hidden">
+      <header className="relative py-32 bg-white border-b border-gray-100 text-secondary overflow-hidden" data-aos="fade-down">
         <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
            <span className="text-[25rem] font-bold leading-none select-none -translate-x-1/4 text-secondary/10">CONTRIBUTOR</span>
         </div>
@@ -86,7 +86,7 @@ export default function AuthorPage() {
       </header>
 
       {/* Author Stats & More */}
-      <div className="container mx-auto px-4 lg:px-8 -mt-10 relative z-20">
+      <div className="container mx-auto px-4 lg:px-8 -mt-10 relative z-20" data-aos="fade-up">
          <div className="bg-white premium-shadow p-10 flex flex-wrap justify-center gap-16 border border-gray-50">
             <div className="text-center">
                <p className="text-[9px] font-bold uppercase tracking-widest text-accent mb-2">Articles Published</p>
@@ -106,7 +106,7 @@ export default function AuthorPage() {
       </div>
 
       {/* Article Contributions */}
-      <section className="py-32">
+      <section className="py-32" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Latest Contributions" subtitle={`Explore insights from ${author.name}`} />
           
@@ -130,7 +130,7 @@ export default function AuthorPage() {
       </section>
 
       {/* Subscribe to Author Newsletter */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-50" data-aos="fade-up">
          <div className="container mx-auto px-4 lg:px-8 max-w-4xl text-center">
             <span className="caps-heading mb-6 block">Stay Informed</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold italic text-secondary mb-12">Get {author.name.split(' ')[0]}'s weekly briefing directly in your inbox.</h2>

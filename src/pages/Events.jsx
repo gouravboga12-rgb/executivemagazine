@@ -41,7 +41,7 @@ export default function Events() {
   return (
     <div className="pb-32 bg-white min-h-screen">
       {/* Premium Editorial Header */}
-      <section className="bg-white pt-24 pb-16 border-b border-gray-100">
+      <section className="bg-white pt-24 pb-16 border-b border-gray-100" data-aos="fade-down">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl">
             <span className="text-accent text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Archive & Insights</span>
@@ -82,6 +82,7 @@ export default function Events() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-24 group cursor-pointer"
             onClick={() => setSelectedEvent(featuredEvent)}
+            data-aos="fade-up"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-8 overflow-hidden bg-gray-50 aspect-[16/9] lg:aspect-auto lg:h-[500px] shadow-2xl relative">
@@ -125,6 +126,8 @@ export default function Events() {
               transition={{ delay: idx * 0.1 }}
               onClick={() => setSelectedEvent(event)}
               className="group cursor-pointer flex flex-col"
+              data-aos="fade-up"
+              data-aos-delay={idx * 50}
             >
               <div className="relative aspect-[4/3] overflow-hidden mb-8 shadow-sm group-hover:shadow-xl transition-all duration-500">
                 <img 
@@ -324,7 +327,7 @@ export default function Events() {
       </AnimatePresence>
 
       {/* Footer CTA */}
-      <div className="container mx-auto px-4 lg:px-8 mt-32 text-center">
+      <div className="container mx-auto px-4 lg:px-8 mt-32 text-center" data-aos="fade-up">
         <div className="max-w-2xl mx-auto space-y-8 p-16 bg-gray-50 border border-gray-100">
           <Info size={40} className="text-accent mx-auto" />
           <h4 className="text-3xl font-bold text-secondary uppercase tracking-tighter">Event Submissions</h4>

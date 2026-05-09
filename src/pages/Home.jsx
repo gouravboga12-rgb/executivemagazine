@@ -45,14 +45,14 @@ export default function Home() {
       </div>
 
       {/* 1. The Editorial Library / Executive Archives */}
-      <section className="py-32 bg-white relative overflow-hidden">
+      <section className="py-32 bg-white relative overflow-hidden" data-aos="fade-up">
         {/* Decorative background element */}
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
           <span className="absolute top-20 left-10 text-[20rem] font-black uppercase rotate-90">ARCHIVE</span>
         </div>
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="max-w-3xl mb-20">
+          <div className="max-w-3xl mb-20" data-aos="fade-right">
             <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold mb-6 block">In-Depth Corporate Intel</span>
             <h2 className="text-5xl md:text-7xl font-serif font-bold text-secondary tracking-tighter uppercase leading-tight transform-gpu">
               THE CORPORATE <br />
@@ -78,6 +78,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 className="group relative"
+                data-aos="fade-up"
+                data-aos-delay={idx * 50}
               >
                 <Link 
                   to={`/interview/${item.id}`}
@@ -122,7 +124,7 @@ export default function Home() {
       </section>
 
       {/* 2. Print Tradition / Digital Magazine Archive */}
-      <section className="py-24 bg-secondary text-white">
+      <section className="py-24 bg-secondary text-white" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
             <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Print Tradition</span>
@@ -156,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* 3. Get Listed in Executives */}
-      <section className="py-32 bg-white overflow-hidden">
+      <section className="py-32 bg-white overflow-hidden" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
             <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">Featured Opportunities</span>
@@ -213,7 +215,7 @@ export default function Home() {
 
 
       {/* Legacy & Authority - About Teaser */}
-      <section className="py-32 bg-white relative overflow-hidden">
+      <section className="py-32 bg-white relative overflow-hidden" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-20">
             <div className="lg:w-1/2 space-y-10">
@@ -265,7 +267,7 @@ export default function Home() {
       </section>
 
       {/* 4. Business Preview */}
-      <section className="py-24 bg-gray-50 border-y border-gray-100">
+      <section className="py-24 bg-gray-50 border-y border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Business & Leadership" subtitle="Corporate Intelligence" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -283,7 +285,7 @@ export default function Home() {
       </section>
 
       {/* 5. Opinion Preview */}
-      <section className="py-24">
+      <section className="py-24" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Executive Opinions" subtitle="The Strategic Perspective" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -318,7 +320,7 @@ export default function Home() {
       </section>
 
       {/* 6. Lifestyle Preview */}
-      <section className="py-24 bg-secondary text-white relative overflow-hidden">
+      <section className="py-24 bg-secondary text-white relative overflow-hidden" data-aos="fade-up">
         <div className="absolute inset-0 opacity-10">
           <img src="https://images.unsplash.com/photo-1511144080777-5e74473bba7a?q=80&w=2070&auto=format&fit=crop" alt="Lifestyle bg" className="w-full h-full object-cover" />
         </div>
@@ -350,7 +352,7 @@ export default function Home() {
       </section>
 
       {/* 7. Events Preview */}
-      <section className="py-24 border-b border-gray-100">
+      <section className="py-24 border-b border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Upcoming Events" subtitle="Global Business Summits" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -374,7 +376,7 @@ export default function Home() {
       </section>
 
       {/* 8. Spotlights Preview */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gray-50" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Corporate Spotlights" subtitle="Strategic Brand Features" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -399,7 +401,7 @@ export default function Home() {
       </section>
 
       {/* 9. AI Info Preview */}
-      <section className="py-24">
+      <section className="py-24" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-20">
             <div className="lg:w-1/2 space-y-8">

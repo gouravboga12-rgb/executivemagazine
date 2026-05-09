@@ -7,7 +7,7 @@ export default function Spotlights() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-secondary">
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-secondary" data-aos="fade-down">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" 
@@ -52,6 +52,8 @@ export default function Spotlights() {
               key={spotlight.id}
               to={`/spotlights/${spotlight.id}`}
               className="group relative h-[600px] overflow-hidden rounded-sm premium-shadow block"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
             >
               <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-110">
                 <img 
@@ -86,7 +88,7 @@ export default function Spotlights() {
       </section>
 
       {/* Participation Stats */}
-      <section className="bg-off-white py-24 border-y border-gray-100">
+      <section className="bg-off-white py-24 border-y border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center space-y-4">
@@ -115,7 +117,7 @@ export default function Spotlights() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-24 text-center">
+      <section className="py-24 text-center" data-aos="fade-up">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-serif text-secondary mb-8">Ready to showcase your journey?</h2>
           <p className="text-gray-500 max-w-xl mx-auto mb-12 font-light italic">

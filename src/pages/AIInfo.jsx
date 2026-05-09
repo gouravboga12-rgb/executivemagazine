@@ -89,7 +89,7 @@ export default function AIInfo() {
   return (
     <div className="bg-white min-h-screen">
       {/* Premium Hero */}
-      <section className="bg-secondary py-32 text-white relative overflow-hidden">
+      <section className="bg-secondary py-32 text-white relative overflow-hidden" data-aos="fade-down">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5" />
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <div className="max-w-4xl">
@@ -114,7 +114,7 @@ export default function AIInfo() {
       </section>
 
       {/* Insights Grid */}
-      <section className="py-32">
+      <section className="py-32" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {aiInsights.map((insight, idx) => (
@@ -125,6 +125,8 @@ export default function AIInfo() {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
                 className={`group flex flex-col space-y-8 ${idx === 0 ? 'lg:col-span-2' : ''}`}
+                data-aos="fade-up"
+                data-aos-delay={idx * 50}
               >
                 <button 
                   className={`relative overflow-hidden premium-shadow cursor-pointer w-full text-left ${idx === 0 ? 'aspect-[21/9]' : 'aspect-[16/9]'}`}
@@ -245,7 +247,7 @@ export default function AIInfo() {
       </AnimatePresence>
 
       {/* Intelligence CTA */}
-      <section className="py-32 bg-gray-50 border-t border-gray-100">
+      <section className="py-32 bg-gray-50 border-t border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8 text-center">
           <div className="max-w-3xl mx-auto space-y-12">
             <TrendingUp className="mx-auto text-accent" size={48} />

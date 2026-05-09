@@ -18,7 +18,7 @@ export default function DigitalMagazine() {
   return (
     <div className="pb-32">
       {/* ── Hero Header ── */}
-      <section className="bg-white border-b border-gray-100 text-secondary pt-40 pb-20 lg:py-32 relative overflow-hidden">
+      <section className="bg-white border-b border-gray-100 text-secondary pt-40 pb-20 lg:py-32 relative overflow-hidden" data-aos="fade-down">
         <div className="absolute top-0 right-0 h-full flex items-center opacity-[0.03] lg:opacity-[0.04] pointer-events-none select-none">
           <span className="text-[12rem] lg:text-[22rem] font-black uppercase leading-none text-secondary">LIBRARY</span>
         </div>
@@ -62,7 +62,7 @@ export default function DigitalMagazine() {
       </section>
 
       {/* ── Featured Issue ── */}
-      <section className="py-28 bg-gray-50 border-b border-gray-100">
+      <section className="py-28 bg-gray-50 border-b border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             {/* Cover */}
@@ -129,7 +129,7 @@ export default function DigitalMagazine() {
       </section>
 
       {/* ── All Editions Grid ── */}
-      <section className="py-28">
+      <section className="py-28" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 gap-8 text-center md:text-left">
             <div>
@@ -168,6 +168,8 @@ export default function DigitalMagazine() {
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -8 }}
                 className="group cursor-pointer"
+                data-aos="fade-up"
+                data-aos-delay={i * 50}
               >
                 {/* Cover Art */}
                 <Link 
@@ -229,7 +231,7 @@ export default function DigitalMagazine() {
       </section>
 
       {/* ── Full List / Quick Access ── */}
-      <section className="py-20 bg-gray-50 border-t border-gray-100">
+      <section className="py-20 bg-gray-50 border-t border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-12">
             <span className="caps-heading mb-4 block">Quick Access</span>

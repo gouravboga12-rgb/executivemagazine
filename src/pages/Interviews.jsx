@@ -87,7 +87,7 @@ export default function Interviews() {
   return (
     <div className="pb-32 bg-white min-h-screen">
       {/* Hero */}
-      <section className="bg-secondary py-32 text-white overflow-hidden relative">
+      <section className="bg-secondary py-32 text-white overflow-hidden relative" data-aos="fade-down">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/5 -skew-x-12 translate-x-1/4" />
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
@@ -117,7 +117,7 @@ export default function Interviews() {
       </section>
 
       {/* Search Bar */}
-      <div className="container mx-auto px-4 lg:px-8 -mt-10 relative z-30">
+      <div className="container mx-auto px-4 lg:px-8 -mt-10 relative z-30" data-aos="fade-up">
         <div className="max-w-3xl mx-auto">
           <div className="bg-white/90 backdrop-blur-xl p-1.5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 flex items-center group transition-all duration-500 hover:shadow-[0_25px_60px_rgba(0,0,0,0.15)] focus-within:ring-4 focus-within:ring-accent/5">
             <div className="pl-6 pr-4 text-gray-400 group-focus-within:text-accent transition-colors">
@@ -165,6 +165,8 @@ export default function Interviews() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
               className="group bg-white border border-gray-100 shadow-2xl hover:shadow-accent/10 transition-all duration-500 overflow-hidden flex flex-col"
+              data-aos="fade-up"
+              data-aos-delay={idx * 50}
             >
               <Link 
                 to={`/interview/${item.id}`}
@@ -207,7 +209,7 @@ export default function Interviews() {
       </div>
 
       {/* Footer Info */}
-      <div className="container mx-auto px-4 lg:px-8 mt-32">
+      <div className="container mx-auto px-4 lg:px-8 mt-32" data-aos="fade-up">
         <div className="bg-gray-50 p-12 md:p-20 border border-gray-100 flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="max-w-2xl space-y-6 text-center lg:text-left">
             <h2 className="text-3xl font-serif font-bold text-secondary">Looking for a specific feature?</h2>

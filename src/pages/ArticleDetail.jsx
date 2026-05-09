@@ -28,7 +28,7 @@ export default function ArticleDetail() {
       <motion.div className="fixed top-0 left-0 right-0 h-1 bg-accent z-[100] origin-left" style={{ scaleX }} />
 
       {/* Hero Header - Light */}
-      <header className="relative h-[70vh] md:h-[80vh] w-full overflow-hidden bg-white border-b border-gray-100">
+      <header className="relative h-[70vh] md:h-[80vh] w-full overflow-hidden bg-white border-b border-gray-100" data-aos="fade-down">
         <div className="absolute inset-0">
           <img 
             src={article.image} 
@@ -165,7 +165,7 @@ export default function ArticleDetail() {
                 )}
               </div>
 
-                <div className="mt-16 space-y-16">
+                <div className="mt-16 space-y-16" data-aos="fade-up">
                   <div 
                     className="article-premium-content prose prose-xl max-w-none text-gray-700 leading-relaxed space-y-8"
                     dangerouslySetInnerHTML={{ __html: article.content || article.fullArticle || article.description }} 
@@ -311,7 +311,7 @@ export default function ArticleDetail() {
 
 
       {/* Footer Related Section */}
-      <section className="mt-32 pt-32 border-t border-gray-100 bg-gray-50/50 pb-20">
+      <section className="mt-32 pt-32 border-t border-gray-100 bg-gray-50/50 pb-20" data-aos="fade-up">
          <div className="container mx-auto px-4 lg:px-8">
             <SectionHeading title="Further Reading" subtitle="Explore More Insights" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16">

@@ -48,7 +48,7 @@ export default function Contact() {
   return (
     <div className="pb-32 bg-white">
       {/* Immersive Header - Light */}
-      <header className="relative h-[50vh] flex items-center bg-gray-50 overflow-hidden border-b border-gray-100">
+      <header className="relative h-[50vh] flex items-center bg-gray-50 overflow-hidden border-b border-gray-100" data-aos="fade-down">
          <div className="absolute inset-0 opacity-40">
             <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop" alt="Contact HQ" className="w-full h-full object-cover" />
          </div>
@@ -71,7 +71,7 @@ export default function Contact() {
          </div>
       </header>
 
-      <div className="container mx-auto px-4 lg:px-8 -mt-12 relative z-20">
+      <div className="container mx-auto px-4 lg:px-8 -mt-12 relative z-20" data-aos="fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white premium-shadow border border-gray-100">
           
           {/* Info Sidebar - Light Luxe Style */}
@@ -194,7 +194,7 @@ export default function Contact() {
 
 
        {/* Global Presence Map / Visual */}
-       <section className="mt-32 container mx-auto px-4 lg:px-8">
+       <section className="mt-32 container mx-auto px-4 lg:px-8" data-aos="fade-up">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-12">
             <div className="border-l border-gray-100 pl-10 py-4 border-accent transition-colors">
                <h4 className="text-2xl font-serif font-bold text-secondary mb-2">Hyderabad Headquarters</h4>

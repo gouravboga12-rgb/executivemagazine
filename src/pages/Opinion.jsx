@@ -23,7 +23,7 @@ const Opinion = () => {
   return (
     <div className="bg-[#FAF9F6] min-h-screen pt-24 pb-20">
       {/* Editorial Header */}
-      <header className="container mx-auto px-4 lg:px-8 mb-20 text-center">
+      <header className="container mx-auto px-4 lg:px-8 mb-20 text-center" data-aos="fade-down">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,13 +41,15 @@ const Opinion = () => {
       </header>
 
       {/* Opinions Grid */}
-      <section className="container mx-auto px-4 lg:px-8">
+      <section className="container mx-auto px-4 lg:px-8" data-aos="fade-up">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {opinions.map((opinion, idx) => (
             <button
               key={opinion.id}
               className="group cursor-pointer text-left w-full"
               onClick={() => setSelectedOpinion(opinion)}
+              data-aos="fade-up"
+              data-aos-delay={idx * 50}
             >
               <div className="space-y-6">
                 <div className="relative aspect-[4/5] overflow-hidden">
@@ -297,7 +299,7 @@ const Opinion = () => {
       </AnimatePresence>
 
       {/* Editorial Footer */}
-      <section className="container mx-auto px-4 lg:px-8 mt-32 py-20 border-t border-gray-200">
+      <section className="container mx-auto px-4 lg:px-8 mt-32 py-20 border-t border-gray-200" data-aos="fade-up">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="flex justify-center -space-x-4 mb-8">
             {['JW', 'SC', 'DP', 'PB', 'MR'].map((initial, i) => (

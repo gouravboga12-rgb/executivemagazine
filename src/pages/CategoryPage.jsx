@@ -130,7 +130,7 @@ export default function CategoryPage({ category: propCategory }) {
   return (
     <div className="pb-32 bg-white">
       {/* Existing Dynamic Header for other categories */}
-      <section className="relative min-h-[60vh] flex items-center bg-white overflow-hidden border-b border-gray-100">
+      <section className="relative min-h-[60vh] flex items-center bg-white overflow-hidden border-b border-gray-100" data-aos="fade-down">
         <div className="absolute inset-0 opacity-40">
            {featuredArticles[0] && (
              <img 
@@ -196,7 +196,7 @@ export default function CategoryPage({ category: propCategory }) {
       </div>
 
       <div className="container mx-auto px-4 lg:px-8">
-        <section className="py-24">
+        <section className="py-24" data-aos="fade-up">
            <SectionHeading title="Featured Analysis" subtitle={`Top stories in ${currentCategory}`} />
            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12">
               {featuredArticles.slice(0, 3).map((article, idx) => (
@@ -236,7 +236,7 @@ export default function CategoryPage({ category: propCategory }) {
         </section>
 
         {/* Section 2: Trending & Experts */}
-        <section className="py-24 border-y border-gray-100">
+        <section className="py-24 border-y border-gray-100" data-aos="fade-up">
            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
               <div className="lg:col-span-8">
                  <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-accent mb-10">Latest Intelligence</h3>
@@ -323,7 +323,7 @@ export default function CategoryPage({ category: propCategory }) {
         </section>
 
         {/* Section 3: Visual Grid */}
-        <section className="py-24">
+        <section className="py-24" data-aos="fade-up">
            <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
               <div className="max-w-2xl">
                  <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block">Visual Perspective</span>

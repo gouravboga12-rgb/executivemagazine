@@ -17,7 +17,7 @@ export default function About() {
   return (
     <div className="pb-32 bg-white selection:bg-accent selection:text-white">
       {/* ── Cinematic Hero ── */}
-      <section className="relative h-[90vh] flex items-center overflow-hidden bg-secondary">
+      <section className="relative h-[90vh] flex items-center overflow-hidden bg-secondary" data-aos="fade-down">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2069&auto=format&fit=crop" 
@@ -67,7 +67,7 @@ export default function About() {
       </section>
 
       {/* ── The Manifesto ── */}
-      <section className="py-32 bg-white">
+      <section className="py-32 bg-white" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
             <motion.div {...fadeInUp} className="space-y-12">
@@ -124,7 +124,7 @@ export default function About() {
       </section>
 
       {/* ── Authority Metrics ── */}
-      <section className="py-32 bg-secondary relative overflow-hidden">
+      <section className="py-32 bg-secondary relative overflow-hidden" data-aos="fade-up">
         <div className="absolute inset-0 opacity-[0.03] flex items-center justify-center">
           <span className="text-[30rem] font-bold text-white select-none">IMPACT</span>
         </div>
@@ -153,7 +153,7 @@ export default function About() {
       </section>
 
       {/* ── Editorial Pillars ── */}
-      <section className="py-32 bg-white">
+      <section className="py-32 bg-white" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-24 space-y-6">
              <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Framework</span>
@@ -194,7 +194,7 @@ export default function About() {
       </section>
 
       {/* ── The Global Network ── */}
-      <section className="py-32 border-t border-gray-100">
+      <section className="py-32 border-t border-gray-100" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-24 items-center">
             <div className="lg:w-1/3 space-y-8">
@@ -234,7 +234,7 @@ export default function About() {
       </section>
 
       {/* ── Final Call to Action ── */}
-      <section className="py-24 bg-secondary">
+      <section className="py-24 bg-secondary" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <motion.div 
             {...fadeInUp}
