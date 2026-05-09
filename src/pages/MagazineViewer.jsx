@@ -78,16 +78,17 @@ export default function MagazineViewer() {
              )}
           </div>
 
-        <div className="flex items-center gap-4">
-          <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
+          <div className="flex items-center gap-4">
+            <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
 
-          <a
-            href={magazine.pdf}
-            download
-            className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
-          >
-            Download <span className="hidden md:inline">PDF</span>
-          </a>
+            <a
+              href={magazine.pdf}
+              download
+              className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
+            >
+              Download <span className="hidden md:inline">PDF</span>
+            </a>
+          </div>
         </div>
       </nav>
 
