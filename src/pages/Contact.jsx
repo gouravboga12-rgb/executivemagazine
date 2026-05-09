@@ -95,7 +95,7 @@ export default function Contact() {
                     </div>
                     <div className="space-y-1">
                        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{item.label}</p>
-                       <p className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">{item.val}</p>
+                       <p className="text-sm font-medium hover:text-accent transition-colors cursor-pointer break-all">{item.val}</p>
                     </div>
                  </div>
                ))}
