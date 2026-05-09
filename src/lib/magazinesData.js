@@ -54,7 +54,7 @@ export const magazines = [
   {
     id: 'anniversary-edition',
     title: 'The Executives Magazine',
-    subtitle: 'Special Anniversary Edition',
+    subtitle: 'Special Anniversary Edition v1',
     edition: 'Anniversary Edition',
     image: '/magazines/anniversary-edition.png',
     pdf: '/magazine-5.pdf',
