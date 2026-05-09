@@ -78,20 +78,21 @@ export default function MagazineViewer() {
              )}
           </div>
 
+        <div className="flex items-center gap-4">
           <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
 
           <a
             href={magazine.pdf}
             download
-            className="bg-accent text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
+            className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
           >
-            Download PDF
+            Download <span className="hidden md:inline">PDF</span>
           </a>
         </div>
       </nav>
 
       {/* ── Reader Main Container ── */}
-      <div className="flex-grow relative flex flex-col items-center justify-start py-8 md:py-12 overflow-y-auto no-scrollbar bg-[#0f0f0f]">
+      <div className="flex-grow relative flex flex-col items-center justify-start py-0 md:py-12 overflow-y-auto no-scrollbar bg-[#0f0f0f]">
         
         {/* Background Visual Texture */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none select-none overflow-hidden">
@@ -134,13 +135,13 @@ export default function MagazineViewer() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isLoading ? 0 : 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-6xl mx-auto px-4 md:px-0 z-10"
+          className="relative w-full max-w-6xl mx-auto px-0 md:px-0 z-10"
         >
           {/* Shadow & Elevation Container */}
           <div className="relative bg-white shadow-[0_60px_120px_-30px_rgba(0,0,0,1)] border border-white/5 overflow-hidden">
             
             {/* Embedded Iframe Reader */}
-            <div className="relative w-full overflow-hidden bg-gray-50" style={{ height: 'calc(100vh - 180px)' }}>
+            <div className="relative w-full overflow-hidden bg-gray-50" style={{ height: 'calc(100vh - 120px)' }}>
               <iframe
                 src={`${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#view=Fit`}
                 title={magazine.title}

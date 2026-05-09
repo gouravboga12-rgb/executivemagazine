@@ -50,26 +50,26 @@ export default function InterviewViewer() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-            <ShieldCheck size={12} className="text-accent" />
-            <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest">Verified Secured Source</span>
-          </div>
+        <div className="hidden lg:flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
+          <ShieldCheck size={12} className="text-accent" />
+          <span className="text-[9px] font-bold text-white/50 uppercase tracking-widest">Verified Secured Source</span>
+        </div>
 
+        <div className="flex items-center gap-4">
           <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
 
           <a
             href={pdfUrl}
             download
-            className="bg-accent text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
+            className="bg-accent text-white px-4 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20"
           >
-            Download PDF
+            Download <span className="hidden md:inline">PDF</span>
           </a>
         </div>
       </nav>
 
       {/* ── Immersive Reader Area ── */}
-      <div className="flex-grow relative flex flex-col items-center justify-start py-8 md:py-12 overflow-y-auto no-scrollbar bg-[#0f0f0f]">
+      <div className="flex-grow relative flex flex-col items-center justify-start py-0 md:py-12 overflow-y-auto no-scrollbar bg-[#0f0f0f]">
         
         {/* Background Texture Overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none overflow-hidden">
@@ -112,13 +112,13 @@ export default function InterviewViewer() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: isLoading ? 0 : 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-6xl mx-auto px-4 md:px-0 z-10"
+          className="relative w-full max-w-6xl mx-auto px-0 md:px-0 z-10"
         >
           {/* Frame Shadow & Border */}
           <div className="relative bg-white shadow-[0_50px_100px_-20px_rgba(0,0,0,1)] border border-white/10 overflow-hidden">
             
             {/* Custom Iframe Reader */}
-            <div className="relative w-full overflow-hidden bg-gray-100" style={{ height: '88vh' }}>
+            <div className="relative w-full overflow-hidden bg-gray-100" style={{ height: 'calc(100vh - 100px)' }}>
               <iframe
                 src={`${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#view=Fit`}
                 title={title}
