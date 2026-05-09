@@ -335,11 +335,11 @@ export default function Events() {
             </div>
             <div className="relative z-10">
               <span className="text-accent text-[10px] font-bold uppercase tracking-[0.5em] mb-4 block">Event Submissions</span>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase leading-none mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter uppercase leading-none mb-6 text-white">
                 Submit Your <br />
                 <span className="italic font-serif normal-case text-accent">Summit</span> for Review
               </h2>
-              <p className="text-white/60 text-sm font-light leading-relaxed max-w-md">
+              <p className="text-white/70 text-sm font-light leading-relaxed max-w-md">
                 Organizing a high-impact business summit or a specialized tech event? Submit your details for editorial review and placement in our strategic outlook calendar.
               </p>
             </div>
