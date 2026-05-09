@@ -122,7 +122,7 @@ export default function InterviewViewer() {
               <iframe
                 src={
                   ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-                    ? `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
+                    ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`
                     : `${window.location.origin}${encodeURI(pdfUrl)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
                 }
                 title={title}
