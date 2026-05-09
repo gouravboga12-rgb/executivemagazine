@@ -54,9 +54,9 @@ export default function MagazineViewer() {
             <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform text-accent" />
             <span className="hidden md:inline">Close Edition</span>
           </button>
-          
+
           <div className="h-8 w-[1px] bg-white/10 hidden md:block" />
-          
+
           <div className="hidden md:flex flex-col">
             <span className="text-[8px] font-bold text-accent uppercase tracking-[0.4em] mb-1">Premium Digital Edition</span>
             <h1 className="text-sm font-serif font-bold text-white tracking-wide truncate max-w-lg">
@@ -67,7 +67,7 @@ export default function MagazineViewer() {
 
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-1 md:gap-2 bg-white/5 rounded-full px-2 md:px-3 py-1 md:py-1.5 border border-white/10">
-            <button 
+            <button
               onClick={() => setZoom(Math.max(50, zoom - 10))}
               className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all text-xs"
               title="Zoom Out"
@@ -75,7 +75,7 @@ export default function MagazineViewer() {
               -
             </button>
             <span className="text-[8px] md:text-[10px] font-bold text-white/40 w-8 md:w-12 text-center uppercase tracking-widest">{zoom}%</span>
-            <button 
+            <button
               onClick={() => setZoom(Math.min(200, zoom + 10))}
               className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all text-xs"
               title="Zoom In"
@@ -85,16 +85,16 @@ export default function MagazineViewer() {
           </div>
 
           <div className="hidden lg:flex items-center gap-8 mr-6">
-             {prevMag && (
-               <Link to={`/magazine/${prevMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
-                  <ChevronLeft size={14} /> Prev
-               </Link>
-             )}
-             {nextMag && (
-               <Link to={`/magazine/${nextMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
-                  Next <ChevronRight size={14} />
-               </Link>
-             )}
+            {prevMag && (
+              <Link to={`/magazine/${prevMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
+                <ChevronLeft size={14} /> Prev
+              </Link>
+            )}
+            {nextMag && (
+              <Link to={`/magazine/${nextMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
+                Next <ChevronRight size={14} />
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -115,7 +115,7 @@ export default function MagazineViewer() {
 
       {/* ── Reader Main Container ── */}
       <div className="flex-grow relative flex flex-col items-center justify-start py-0 md:py-12 overflow-y-auto no-scrollbar bg-[#0f0f0f]">
-        
+
         {/* Background Visual Texture */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none select-none overflow-hidden">
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40rem] font-bold text-white uppercase tracking-tighter">Edition</span>
@@ -124,13 +124,13 @@ export default function MagazineViewer() {
         {/* Cinematic Loading Overlay */}
         <AnimatePresence>
           {isLoading && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
               className="absolute inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center"
             >
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 className="text-center space-y-8"
@@ -138,7 +138,7 @@ export default function MagazineViewer() {
                 <div className="flex flex-col items-center">
                   <span className="text-accent text-[10px] font-bold uppercase tracking-[0.8em] mb-4 animate-pulse">Retrieving Edition</span>
                   <div className="w-64 h-[1px] bg-white/5 relative overflow-hidden">
-                    <motion.div 
+                    <motion.div
                       initial={{ x: '-100%' }}
                       animate={{ x: '100%' }}
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -161,7 +161,7 @@ export default function MagazineViewer() {
         >
           {/* Shadow & Elevation Container */}
           <div className="relative bg-white shadow-[0_60px_120px_-30px_rgba(0,0,0,1)] border border-white/5 overflow-hidden">
-            
+
             {/* Embedded Iframe Reader */}
             <div className="relative w-full overflow-auto bg-gray-50 flex justify-center" style={{ height: 'calc(100vh - 120px)' }}>
               <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
@@ -171,33 +171,33 @@ export default function MagazineViewer() {
                   className="w-full h-full border-none"
                 />
               </div>
-              
+
               {/* Overlay shadow for depth */}
               <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.03)]" />
             </div>
 
             {/* In-Reader Context Actions */}
             <div className="absolute top-8 right-8 flex flex-col gap-4">
-               <a 
-                href={magazine.pdf} 
-                target="_blank" 
+              <a
+                href={magazine.pdf}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-secondary/80 backdrop-blur-md text-white rounded-full hover:bg-accent transition-all shadow-xl"
-               >
-                  <Maximize2 size={18} />
-               </a>
+              >
+                <Maximize2 size={18} />
+              </a>
             </div>
           </div>
 
           {/* Reader Footer Branding */}
           <div className="mt-16 mb-32 text-center">
-             <div className="inline-flex items-center space-x-6 px-10 py-4 bg-[#111] border border-white/5 rounded-full">
-                <Globe size={14} className="text-accent" />
-                <span className="text-white/30 text-[9px] font-bold uppercase tracking-[0.4em]">
-                  Executives Global Digital Archive • Edition {magazineIndex + 1}
-                </span>
-                <ShieldCheck size={14} className="text-accent" />
-             </div>
+            <div className="inline-flex items-center space-x-6 px-10 py-4 bg-[#111] border border-white/5 rounded-full">
+              <Globe size={14} className="text-accent" />
+              <span className="text-white/30 text-[9px] font-bold uppercase tracking-[0.4em]">
+                Executives Global Digital Archive • Edition {magazineIndex + 1}
+              </span>
+              <ShieldCheck size={14} className="text-accent" />
+            </div>
           </div>
         </motion.div>
       </div>
