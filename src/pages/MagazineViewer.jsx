@@ -60,7 +60,7 @@ export default function MagazineViewer() {
           <div className="hidden md:flex flex-col">
             <span className="text-[8px] font-bold text-accent uppercase tracking-[0.4em] mb-1">Premium Digital Edition</span>
             <h1 className="text-sm font-serif font-bold text-white tracking-wide truncate max-w-lg">
-              {magazine.title} — {magazine.subtitle}
+              {magazine.title} — {magazine.subtitle} <span className="text-[8px] text-white/20 ml-2 font-sans tracking-widest">v1.2</span>
             </h1>
           </div>
         </div>
@@ -165,8 +165,8 @@ export default function MagazineViewer() {
               <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
                 <iframe
                   src={
-                    ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-                      ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true`
+                    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+                      ? `https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + magazine.pdf)}&embedded=true&cb=${Date.now()}`
                       : `${window.location.origin}${encodeURI(magazine.pdf)}?v=${Date.now()}#toolbar=0&navpanes=0&scrollbar=1&view=Fit`
                   }
                   title={magazine.title}
