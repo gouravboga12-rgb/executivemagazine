@@ -71,18 +71,18 @@ export default function Hero({ article }) {
             </div>
 
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="text-xl md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto italic"
+              transition={{ delay: 1.8, duration: 1, ease: "easeOut" }}
+              className="text-xl md:text-2xl text-white/80 font-light leading-relaxed max-w-4xl mx-auto italic"
             >
-              "{article.excerpt}"
+              "As we enter a new era of industrial transformation, Executives Magazine explores the strategic shifts and visionary leadership defining the next half-century of global commerce."
             </motion.p>
 
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 0.8 }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 2.5, duration: 0.6, type: "spring", stiffness: 100 }}
               className="flex flex-wrap items-center justify-center gap-8 pt-8"
             >
               <Link 
@@ -104,16 +104,6 @@ export default function Hero({ article }) {
         </div>
       </div>
 
-      {/* Photographer Credit Overlay */}
-      <motion.div 
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 right-10 text-right hidden md:block"
-      >
-        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-white/40 block mb-1">Photographed By</span>
-        <span className="text-xs font-serif font-bold text-white/80">Julian Montgomery</span>
-      </motion.div>
     </section>
   )
 }
