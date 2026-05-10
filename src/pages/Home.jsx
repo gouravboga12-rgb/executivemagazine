@@ -26,7 +26,7 @@ export default function Home() {
       <Hero article={featuredArticle} />
 
       {/* Breaking News Ticker (Premium touch) */}
-      <div className="bg-secondary text-white overflow-hidden py-5 border-y border-white/5 relative z-20 mt-20">
+      <div className="bg-secondary text-white overflow-hidden py-5 border-y border-white/5 relative z-20 mt-2">
         <div className="container mx-auto px-4 lg:px-8 flex items-center relative">
           <div className="bg-accent px-4 py-1 mr-8 hidden md:block shrink-0 relative z-10">
              <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Latest</span>
