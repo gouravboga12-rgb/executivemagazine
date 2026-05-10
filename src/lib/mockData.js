@@ -7,7 +7,7 @@ export const articles = [
     author: "The Editorial Board",
     authorId: "editorial-board",
     date: "May 2024",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
+    image: "/executive_hero_cover_1778390983485.png",
     featured: true,
     content: `
       <p class="lead">At the heart of the world's most influential boardrooms, a new dialogue is emerging. One that transcends quarterly returns to focus on lasting impact. The 2026 Executive Mandate is not merely a set of guidelines; it is a fundamental shift in how we architect global industry.</p>

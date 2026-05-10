@@ -29,16 +29,35 @@ export default function Hero({ article }) {
                   <span className="text-accent text-[10px] font-bold uppercase tracking-[0.5em]">The Cover Story</span>
                 </motion.div>
 
-                <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-bold text-secondary leading-[1] tracking-tighter">
-                  {article.title}
-                </h1>
+                <motion.h1 
+                  variants={{
+                    hidden: { opacity: 1 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.08,
+                        delayChildren: 0.5,
+                      }
+                    }
+                  }}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif font-bold text-secondary leading-[1] tracking-tighter"
+                >
+                  {article.title.split("").map((char, index) => (
+                    <motion.span
+                      key={index}
+                      variants={{
+                        hidden: { opacity: 0 },
+                        visible: { opacity: 1 }
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </motion.h1>
 
                 <div className="flex items-center space-x-6 text-[10px] uppercase tracking-widest text-gray-400 font-bold">
-                  <span className="flex items-center gap-2">
-                    <Clock size={12} className="text-accent" />
-                    7 Min Read
-                  </span>
-                  <span className="h-4 w-[1px] bg-gray-200" />
                   <span className="text-secondary">{article.category}</span>
                 </div>
               </div>
@@ -47,12 +66,19 @@ export default function Hero({ article }) {
                 "{article.excerpt}"
               </p>
 
-              <div className="flex flex-wrap items-center gap-8 pt-4">
+              <div className="flex flex-wrap items-center gap-6 pt-4">
                 <Link 
-                  to={`/article/${article.id}`}
-                  className="group relative inline-flex items-center space-x-6 bg-secondary text-white px-10 py-5 text-[10px] font-bold uppercase tracking-[0.3em] overflow-hidden transition-all hover:bg-accent"
+                  to="/interviews"
+                  className="group relative inline-flex items-center space-x-6 bg-secondary text-white px-10 py-5 text-[10px] font-bold uppercase tracking-[0.3em] overflow-hidden transition-all hover:bg-accent rounded-full shadow-xl"
                 >
-                  <span className="relative z-10">Access Editorial</span>
+                  <span className="relative z-10">Explore Interviews</span>
+                  <ArrowRight size={16} className="relative z-10 group-hover:translate-x-2 transition-transform duration-500" />
+                </Link>
+                <Link 
+                  to="/digital-magazine"
+                  className="group relative inline-flex items-center space-x-6 border border-secondary text-secondary px-10 py-5 text-[10px] font-bold uppercase tracking-[0.3em] overflow-hidden transition-all hover:bg-secondary hover:text-white rounded-full"
+                >
+                  <span className="relative z-10">Digital Magazine</span>
                   <ArrowRight size={16} className="relative z-10 group-hover:translate-x-2 transition-transform duration-500" />
                 </Link>
               </div>
@@ -81,7 +107,7 @@ export default function Hero({ article }) {
               <div className="absolute bottom-10 left-10 right-10 p-8 glass-morphism border-none flex items-center justify-between opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700">
                 <div className="flex flex-col">
                   <span className="text-[8px] font-bold uppercase tracking-widest text-accent mb-1">Photographed By</span>
-                  <span className="text-xs font-serif font-bold text-secondary">Editorial Archive</span>
+                  <span className="text-xs font-serif font-bold text-secondary">Julian Montgomery</span>
                 </div>
                 <button className="text-secondary hover:text-accent transition-colors">
                   <Share2 size={18} />
