@@ -62,11 +62,11 @@ export default function Footer() {
           
           {/* Brand & Mission */}
           <div className="lg:col-span-4 space-y-10">
-            <Link to="/" className="flex flex-col">
-              <span className="font-serif text-5xl font-bold tracking-tighter text-white uppercase">
+            <Link to="/" className="flex flex-col items-center w-fit group transition-transform duration-300 hover:scale-[1.02] origin-left">
+              <span className="font-serif text-5xl font-extrabold tracking-tight text-white uppercase">
                 Executives
               </span>
-              <span className="text-[14px] tracking-[0.6em] uppercase text-accent -mt-2 font-bold">
+              <span className="text-[14px] tracking-[0.8em] uppercase text-accent mt-1 font-bold">
                 Magazine
               </span>
             </Link>

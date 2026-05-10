@@ -75,7 +75,7 @@ export default function Navbar() {
       <nav 
         onMouseLeave={() => setHoveredLink(null)}
         className={`sticky top-0 z-50 w-full transition-all duration-500 bg-white ${
-        isScrolled ? 'shadow-xl py-3' : 'py-6 md:py-8'
+        isScrolled ? 'shadow-xl py-4' : 'py-6 md:py-8'
       }`}>
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between">
@@ -92,17 +92,17 @@ export default function Navbar() {
             </div>
 
             {/* Center: Logo */}
-            <Link to="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
-              <span className={`font-serif font-bold text-secondary uppercase tracking-tighter transition-all duration-700 ${
-                isScrolled ? 'text-xl md:text-2xl' : 'text-3xl md:text-4xl lg:text-5xl'
+            <Link to="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center group transition-transform duration-300 hover:scale-[1.02]">
+              <span className={`font-serif font-extrabold text-secondary uppercase tracking-tight transition-all duration-700 ${
+                isScrolled ? 'text-lg md:text-xl' : 'text-3xl md:text-4xl lg:text-5xl'
               }`}>
                 Executives
               </span>
-              {!isScrolled && (
-                <span className="text-[8px] md:text-[10px] tracking-[0.6em] uppercase text-accent font-bold -mt-1 md:-mt-2">
-                  Magazine
-                </span>
-              )}
+              <span className={`uppercase text-accent font-bold tracking-[0.8em] transition-all duration-700 ${
+                isScrolled ? 'text-[6px] md:text-[7px] mt-0' : 'text-[10px] md:text-[12px] mt-1'
+              }`}>
+                Magazine
+              </span>
             </Link>
 
             {/* Right: CTA */}
@@ -284,9 +284,9 @@ export default function Navbar() {
             className="fixed inset-y-0 left-0 z-[60] w-full md:w-[400px] bg-white shadow-2xl p-8 flex flex-col"
           >
             <div className="flex justify-between items-center mb-16">
-              <Link to="/" className="flex flex-col">
-                <span className="font-serif font-bold text-2xl text-secondary uppercase tracking-tighter">Executives</span>
-                <span className="text-[8px] tracking-[0.4em] uppercase text-accent font-bold -mt-1">Magazine</span>
+              <Link to="/" className="flex flex-col group items-center">
+                <span className="font-serif font-extrabold text-2xl text-secondary uppercase tracking-tight group-hover:text-accent transition-colors">Executives</span>
+                <span className="text-[10px] tracking-[0.5em] uppercase text-accent font-bold mt-1">Magazine</span>
               </Link>
               <button onClick={() => setIsOpen(false)} className="p-2 text-secondary"><X size={24} /></button>
             </div>
