@@ -1,16 +1,67 @@
-# React + Vite
+# Executives Magazine - Digital Editorial Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Executives Magazine is a premium, high-end digital editorial platform designed for global business leaders and decision-makers. The platform delivers a sophisticated, immersive experience that bridges traditional print quality with modern interactive technology.
 
-Currently, two official plugins are available:
+## 🚀 Vision
+To architect global legacies by providing a high-fidelity digital home for corporate intelligence, strategic leadership, and executive lifestyle.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Key Features
 
-## React Compiler
+### 1. **Premium Editorial Home**
+- **Dynamic Hero Banner**: High-impact banner with background boardroom imagery and centered editorial typography.
+- **Advanced Animations**: Staggered, scroll-triggered reveal sequences using `framer-motion` for a deliberate, premium feel.
+- **Typewriter Reveal**: Signature typewriter animation for main editorial mandates.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. **Digital Magazine Archive**
+- **High-Fidelity PDF Viewer**: Seamless, high-performance reading experience for the complete library of print editions.
+- **Issue Gallery**: Categorized archives of past and current magazine editions.
 
-## Expanding the ESLint configuration
+### 3. **Corporate Portfolios & Interviews**
+- **Deep-Dive Profiles**: Dedicated sections for industry titans and corporate success stories.
+- **Integrated PDF Documentation**: Direct access to archival profiles and strategic briefings.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 4. **Specialized Editorial Sections**
+- **AI Intelligence Portal**: Focused coverage on the structural shifts in global compute sovereignty and AI governance.
+- **Executive Opinions**: Interactive "Reader Mode" for in-depth analysis from contributing editors.
+- **Lifestyle & Events**: Coverage of luxury summits, global business events, and high-end executive living.
+
+### 5. **Interactive Experience**
+- **Mega Navigation**: Advanced navigation system with contextual previews of recent stories.
+- **Responsive Design**: Flawless editorial fidelity across mobile, tablet, and desktop devices.
+- **Contact & Listing**: Streamlined application process for executives to get listed in the magazine.
+
+## 🛠 Technology Stack
+- **Frontend**: React.js (Vite)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion & Lucide Icons
+- **Routing**: React Router
+- **PDF Handling**: Integrated web-standard PDF rendering
+
+## 📦 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gouravboga12-rgb/executivemagazine.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 📂 Project Structure
+- `/src/pages`: 18+ unique editorial pages including Home, AI Portal, Digital Archive, etc.
+- `/src/components`: Reusable UI elements (Hero, Navbar, SectionHeading, ArticleCard).
+- `/src/lib`: Mock data and content management for various editorial sections.
+- `/public`: High-resolution imagery and PDF assets.
+
+---
+© 2026 Executives Media Group. All Rights Reserved.
