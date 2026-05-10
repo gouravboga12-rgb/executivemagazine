@@ -6,7 +6,7 @@ export default function Hero({ article }) {
   if (!article) return null
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] flex items-center justify-center pt-32 pb-2 overflow-hidden">
       {/* Background Image Banner */}
       <div className="absolute inset-0 z-0">
         <motion.img 
