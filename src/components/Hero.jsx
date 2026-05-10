@@ -57,16 +57,31 @@ export default function Hero({ article }) {
                   ))}
                 </motion.h1>
 
-                <div className="flex items-center space-x-6 text-[10px] uppercase tracking-widest text-gray-400 font-bold">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.8 }}
+                  className="flex items-center space-x-6 text-[10px] uppercase tracking-widest text-gray-400 font-bold"
+                >
                   <span className="text-secondary">{article.category}</span>
-                </div>
+                </motion.div>
               </div>
 
-              <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed border-l-2 border-gray-100 pl-8 italic">
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+                className="text-lg md:text-xl text-gray-500 font-light leading-relaxed border-l-2 border-gray-100 pl-8 italic"
+              >
                 "{article.excerpt}"
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap items-center gap-6 pt-4">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5, duration: 0.8 }}
+                className="flex flex-wrap items-center gap-6 pt-4"
+              >
                 <Link 
                   to="/interviews"
                   className="group relative inline-flex items-center space-x-6 bg-secondary text-white px-10 py-5 text-[10px] font-bold uppercase tracking-[0.3em] overflow-hidden transition-all hover:bg-accent rounded-full shadow-xl"
@@ -81,7 +96,7 @@ export default function Hero({ article }) {
                   <span className="relative z-10">Digital Magazine</span>
                   <ArrowRight size={16} className="relative z-10 group-hover:translate-x-2 transition-transform duration-500" />
                 </Link>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
 

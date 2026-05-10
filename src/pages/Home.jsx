@@ -52,13 +52,18 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="max-w-3xl mb-20" data-aos="fade-right">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mb-20"
+          >
             <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold mb-6 block">In-Depth Corporate Intel</span>
             <h2 className="text-5xl md:text-7xl font-serif font-bold text-secondary tracking-tighter uppercase leading-tight transform-gpu">
               THE CORPORATE <br />
               <span className="text-accent">Portfolios</span>
             </h2>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
             {[
@@ -73,13 +78,11 @@ export default function Home() {
             ].map((item, idx) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="group relative"
-                data-aos="fade-up"
-                data-aos-delay={idx * 50}
+                transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="group"
               >
                 <Link 
                   to={`/interview/${item.id}`}
@@ -91,9 +94,6 @@ export default function Home() {
                       src={item.img} 
                       alt={item.company} 
                       className="w-full h-full object-contain bg-white transition-all duration-1000 group-hover:scale-105"
-                      onError={(e) => {
-                        e.target.src = "https://images.unsplash.com/photo-1586339949916-3e9457bed613?q=80&w=2070&auto=format&fit=crop"
-                      }}
                     />
                     <div className="absolute inset-0 border-[15px] border-white/0 group-hover:border-white/40 transition-all duration-500" />
                   </div>
@@ -126,26 +126,38 @@ export default function Home() {
       {/* 2. Print Tradition / Digital Magazine Archive */}
       <section className="py-24 bg-secondary text-white" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-20 space-y-4"
+          >
             <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Print Tradition</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold">Digital Magazine Archive</h2>
             <p className="text-gray-400 font-light italic">"Access the complete library of Executives Magazine in high-fidelity digital format."</p>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
             {magazines.map((mag, index) => (
-              <Link 
-                key={mag.id} 
-                to={`/magazine/${mag.id}`}
-                className={`group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer ${index >= 4 ? 'hidden md:block' : ''}`}
+              <motion.div
+                key={mag.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className={index >= 4 ? 'hidden md:block' : ''}
               >
-                <img src={mag.image} alt={mag.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                {/* Overlay (Desktop) */}
-                <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center p-6 text-center space-y-4 pointer-events-none">
-                  <span className="text-accent text-[8px] font-bold uppercase tracking-widest">{mag.edition}</span>
-                  <h4 className="text-sm font-bold text-white leading-tight">{mag.title}</h4>
-                  <div className="bg-white text-secondary px-6 py-3 text-[9px] font-bold uppercase tracking-widest transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">Open Edition</div>
-                </div>
-              </Link>
+                <Link 
+                  to={`/magazine/${mag.id}`}
+                  className="group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer"
+                >
+                  <img src={mag.image} alt={mag.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center p-6 text-center space-y-4 pointer-events-none">
+                    <span className="text-accent text-[8px] font-bold uppercase tracking-widest">{mag.edition}</span>
+                    <h4 className="text-sm font-bold text-white leading-tight">{mag.title}</h4>
+                    <div className="bg-white text-secondary px-6 py-3 text-[9px] font-bold uppercase tracking-widest transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">Open Edition</div>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
           <div className="mt-16 text-center">
@@ -160,40 +172,47 @@ export default function Home() {
       {/* 3. Get Listed in Executives */}
       <section className="py-32 bg-white overflow-hidden" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center max-w-3xl mx-auto mb-20 space-y-6"
+          >
             <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">Featured Opportunities</span>
             <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary tracking-tight">Get Listed in Executives</h2>
             <p className="text-gray-500 font-light leading-relaxed">
               Showcase your leadership journey to our global audience of decision-makers. Follow our streamlined section
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {/* Connecting Line (Desktop) */}
-            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-[1px] bg-gray-100 -z-10" />
+            <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-100 -z-10 hidden lg:block" />
             
             {[
-              { step: "01", title: "Fill the Form", desc: "Submit your profile and company details for initial review.", icon: <FileText className="text-accent" /> },
+              { step: "01", title: "Inquiry", desc: "Submit your profile and company details for initial editorial review.", icon: <FileText className="text-accent" /> },
               { step: "02", title: "Schedule Meeting", desc: "Our board connects with you for a strategic briefing.", icon: <UserCheck className="text-accent" /> },
               { step: "03", title: "Complete Interview", desc: "Engage in an in-depth editorial interview with our experts.", icon: <MessageSquare className="text-accent" /> },
               { step: "04", title: "Publish & Share", desc: "Your feature goes live across our global executive network.", icon: <CheckCircle2 className="text-accent" /> }
-            ].map((item, idx) => (
+            ].map((step, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white p-8 border border-gray-50 premium-shadow text-center space-y-6 relative group hover:border-accent transition-all"
+                transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-white p-10 border border-gray-50 hover:shadow-2xl transition-all group"
               >
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-white w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold group-hover:bg-accent transition-colors">
-                  {item.step}
+                <div className="flex flex-col items-center text-center space-y-6">
+                  <span className="text-4xl font-serif italic text-accent/20 group-hover:text-accent transition-colors block">{step.step}</span>
+                  <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-accent/10 transition-colors">
+                    {step.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-secondary mb-4">{step.title}</h3>
+                    <p className="text-xs text-gray-400 leading-relaxed">{step.desc}</p>
+                  </div>
                 </div>
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto group-hover:bg-accent/10 transition-colors">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-bold text-secondary">{item.title}</h3>
-                <p className="text-xs text-gray-400 leading-relaxed font-light">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -271,8 +290,16 @@ export default function Home() {
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Business & Leadership" subtitle="Corporate Intelligence" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {articles.filter(a => a.category === 'Business').slice(0, 3).map((article) => (
-              <ArticleCard key={article.id} article={article} />
+            {articles.filter(a => a.category === 'Business').slice(0, 3).map((article, index) => (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <ArticleCard article={article} />
+              </motion.div>
             ))}
           </div>
           <div className="mt-16 text-center">
@@ -289,15 +316,21 @@ export default function Home() {
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Executive Opinions" subtitle="The Strategic Perspective" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {opinions.slice(0, 3).map((opi) => (
-              <button 
-                key={opi.id} 
-                className="group cursor-pointer space-y-6 text-left w-full"
-                onClick={() => setSelectedOpinion(opi)}
+            {opinions.slice(0, 3).map((opi, index) => (
+              <motion.div
+                key={opi.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <img src={opi.image} alt={opi.title} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
-                </div>
+                <button 
+                  className="group cursor-pointer space-y-6 text-left w-full"
+                  onClick={() => setSelectedOpinion(opi)}
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <img src={opi.image} alt={opi.title} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
+                  </div>
                   <div className="space-y-3">
                     <span className="text-accent text-[9px] font-bold uppercase tracking-widest">{opi.author}</span>
                     <h3 className="text-xl font-serif font-bold text-secondary group-hover:text-accent transition-colors">{opi.title}</h3>
@@ -307,7 +340,8 @@ export default function Home() {
                        <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
-              </button>
+                </button>
+              </motion.div>
             ))}
           </div>
           <div className="mt-16 text-center">
@@ -325,27 +359,40 @@ export default function Home() {
           <img src="https://images.unsplash.com/photo-1511144080777-5e74473bba7a?q=80&w=2070&auto=format&fit=crop" alt="Lifestyle bg" className="w-full h-full object-cover" />
         </div>
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8"
+          >
             <div className="space-y-4">
-              <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The Luxury Archive</span>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold">Executive Lifestyle</h2>
+              <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">The Luxury Archive</span>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-white">Executive Lifestyle</h2>
             </div>
             <Link to="/lifestyle" className="text-[10px] font-bold uppercase tracking-widest border-b border-white/20 pb-2 hover:text-accent hover:border-accent transition-all">View Full Archive</Link>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {articles.filter(a => a.category === 'Lifestyle').slice(0, 3).map((article) => (
-              <Link key={article.id} to={`/article/${article.id}`} className="group space-y-6 block">
-                <div className="relative aspect-video overflow-hidden">
-                  <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                  <div className="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="bg-white text-secondary px-6 py-2 text-[10px] font-bold uppercase tracking-widest">Read Article</span>
+            {articles.filter(a => a.category === 'Lifestyle').slice(0, 3).map((article, index) => (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link to={`/article/${article.id}`} className="group space-y-6 block">
+                  <div className="relative aspect-video overflow-hidden">
+                    <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="bg-white text-secondary px-6 py-2 text-[10px] font-bold uppercase tracking-widest">Read Article</span>
+                    </div>
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold group-hover:text-accent transition-colors">{article.title}</h3>
-                  <p className="text-xs text-gray-400 font-light line-clamp-2">{article.excerpt}</p>
-                </div>
-              </Link>
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-bold group-hover:text-accent transition-colors">{article.title}</h3>
+                    <p className="text-xs text-gray-400 font-light line-clamp-2">{article.excerpt}</p>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -356,20 +403,28 @@ export default function Home() {
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Upcoming Events" subtitle="Global Business Summits" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {events.slice(0, 3).map((event) => (
-              <Link key={event.id} to="/events" className="group relative overflow-hidden bg-white border border-gray-100 hover:border-accent transition-all block">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                </div>
-                <div className="p-8 space-y-4">
-                  <div className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-accent">
-                    <span>{event.date}</span>
-                    <span>{event.location}</span>
+            {events.slice(0, 3).map((event, index) => (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link to="/events" className="group relative overflow-hidden bg-white border border-gray-100 hover:border-accent transition-all block">
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img src={event.image} alt={event.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
-                  <h3 className="text-xl font-bold text-secondary group-hover:text-accent transition-colors">{event.title}</h3>
-                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest border-b border-secondary/10 pb-1 group-hover:text-accent group-hover:border-accent transition-all">Learn More</span>
-                </div>
-              </Link>
+                  <div className="p-8 space-y-4">
+                    <div className="flex justify-between items-center text-[9px] font-bold uppercase tracking-widest text-accent">
+                      <span>{event.date}</span>
+                      <span>{event.location}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-secondary group-hover:text-accent transition-colors">{event.title}</h3>
+                    <span className="inline-block text-[10px] font-bold uppercase tracking-widest border-b border-secondary/10 pb-1 group-hover:text-accent group-hover:border-accent transition-all">Learn More</span>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -380,15 +435,23 @@ export default function Home() {
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeading title="Corporate Spotlights" subtitle="Strategic Brand Features" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {spotlights.map((spot) => (
-              <Link key={spot.id} to={`/spotlights/${spot.id}`} className="group relative aspect-[3/4] overflow-hidden">
-                <img src={spot.image} alt={spot.title} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary to-transparent opacity-60" />
-                <div className="absolute bottom-0 left-0 p-8 space-y-2">
-                  <span className="text-accent text-[8px] font-bold uppercase tracking-widest">Industry Leader</span>
-                  <h3 className="text-lg font-bold text-white leading-tight uppercase tracking-tight">{spot.title}</h3>
-                </div>
-              </Link>
+            {spotlights.map((spot, index) => (
+              <motion.div
+                key={spot.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link to={`/spotlights/${spot.id}`} className="group relative aspect-[3/4] overflow-hidden block">
+                  <img src={spot.image} alt={spot.title} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary to-transparent opacity-60" />
+                  <div className="absolute bottom-0 left-0 p-8 space-y-2">
+                    <span className="text-accent text-[8px] font-bold uppercase tracking-widest">Industry Leader</span>
+                    <h3 className="text-lg font-bold text-white leading-tight uppercase tracking-tight">{spot.title}</h3>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
           <div className="mt-16 text-center">
@@ -404,9 +467,16 @@ export default function Home() {
       <section className="py-24" data-aos="fade-up">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-20">
-            <div className="lg:w-1/2 space-y-8">
-              <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">The AI Report 2026</span>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary leading-tight tracking-tighter">The Intelligence Era.</h2>
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="lg:w-1/2 space-y-8"
+            >
+              <div className="space-y-4">
+                <span className="text-accent uppercase tracking-[0.5em] text-[10px] font-bold">Legacy & Authority</span>
+                <h2 className="text-4xl md:text-6xl font-serif font-bold text-secondary leading-[1.1]">The Intelligence <br /> <span className="italic text-accent">Era.</span></h2>
+              </div>
               <p className="text-lg text-gray-500 font-light leading-relaxed italic">"In 2026, AI is no longer a tool—it is the structural foundation of the modern enterprise. From autonomous governance to predictive operability, explore how we are architecting the future of business."</p>
               <div className="grid grid-cols-2 gap-8">
                 <div className="p-6 bg-gray-50 border-l-2 border-accent">
@@ -422,7 +492,7 @@ export default function Home() {
                 <span>Enter The AI Portal</span>
                 <Cpu size={16} />
               </Link>
-            </div>
+              </motion.div>
             <Link to="/ai-info" className="lg:w-1/2 relative group block">
                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop" alt="AI Header" className="w-full shadow-2xl transition-all duration-1000 group-hover:scale-105" />
                <div className="absolute -bottom-10 -left-10 bg-white p-10 shadow-xl max-w-xs border border-gray-100">
