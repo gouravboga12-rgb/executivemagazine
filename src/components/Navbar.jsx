@@ -88,9 +88,7 @@ export default function Navbar() {
 
             {/* Left: Desktop Socials/Utilities */}
             <div className="hidden lg:flex items-center space-x-5">
-              <Link to="/login" className="hover:text-accent transition-colors">
-                <User size={20} />
-              </Link>
+              {/* Profile icon removed */}
             </div>
 
             {/* Center: Logo */}
