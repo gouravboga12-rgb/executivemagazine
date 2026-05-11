@@ -14,10 +14,16 @@ export default function Footer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus('sending')
+    
+    // 1. Prepare WhatsApp message & Open Immediately (to avoid popup blockers)
+    const phoneNumber = "917032531253" 
+    const message = `*Quick Inquiry: ${formData.name}*%0A%0A${formData.message}%0A%0A_Sent via Footer_`
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`
+    window.open(whatsappURL, '_blank')
 
+    setStatus('sending')
     try {
-      // 1. Save to Supabase (Database)
+      // 2. Save to Supabase (Database)
       const { error } = await supabase
         .from('contacts')
         .insert([{
@@ -28,18 +34,6 @@ export default function Footer() {
         }])
       
       if (error) throw error
-
-      // 2. Prepare WhatsApp message
-      const phoneNumber = "918341528822" 
-      const message = `*Footer Inquiry - Executives Magazine*%0A%0A` +
-        `*Name:* ${formData.name}%0A` +
-        `*Email:* ${formData.email}%0A` +
-        `*Message:* ${formData.message}`
-      
-      const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`
-
-      // 3. Open WhatsApp
-      window.open(whatsappURL, '_blank')
       
       setStatus('success')
       setFormData({ name: '', email: '', message: '' })
@@ -95,9 +89,12 @@ export default function Footer() {
               <h3 className="text-accent text-[10px] font-bold uppercase tracking-[0.3em] mb-8">Magazine</h3>
               <ul className="space-y-4 text-sm font-medium text-white/60">
                 <li><Link to="/interviews" className="hover:text-white transition-colors">Interviews</Link></li>
+                <li><Link to="/category/business" className="hover:text-white transition-colors">Business</Link></li>
                 <li><Link to="/opinion" className="hover:text-white transition-colors">Opinion</Link></li>
                 <li><Link to="/lifestyle" className="hover:text-white transition-colors">Lifestyle</Link></li>
                 <li><Link to="/events" className="hover:text-white transition-colors">Events</Link></li>
+                <li><Link to="/spotlights" className="hover:text-white transition-colors">Spotlights</Link></li>
+                <li><Link to="/ai-info" className="hover:text-white transition-colors">AI Info</Link></li>
                 <li><Link to="/digital-magazine" className="hover:text-white transition-colors">Current Edition</Link></li>
               </ul>
             </div>
@@ -106,9 +103,7 @@ export default function Footer() {
               <ul className="space-y-4 text-sm font-medium text-white/60">
                 <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
                 <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-                <li><Link to="/advertise" className="hover:text-white transition-colors">Advertise</Link></li>
-                <li><Link to="/careers" className="hover:text-white transition-colors">Careers</Link></li>
-                <li><Link to="/legal" className="hover:text-white transition-colors">Legal</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">Advertise</Link></li>
               </ul>
             </div>
           </div>
@@ -116,7 +111,17 @@ export default function Footer() {
           {/* Quick Inquiry Form */}
           <div className="lg:col-span-4">
              <div className="bg-white/5 p-8 border border-white/5">
-                <h3 className="text-xl font-serif font-bold mb-6 text-white">Direct Inquiry</h3>
+                <div className="flex items-center justify-between mb-6">
+                   <h3 className="text-xl font-serif font-bold text-white">Direct Inquiry</h3>
+                   <a 
+                     href="https://wa.me/917032531253" 
+                     target="_blank" 
+                     rel="noreferrer"
+                     className="text-[10px] font-bold uppercase tracking-widest text-accent hover:text-white transition-colors flex items-center gap-2"
+                   >
+                     Chat Now <MessageCircle size={14} />
+                   </a>
+                </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
                    <input 
                      type="text" 

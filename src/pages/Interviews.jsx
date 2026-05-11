@@ -1,87 +1,73 @@
-import { Download, Eye, FileText, ArrowRight, Search, ArrowLeft, ArrowUpRight } from 'lucide-react'
-import { useState } from 'react'
+import { Download, Eye, FileText, ArrowRight, Search, ArrowLeft, ArrowUpRight, MessageCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 
-const interviews = [
-  {
-    id: 'alfa-laval',
-    company: 'Alfa Laval India Limited',
-    preview: '/interview-covers/alfa-laval-cover.png',
-    pdf: '/single pdfs/Alfa Laval India Limited-story (2)_SinglePages.pdf'
-  },
-  {
-    id: 'himedia-laboratories',
-    company: 'HiMedia Laboratories',
-    preview: '/interview-covers/himedia-cover.png',
-    pdf: '/single pdfs/HiMedia-Laboratories_3_SinglePages.pdf'
-  },
-  {
-    id: 'kitex-garments',
-    company: 'Kitex Garments',
-    preview: '/interview-images/kitex-garments---vision-&-culture_pdf/page_1.png',
-    pdf: '/interview pages/Kitex Garments - Vision & Culture_pdf.pdf'
-  },
-  {
-    id: 'nagarjuna-construction',
-    company: 'Nagarjuna Construction',
-    preview: '/interview-images/nagarjuna-construction-company-ltd/page_1.png',
-    pdf: '/interview pages/Nagarjuna-Construction-Company-Ltd.pdf'
-  },
-  {
-    id: 'national-engineering',
-    company: 'National Engineering Industries',
-    preview: '/interview-covers/national-engineering-cover.png',
-    pdf: '/single pdfs/National Engineering Industries Ltd-story - Copy (1)_SinglePages.pdf'
-  },
-  {
-    id: 'sandur-manganese',
-    company: 'Sandur Manganese',
-    preview: '/interview-images/sandur-manganese/page_1.png',
-    pdf: '/interview pages/Sandur Manganese.pdf'
-  },
-  {
-    id: 'vitabiotics',
-    company: 'Vitabiotics',
-    preview: '/interview-covers/vitabiotics-cover.png',
-    pdf: '/interview pages/Vitabiotics-.pdf'
-  },
-  {
-    id: 'irm-energy',
-    company: 'IRM Energy Private Limited',
-    preview: '/interview-covers/irm-energy-cover.png',
-    pdf: '/single pdfs/IRM Energy Private Limited (1)_SinglePages.pdf'
-  },
-  {
-    id: 'itd-cementation',
-    company: 'ITD Cementation',
-    preview: '/interview-images/itd-cementation/page_1.png',
-    pdf: '/interview pages/ITD Cementation.pdf'
-  },
-  {
-    id: 'johnson-controls',
-    company: 'Johnson Controls',
-    preview: '/interview-images/johnson-controls/page_1.png',
-    pdf: '/interview pages/Johnson controls.pdf'
-  },
-  {
-    id: 'jos-alukkas',
-    company: 'Jos Alukkas',
-    preview: '/interview-images/jos-alukkas-story/page_1.png',
-    pdf: '/interview pages/Jos Alukkas Story.pdf'
-  },
-  {
-    id: 'kims-hospitals',
-    company: 'KIMS Hospitals',
-    preview: '/interview-images/kims-hospitals-/page_1.png',
-    pdf: '/interview pages/KIMS-Hospitals-.pdf'
-  }
-]
+
+import { FIXED_INTERVIEWS } from '../lib/fixedInterviews'
 
 export default function Interviews() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [dynamicInterviews, setDynamicInterviews] = useState([])
+  const [status, setStatus] = useState(null)
 
-  const filteredInterviews = interviews.filter(item => 
+  const handleInquiry = async () => {
+    setStatus('loading')
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        email: 'Direct Archive Request',
+        source_page: 'Interviews',
+        type: 'Archive Inquiry',
+        description: 'User requested access to full editorial archive.'
+      }])
+      if (error) throw error
+      setStatus('success')
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
+
+  useEffect(() => {
+    const fetchInterviews = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('interviews')
+          .select('*')
+          .order('created_at', { ascending: false })
+        
+        if (error) throw error
+        if (data) {
+          const formatted = data.map(item => ({
+            id: item.id,
+            company: item.company,
+            preview: item.preview_url,
+            pdf: item.pdf_url,
+            industry: item.industry
+          }))
+          setDynamicInterviews(formatted)
+        }
+      } catch (err) {
+        console.error('Failed to fetch interviews:', err)
+      }
+    }
+    fetchInterviews()
+  }, [])
+
+  // Prepare fixed interviews with correct mapping
+  const fixedMapped = FIXED_INTERVIEWS.map(item => ({
+    ...item,
+    preview: item.img, // Interviews.jsx uses 'preview' instead of 'img'
+    industry: item.tag
+  }))
+
+  const allInterviews = [
+    ...fixedMapped,
+    ...dynamicInterviews.filter(di => !fixedMapped.some(fi => fi.company.toLowerCase() === di.company.toLowerCase()))
+  ]
+
+  const filteredInterviews = allInterviews.filter(item => 
     item.company.toLowerCase().includes(searchQuery.toLowerCase())
   )
   return (
@@ -126,7 +112,7 @@ export default function Interviews() {
             <input 
               type="text" 
               placeholder="Search by company or executive..."
-              className="flex-1 bg-transparent border-none focus:ring-0 text-secondary font-serif italic text-lg placeholder:text-gray-300 py-4"
+              className="flex-1 bg-transparent border-none focus:ring-0 text-secondary font-serif text-lg placeholder:text-gray-300 py-4"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -212,14 +198,29 @@ export default function Interviews() {
       <div className="container mx-auto px-4 lg:px-8 mt-32" data-aos="fade-up">
         <div className="bg-gray-50 p-12 md:p-20 border border-gray-100 flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="max-w-2xl space-y-6 text-center lg:text-left">
-            <h2 className="text-3xl font-serif font-bold text-secondary">Looking for a specific feature?</h2>
+            <h2 className="text-3xl font-serif font-bold text-secondary">Didn't find what you were looking for?</h2>
             <p className="text-gray-500 font-light leading-relaxed">
-              Our full editorial archive contains over 200+ exclusive interviews from the last decade. Contact our research team for specific industry reports.
+              Our complete archive spans thousands of corporate leaders from the last decade. Reach out for specific industry intelligence or custom archival reports.
             </p>
           </div>
-          <button className="whitespace-nowrap px-12 py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-xl">
-            Inquire for Archive
-          </button>
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <a 
+              href="https://wa.me/917032531253?text=Hi, I am looking for a specific interview/feature in the Executives Magazine archive."
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-3 px-10 py-5 bg-[#25D366] text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-opacity-90 transition-all shadow-xl"
+            >
+              <MessageCircle size={18} />
+              WhatsApp Inquiry
+            </a>
+            <Link 
+              to="/contact"
+              state={{ service: 'Editorial Interview' }}
+              className="px-10 py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-accent transition-all shadow-xl"
+            >
+              Submit Archive Request
+            </Link>
+          </div>
         </div>
       </div>
       {/* Floating Back to Top */}

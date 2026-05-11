@@ -7,7 +7,7 @@ import { articles } from '../lib/mockData'
 import { opinions } from '../lib/opinionsData.jsx'
 import { events } from '../lib/eventsData'
 import { spotlights } from '../lib/spotlightsData'
-import { magazines } from '../lib/magazinesData'
+import { supabase } from '../lib/supabase'
 import { 
   Calendar, Award, Lightbulb, TrendingUp, Star, ArrowRight, 
   UserCheck, MessageSquare, FileText, CheckCircle2, Globe, Cpu, 
@@ -16,9 +16,78 @@ import {
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
+import { FIXED_INTERVIEWS } from '../lib/fixedInterviews'
+
 export default function Home() {
   const [selectedOpinion, setSelectedOpinion] = useState(null)
+  const [dynamicInterviews, setDynamicInterviews] = useState([])
+  const [dynamicMagazines, setDynamicMagazines] = useState([])
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState(null)
+
+  const handleApplication = async (e) => {
+    e.preventDefault()
+    if (!email) return
+    setStatus('loading')
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        email,
+        source_page: 'Home',
+        type: 'Listing Application',
+        status: '1. Inquiry',
+        description: 'User initiated application from home page "Get Listed" section.'
+      }])
+      if (error) throw error
+      setStatus('success')
+      setEmail('')
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
+
+  useEffect(() => {
+    const fetchDynamicData = async () => {
+      try {
+        const [intRes, magRes] = await Promise.all([
+          supabase.from('interviews').select('*').order('created_at', { ascending: false }),
+          supabase.from('magazines').select('*').order('created_at', { ascending: false })
+        ])
+
+        if (intRes.data) {
+          setDynamicInterviews(intRes.data.map(item => ({
+            id: item.id,
+            company: item.company,
+            img: item.preview_url,
+            pdf: item.pdf_url,
+            tag: item.industry || 'Editorial'
+          })))
+        }
+
+        if (magRes.data) {
+          setDynamicMagazines(magRes.data.map(item => ({
+            id: item.id,
+            title: item.title,
+            image: item.image_url,
+            edition: item.edition,
+            pdf: item.pdf_url
+          })))
+        }
+      } catch (err) {
+        console.error('Error fetching home data:', err)
+      }
+    }
+    fetchDynamicData()
+  }, [])
+
   const featuredArticle = articles.find(a => a.featured)
+  
+  // Merge fixed interviews with dynamic ones, keeping fixed ones at the top and avoiding duplicates
+  const allInterviews = [
+    ...FIXED_INTERVIEWS,
+    ...dynamicInterviews.filter(di => !FIXED_INTERVIEWS.some(fi => fi.company.toLowerCase() === di.company.toLowerCase()))
+  ]
+  const allMagazines = dynamicMagazines
   
   return (
     <div className="pb-20">
@@ -66,16 +135,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-            {[
-              { id: 'himedia-laboratories', company: 'HiMedia Laboratories', img: '/interview-covers/himedia-cover.png', pdf: '/single pdfs/HiMedia-Laboratories_3_SinglePages.pdf', tag: 'Biotechnology' },
-              { id: 'alfa-laval', company: 'Alfa Laval India Limited', img: '/interview-covers/alfa-laval-cover.png', pdf: '/single pdfs/Alfa Laval India Limited-story (2)_SinglePages.pdf', tag: 'Manufacturing' },
-              { id: 'vitabiotics', company: 'Vitabiotics', img: '/interview-covers/vitabiotics-cover.png', pdf: '/interview pages/Vitabiotics-.pdf', tag: 'Healthcare' },
-              { id: 'national-engineering', company: 'National Engineering Industries', img: '/interview-covers/national-engineering-cover.png', pdf: '/single pdfs/National Engineering Industries Ltd-story - Copy (1)_SinglePages.pdf', tag: 'Engineering' },
-              { id: 'irm-energy', company: 'IRM Energy', img: '/interview-covers/irm-energy-cover.png', pdf: '/single pdfs/IRM Energy Private Limited (1)_SinglePages.pdf', tag: 'Energy' },
-              { id: 'aig-hospitals', company: 'AIG Hospitals', img: '/interview-images/aig-hospitals/page_1.png', pdf: '/interview pages/AIG Hospitals.pdf', tag: 'Medical' },
-              { id: 'kitex-garments', company: 'Kitex Garments', img: '/interview-images/kitex-garments---vision-&-culture_pdf/page_1.png', pdf: '/interview pages/Kitex Garments - Vision & Culture_pdf.pdf', tag: 'Textiles' },
-              { id: 'itd-cementation', company: 'ITD Cementation', img: '/interview-images/itd-cementation/page_1.png', pdf: '/interview pages/ITD Cementation.pdf', tag: 'Construction' }
-            ].map((item, idx) => (
+            {allInterviews.slice(0, 8).map((item, idx) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -137,7 +197,7 @@ export default function Home() {
             <p className="text-gray-400 font-light italic">"Access the complete library of Executives Magazine in high-fidelity digital format."</p>
           </motion.div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            {magazines.map((mag, index) => (
+            {allMagazines.map((mag, index) => (
               <motion.div
                 key={mag.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -217,15 +277,15 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-20 text-center">
-            <Link 
-              to="/contact" 
-              className="inline-flex items-center space-x-6 bg-secondary text-white px-12 py-5 font-bold uppercase tracking-widest text-[11px] hover:bg-accent transition-all shadow-xl"
-            >
-              <span>Begin Your Application</span>
-              <ArrowRight size={16} />
-            </Link>
-          </div>
+            <div className="flex justify-center pt-12">
+              <Link 
+                to="/contact"
+                className="px-16 py-6 bg-secondary text-white text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-accent transition-all shadow-2xl flex items-center gap-4 group"
+              >
+                Begin Your Application
+                <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+              </Link>
+            </div>
         </div>
       </section>
 

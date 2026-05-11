@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -27,6 +27,10 @@ import AuthorPage from './pages/AuthorPage'
 import AIInfo from './pages/AIInfo'
 import Events from './pages/Events'
 import Opinion from './pages/Opinion'
+import Admin from './pages/Admin'
+
+
+
 
 function App() {
   useEffect(() => {
@@ -37,11 +41,15 @@ function App() {
     })
   }, [])
 
+  const location = useLocation()
+  const isAdmin = location.pathname.startsWith('/admin')
+
   return (
-    <Router>
+    <>
+
       <ScrollToTop />
       <div className="min-h-screen bg-primary flex flex-col">
-        <Navbar />
+        {!isAdmin && <Navbar />}
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -62,12 +70,13 @@ function App() {
             <Route path="/author/:id" element={<AuthorPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </main>
-        <Footer />
-        <FloatingWhatsApp />
+        {!isAdmin && <Footer />}
+        {!isAdmin && <FloatingWhatsApp />}
       </div>
-    </Router>
+    </>
   )
 }
 

@@ -2,82 +2,61 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BookOpen, Download, ChevronRight, Star, Calendar, Layers, ArrowRight } from 'lucide-react'
 
-const editions = [
-  {
-    year: 2025,
-    issues: [
-      {
-        month: 'May 2025', issue: '116', title: 'The Power of Reinvention',
-        cover: 'The new faces reshaping global enterprise.',
-        pages: 172,
-        image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop',
-        featured: true,
-        tags: ['Leadership', 'Strategy', 'Tech'],
-      },
-      {
-        month: 'April 2025', issue: '115', title: 'Future of Finance',
-        cover: 'Redefining capital in the age of AI.',
-        pages: 164,
-        image: 'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=2070&auto=format&fit=crop',
-        tags: ['Finance', 'Fintech', 'AI'],
-      },
-      {
-        month: 'March 2025', issue: '114', title: 'Green Titans',
-        cover: 'Executives leading the sustainability revolution.',
-        pages: 158,
-        image: 'https://images.unsplash.com/photo-1495020689067-958852a7765e?q=80&w=2069&auto=format&fit=crop',
-        tags: ['ESG', 'Climate', 'Impact'],
-      },
-      {
-        month: 'February 2025', issue: '113', title: 'The Founder\'s Mind',
-        cover: 'Inside the psychology of serial entrepreneurs.',
-        pages: 160,
-        image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=2074&auto=format&fit=crop',
-        tags: ['Founders', 'Growth', 'Culture'],
-      },
-    ],
-  },
-  {
-    year: 2024,
-    issues: [
-      {
-        month: 'December 2024', issue: '112', title: 'Year in Review',
-        cover: 'The defining moments that shaped business in 2024.',
-        pages: 200,
-        image: 'https://images.unsplash.com/photo-1530099486328-e021101a494a?q=80&w=2047&auto=format&fit=crop',
-        tags: ['Recap', 'Global', 'Leaders'],
-      },
-      {
-        month: 'October 2024', issue: '110', title: 'Asia Rising',
-        cover: 'The economic powerhouses shifting the global balance.',
-        pages: 154,
-        image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2070&auto=format&fit=crop',
-        tags: ['Asia', 'Emerging Markets', 'Trade'],
-      },
-      {
-        month: 'August 2024', issue: '108', title: 'Women in Power',
-        cover: 'Trailblazers redefining leadership from the top.',
-        pages: 168,
-        image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=2070&auto=format&fit=crop',
-        tags: ['Diversity', 'Women', 'Leadership'],
-      },
-      {
-        month: 'June 2024', issue: '106', title: 'The AI C-Suite',
-        cover: 'How artificial intelligence is reshaping executive decisions.',
-        pages: 176,
-        image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=2070&auto=format&fit=crop',
-        tags: ['AI', 'Technology', 'Future'],
-      },
-    ],
-  },
-]
-
 export default function Edition() {
-  const [selectedYear, setSelectedYear] = useState(2025)
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
   const [hoveredIssue, setHoveredIssue] = useState(null)
+  const [dynamicMagazines, setDynamicMagazines] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchMagazines = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('magazines')
+        .select('*')
+        .order('created_at', { ascending: false })
+      
+      if (error) throw error
+      if (data) {
+        setDynamicMagazines(data.map(item => ({
+          id: item.id,
+          title: item.title,
+          month: item.edition,
+          issue: item.id.substring(0, 3).toUpperCase(),
+          cover: item.description,
+          pages: 160,
+          image: item.image_url,
+          pdf: item.pdf_url,
+          tags: [item.tag || 'Editorial'],
+          year: new Date(item.created_at).getFullYear(),
+          featured: item.featured
+        })))
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useState(() => {
+    fetchMagazines()
+  }, [])
+
+  const editions = Array.from(new Set(dynamicMagazines.map(m => m.year)))
+    .sort((a, b) => b - a)
+    .map(year => ({
+      year,
+      issues: dynamicMagazines.filter(m => m.year === year)
+    }))
 
   const currentYearData = editions.find(e => e.year === selectedYear)
-  const latestEdition = editions[0].issues[0]
+  const latestEdition = dynamicMagazines[0] || {
+    title: 'Loading...',
+    month: '...',
+    image: '',
+    tags: [],
+    issue: '000'
+  }
 
   return (
     <div className="pb-32 bg-white text-secondary">

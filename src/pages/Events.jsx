@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { supabase } from '../lib/supabase'
 import { 
   Calendar, MapPin, ChevronRight, X, Info, 
   TrendingUp, Zap, Target, Globe, Shield, 
@@ -23,6 +24,35 @@ const categoryIcons = {
 export default function Events() {
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [filter, setFilter] = useState('All')
+  const [formData, setFormData] = useState({
+    name: '',
+    organization: '',
+    category: 'All',
+    description: ''
+  })
+  const [status, setStatus] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setStatus('loading')
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        name: formData.name,
+        email: 'N/A (Summit Request)',
+        organization: formData.organization,
+        category: formData.category,
+        description: formData.description,
+        source_page: 'Events',
+        type: 'Summit Submission'
+      }])
+      if (error) throw error
+      setStatus('success')
+      setFormData({ name: '', organization: '', category: 'All', description: '' })
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
 
   const categories = ['All', ...new Set(events.map(e => e.category))]
   const filteredEvents = filter === 'All' ? events : events.filter(e => e.category === filter)
@@ -357,47 +387,52 @@ export default function Events() {
           </div>
 
           <div className="bg-white p-12 md:p-20">
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Your Name</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Your Name</label>
                   <input 
-                    type="text" 
-                    placeholder="John Doe"
-                    className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary placeholder:text-gray-300 focus:border-accent outline-none transition-all"
-                  />
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    type="text" placeholder="John Doe" className="w-full bg-gray-50 border-none px-6 py-4 text-sm focus:ring-1 focus:ring-accent" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Organization</label>
+                  <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Organization</label>
                   <input 
-                    type="text" 
-                    placeholder="Company Name"
-                    className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary placeholder:text-gray-300 focus:border-accent outline-none transition-all"
-                  />
+                    required
+                    value={formData.organization}
+                    onChange={(e) => setFormData({...formData, organization: e.target.value})}
+                    type="text" placeholder="Company Name" className="w-full bg-gray-50 border-none px-6 py-4 text-sm focus:ring-1 focus:ring-accent" />
                 </div>
               </div>
-
               <div className="space-y-2">
-                <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Event Category</label>
-                <select className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary outline-none focus:border-accent transition-all appearance-none">
-                  {categories.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
-                  ))}
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Event Category</label>
+                <select 
+                  value={formData.category}
+                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                  className="w-full bg-gray-50 border-none px-6 py-4 text-sm focus:ring-1 focus:ring-accent appearance-none">
+                  {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
               </div>
-
               <div className="space-y-2">
-                <label className="text-[9px] font-bold uppercase tracking-widest text-secondary/40">Brief Description</label>
+                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Brief Description</label>
                 <textarea 
-                  rows="4"
-                  placeholder="Tell us about the summit goals..."
-                  className="w-full bg-gray-50 border-b border-gray-100 px-0 py-3 text-sm font-medium text-secondary placeholder:text-gray-300 focus:border-accent outline-none transition-all resize-none"
-                ></textarea>
+                  required
+                  value={formData.description}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  rows="4" placeholder="Tell us about the summit goals..." className="w-full bg-gray-50 border-none px-6 py-4 text-sm focus:ring-1 focus:ring-accent resize-none"></textarea>
               </div>
-
-              <button className="w-full py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-accent transition-all shadow-xl shadow-secondary/10">
-                Submit for Editorial Review
-              </button>
+              
+              <div className="space-y-4">
+                <button 
+                  disabled={status === 'loading'}
+                  className="w-full bg-secondary text-white py-5 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-accent transition-all shadow-xl disabled:opacity-50"
+                >
+                  {status === 'loading' ? 'Transmitting...' : status === 'success' ? 'Submitted for Review' : 'Submit for Editorial Review'}
+                </button>
+                {status === 'error' && <p className="text-red-500 text-[10px] font-bold uppercase text-center">Submission failed.</p>}
+              </div>
             </form>
           </div>
         </div>

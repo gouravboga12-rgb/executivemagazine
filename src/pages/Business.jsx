@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 import { 
   BarChart3, Globe, ArrowRight, X, Clock, User, 
   ChevronRight, TrendingUp, Cpu, Rocket, ShoppingBag, Users, Leaf 
@@ -85,6 +87,27 @@ const businessInsights = [
 
 export default function Business() {
   const [selectedArticle, setSelectedArticle] = useState(null)
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState(null)
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault()
+    if (!email) return
+    setStatus('loading')
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        email,
+        source_page: 'Business',
+        type: 'Subscription'
+      }])
+      if (error) throw error
+      setStatus('success')
+      setEmail('')
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
 
   return (
     <div className="bg-white min-h-screen">
@@ -256,16 +279,14 @@ export default function Business() {
                <p className="text-gray-500 font-light leading-relaxed">
                   Join our executive network to receive exclusive quarterly briefings, early access to business summits, and deep-dive strategic reports directly to your inbox.
                </p>
-               <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-8">
-                  <input 
-                    type="email" 
-                    placeholder="Enter corporate email..."
-                    className="w-full md:w-96 px-8 py-5 bg-white border border-gray-200 text-sm focus:ring-1 focus:ring-accent outline-none shadow-sm"
-                  />
-                  <button className="w-full md:w-auto px-12 py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
-                    Subscribe Now
-                  </button>
-               </div>
+                <div className="pt-8 w-full flex justify-center">
+                  <Link 
+                    to="/contact"
+                    className="w-full md:w-auto px-16 py-6 bg-secondary text-white text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-2xl text-center"
+                  >
+                    Connect With Our Analysts
+                  </Link>
+                </div>
             </div>
          </div>
       </section>

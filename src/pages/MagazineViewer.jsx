@@ -2,20 +2,50 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Maximize2, Globe, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { magazines } from '../lib/magazinesData'
+import { supabase } from '../lib/supabase'
 
 export default function MagazineViewer() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const magazineIndex = magazines.findIndex((m) => m.id === id)
-  const magazine = magazines[magazineIndex]
+  const [magazine, setMagazine] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [zoom, setZoom] = useState(100)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, [])
+    const fetchMagazine = async () => {
+      setIsLoading(true)
+      try {
+        const { data, error: fetchError } = await supabase
+          .from('magazines')
+          .select('*')
+          .eq('id', id)
+          .single()
+        
+        if (fetchError || !data) {
+          setError(true)
+        } else {
+          setMagazine({
+            id: data.id,
+            title: data.title,
+            subtitle: data.edition,
+            pdf: data.pdf_url,
+            image: data.image_url
+          })
+          setError(false)
+        }
+      } catch (err) {
+        console.error('Failed to fetch magazine:', err)
+        setError(true)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    if (id) {
+      fetchMagazine()
+    }
+  }, [id])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -26,21 +56,49 @@ export default function MagazineViewer() {
     }
   }, [id])
 
-  if (!magazine) {
+  if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center space-y-6">
-          <h1 className="text-4xl font-bold text-secondary uppercase tracking-tighter">Edition Not Found</h1>
-          <Link to="/digital-magazine" className="text-accent underline font-bold uppercase tracking-widest text-sm">
-            ← Back to Magazine Library
-          </Link>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white p-8">
+        <div className="text-center space-y-8 max-w-md">
+          <div className="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto">
+             <ShieldCheck size={40} />
+          </div>
+          <h1 className="text-4xl font-bold text-secondary uppercase tracking-tighter leading-none">Edition <br />Not Found</h1>
+          <p className="text-gray-400 text-sm leading-relaxed">This magazine edition might have been moved or updated. Please check our latest library for the current version.</p>
+          <div className="pt-4">
+            <Link to="/digital-magazine" className="bg-secondary text-white px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-2xl inline-block">
+              Return to Library
+            </Link>
+          </div>
         </div>
       </div>
     )
   }
 
-  const prevMag = magazineIndex > 0 ? magazines[magazineIndex - 1] : null
-  const nextMag = magazineIndex < magazines.length - 1 ? magazines[magazineIndex + 1] : null
+  if (isLoading || !magazine) {
+    return (
+      <div className="h-screen bg-[#0a0a0a] flex flex-col items-center justify-center">
+         <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="text-center space-y-8"
+          >
+            <div className="flex flex-col items-center">
+              <span className="text-accent text-[10px] font-bold uppercase tracking-[0.8em] mb-4 animate-pulse">Retrieving Edition</span>
+              <div className="w-64 h-[1px] bg-white/5 relative overflow-hidden">
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '100%' }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-0 bg-accent"
+                />
+              </div>
+            </div>
+            <h2 className="text-white font-serif italic text-2xl opacity-40">Compiling Premium Content...</h2>
+          </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0a0a] flex flex-col overflow-hidden selection:bg-accent selection:text-white">
@@ -84,19 +142,6 @@ export default function MagazineViewer() {
             </button>
           </div>
 
-          <div className="hidden lg:flex items-center gap-8 mr-6">
-            {prevMag && (
-              <Link to={`/magazine/${prevMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
-                <ChevronLeft size={14} /> Prev
-              </Link>
-            )}
-            {nextMag && (
-              <Link to={`/magazine/${nextMag.id}`} className="text-white/30 hover:text-white transition-colors flex items-center gap-2 text-[9px] font-bold uppercase tracking-widest">
-                Next <ChevronRight size={14} />
-              </Link>
-            )}
-          </div>
-
           <div className="flex items-center gap-4">
             <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
 
@@ -121,41 +166,10 @@ export default function MagazineViewer() {
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40rem] font-bold text-white uppercase tracking-tighter">Edition</span>
         </div>
 
-        {/* Cinematic Loading Overlay */}
-        <AnimatePresence>
-          {isLoading && (
-            <motion.div
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center"
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-center space-y-8"
-              >
-                <div className="flex flex-col items-center">
-                  <span className="text-accent text-[10px] font-bold uppercase tracking-[0.8em] mb-4 animate-pulse">Retrieving Edition</span>
-                  <div className="w-64 h-[1px] bg-white/5 relative overflow-hidden">
-                    <motion.div
-                      initial={{ x: '-100%' }}
-                      animate={{ x: '100%' }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-0 bg-accent"
-                    />
-                  </div>
-                </div>
-                <h2 className="text-white font-serif italic text-2xl opacity-40">Compiling Premium Content...</h2>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Immersive Magazine Frame */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: isLoading ? 0 : 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-6xl mx-auto px-0 md:px-0 z-10"
         >
@@ -194,7 +208,7 @@ export default function MagazineViewer() {
             <div className="inline-flex items-center space-x-6 px-10 py-4 bg-[#111] border border-white/5 rounded-full">
               <Globe size={14} className="text-accent" />
               <span className="text-white/30 text-[9px] font-bold uppercase tracking-[0.4em]">
-                Executives Global Digital Archive • Edition {magazineIndex + 1}
+                Executives Global Digital Archive • Edition Live
               </span>
               <ShieldCheck size={14} className="text-accent" />
             </div>

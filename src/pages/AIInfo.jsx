@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 import { 
   Brain, Cpu, Shield, Zap, X, ArrowRight, 
   Globe, MessageSquare, BarChart3, TrendingUp, User, ChevronRight 
@@ -85,6 +87,24 @@ const aiInsights = [
 
 export default function AIInfo() {
   const [selectedInsight, setSelectedInsight] = useState(null)
+  const [status, setStatus] = useState(null)
+
+  const handleAIRequest = async (type) => {
+    setStatus('loading')
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        email: `AI Portal User (${type})`,
+        source_page: 'AI Info',
+        type: `AI ${type}`,
+        description: `User requested ${type === 'Toolkit' ? 'the AI Readiness Toolkit' : 'to speak with a consultant'}.`
+      }])
+      if (error) throw error
+      setStatus('success')
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
 
   return (
     <div className="bg-white min-h-screen">
@@ -258,13 +278,13 @@ export default function AIInfo() {
               Unlock our 2026 Executive AI Readiness Toolkit. Gain access to private webinars, strategic frameworks, and peer-to-peer intelligence networks.
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-8">
-              <button className="w-full md:w-auto px-12 py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-xl">
-                Get the AI Toolkit
-              </button>
-              <button className="w-full md:w-auto px-12 py-5 border border-gray-200 text-secondary text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-all">
-                Speak to a Consultant
-              </button>
+              <Link 
+                to="/contact"
+                className="w-full md:w-auto px-12 py-5 bg-secondary text-white text-[10px] font-bold uppercase tracking-widest hover:bg-accent transition-all shadow-xl text-center">
+                Request AI Consultation
+              </Link>
             </div>
+            {status === 'error' && <p className="text-red-500 text-[10px] font-bold uppercase mt-4">Transmission failed.</p>}
           </div>
         </div>
       </section>

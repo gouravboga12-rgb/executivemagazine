@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
 import { 
   X, 
   ArrowRight, 
@@ -19,6 +21,27 @@ import { opinions } from '../lib/opinionsData.jsx';
 
 const Opinion = () => {
   const [selectedOpinion, setSelectedOpinion] = useState(null);
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState(null);
+
+  const handleListing = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus('loading');
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        email,
+        source_page: 'Opinion',
+        type: 'Inner Circle Listing'
+      }]);
+      if (error) throw error;
+      setStatus('success');
+      setEmail('');
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen pt-24 pb-20">
@@ -314,15 +337,13 @@ const Opinion = () => {
           <p className="text-xl text-gray-500 font-light italic">
             "Receive weekly strategic intelligence, exclusive founder interviews, and deep-dive economic forecasts directly in your executive dashboard."
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
-            <input 
-              type="email" 
-              placeholder="Corporate Email" 
-              className="w-full px-6 py-4 bg-white border border-gray-200 rounded-full focus:ring-1 focus:ring-accent outline-none font-serif italic"
-            />
-            <button className="w-full md:w-auto px-10 py-4 bg-secondary text-white text-[10px] font-bold uppercase tracking-[0.2em] rounded-full hover:bg-accent transition-all shadow-lg">
-              Get Listed
-            </button>
+          <div className="pt-12 w-full max-w-xl mx-auto flex justify-center">
+            <Link 
+              to="/contact"
+              className="w-full md:w-auto px-16 py-6 bg-secondary text-white text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-2xl rounded-full text-center"
+            >
+              Contact Our Editorial Board
+            </Link>
           </div>
         </div>
       </section>

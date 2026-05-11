@@ -1,9 +1,29 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 import { ArrowRight, Globe, Zap, Award } from 'lucide-react'
 import { spotlights } from '../lib/spotlightsData'
 
 export default function Spotlights() {
+  const [status, setStatus] = useState(null)
+
+  const handleInquiry = async () => {
+    setStatus('loading')
+    try {
+      const { error } = await supabase.from('leads').insert([{
+        email: 'Direct Spotlight Request',
+        source_page: 'Spotlights',
+        type: 'Spotlight Inquiry',
+        description: 'User requested to showcase their journey via Spotlights page.'
+      }])
+      if (error) throw error
+      setStatus('success')
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    }
+  }
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
@@ -123,13 +143,17 @@ export default function Spotlights() {
           <p className="text-gray-500 max-w-xl mx-auto mb-12 font-light italic">
             "Every leader has a story that can inspire a generation. Let us help you tell yours to the world's most influential audience."
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <Link to="/contact" className="bg-secondary text-white px-10 py-4 uppercase text-[10px] font-bold tracking-[0.2em] hover:bg-accent transition-all duration-300">
-              Inquire for Spotlight
-            </Link>
+          <div className="flex flex-col items-center gap-6">
+            <button 
+              onClick={handleInquiry}
+              disabled={status === 'loading'}
+              className="bg-secondary text-white px-10 py-4 uppercase text-[10px] font-bold tracking-[0.2em] hover:bg-accent transition-all duration-300 disabled:opacity-50">
+              {status === 'loading' ? 'Processing...' : status === 'success' ? 'Inquiry Sent' : 'Inquire for Spotlight'}
+            </button>
             <Link to="/about" className="border border-secondary text-secondary px-10 py-4 uppercase text-[10px] font-bold tracking-[0.2em] hover:bg-secondary hover:text-white transition-all duration-300">
               Editorial Standards
             </Link>
+            {status === 'error' && <p className="text-red-500 text-[10px] font-bold uppercase">Submission failed.</p>}
           </div>
         </div>
       </section>
