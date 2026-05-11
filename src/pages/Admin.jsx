@@ -61,6 +61,13 @@ export default function Admin() {
   const [loadingStep, setLoadingStep] = useState('')
 
   useEffect(() => {
+    // Check for missing config (specifically for Vercel/Production issues)
+    if (supabase.supabaseUrl.includes('your-project.supabase.co')) {
+      setAuthError('Configuration Missing: Please ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your Vercel/Production environment variables.')
+      setAuthLoading(false)
+      return
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       setAuthLoading(false)
