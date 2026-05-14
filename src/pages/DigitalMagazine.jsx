@@ -2,23 +2,28 @@ import { BookOpen, Download, ChevronRight, Star, ArrowRight, Search, ArrowLeft, 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+// import { supabase } from '../lib/supabase'
+
 
 export default function DigitalMagazine() {
   const [searchQuery, setSearchQuery] = useState('')
   const [dynamicMagazines, setDynamicMagazines] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchMagazines = async () => {
       try {
-        const { data, error } = await supabase
-          .from('magazines')
-          .select('*')
-          .order('created_at', { ascending: false })
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}?action=get_magazines`)
+        const data = await response.json()
         
-        if (error) throw error
-        if (data) {
+        if (data.error) {
+          setError(data.error)
+          return
+        }
+
+        if (Array.isArray(data)) {
           setDynamicMagazines(data.map(item => ({
             id: item.id,
             title: item.title,
@@ -157,6 +162,7 @@ export default function DigitalMagazine() {
                   <img 
                     src={mag.image} 
                     alt={mag.title} 
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute top-4 left-4 bg-accent text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1">
@@ -232,13 +238,15 @@ export default function DigitalMagazine() {
         </div>
       </section>
       
-      {/* Scroll Top */}
-      <button 
+      {/* Floating Back to Top */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-10 right-10 z-[100] bg-secondary text-white p-4 rounded-full shadow-2xl hover:bg-accent transition-all group"
+        className="fixed bottom-28 right-8 z-[100] bg-secondary text-white p-4 rounded-full shadow-2xl hover:bg-accent transition-all group"
       >
         <ArrowUpRight size={24} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
-      </button>
+      </motion.button>
     </div>
   )
 }

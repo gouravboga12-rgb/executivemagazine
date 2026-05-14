@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+
+
 import { 
   Brain, Cpu, Shield, Zap, X, ArrowRight, 
   Globe, MessageSquare, BarChart3, TrendingUp, User, ChevronRight 

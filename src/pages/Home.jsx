@@ -7,7 +7,8 @@ import { articles } from '../lib/mockData'
 import { opinions } from '../lib/opinionsData.jsx'
 import { events } from '../lib/eventsData'
 import { spotlights } from '../lib/spotlightsData'
-import { supabase } from '../lib/supabase'
+// import { supabase } from '../lib/supabase'
+
 import { 
   Calendar, Award, Lightbulb, TrendingUp, Star, ArrowRight, 
   UserCheck, MessageSquare, FileText, CheckCircle2, Globe, Cpu, 
@@ -30,14 +31,21 @@ export default function Home() {
     if (!email) return
     setStatus('loading')
     try {
-      const { error } = await supabase.from('leads').insert([{
-        email,
-        source_page: 'Home',
-        type: 'Listing Application',
-        status: '1. Inquiry',
-        description: 'User initiated application from home page "Get Listed" section.'
-      }])
-      if (error) throw error
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=add_lead`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          source_page: 'Home',
+          type: 'Listing Application',
+          status: '1. Inquiry',
+          description: 'User initiated application from home page "Get Listed" section.'
+        })
+      });
+      const data = await response.json();
+      if (data.error) throw new Error(data.error)
+      
       setStatus('success')
       setEmail('')
     } catch (err) {
@@ -49,13 +57,17 @@ export default function Home() {
   useEffect(() => {
     const fetchDynamicData = async () => {
       try {
+        const apiUrl = import.meta.env.VITE_API_URL;
         const [intRes, magRes] = await Promise.all([
-          supabase.from('interviews').select('*').order('created_at', { ascending: false }),
-          supabase.from('magazines').select('*').order('created_at', { ascending: false })
+          fetch(`${apiUrl}?action=get_interviews`),
+          fetch(`${apiUrl}?action=get_magazines`)
         ])
 
-        if (intRes.data) {
-          setDynamicInterviews(intRes.data.map(item => ({
+        const intData = await intRes.json();
+        const magData = await magRes.json();
+
+        if (intData) {
+          setDynamicInterviews(intData.map(item => ({
             id: item.id,
             company: item.company,
             img: item.preview_url,
@@ -64,8 +76,8 @@ export default function Home() {
           })))
         }
 
-        if (magRes.data) {
-          setDynamicMagazines(magRes.data.map(item => ({
+        if (magData) {
+          setDynamicMagazines(magData.map(item => ({
             id: item.id,
             title: item.title,
             image: item.image_url,
@@ -82,11 +94,21 @@ export default function Home() {
 
   const featuredArticle = articles.find(a => a.featured)
   
-  // Merge fixed interviews with dynamic ones, keeping fixed ones at the top and avoiding duplicates
-  const allInterviews = [
-    ...FIXED_INTERVIEWS,
-    ...dynamicInterviews.filter(di => !FIXED_INTERVIEWS.some(fi => fi.company.toLowerCase() === di.company.toLowerCase()))
+  const featuredCompanies = [
+    'Alfa Laval India Limited',
+    'HiMedia Laboratories',
+    'Kitex Garments',
+    'Nagarjuna Construction Company Ltd',
+    'National Engineering Industries Ltd',
+    'Sandur Manganese',
+    'Vitabiotics',
+    'IRM Energy'
   ]
+
+  const allInterviews = dynamicInterviews
+    .filter(int => featuredCompanies.some(fc => int.company.toLowerCase().includes(fc.toLowerCase())))
+    .slice(0, 8)
+  
   const allMagazines = dynamicMagazines
   
   return (
@@ -153,6 +175,7 @@ export default function Home() {
                     <img 
                       src={item.img} 
                       alt={item.company} 
+                      loading="lazy"
                       className="w-full h-full object-contain bg-white transition-all duration-1000 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 border-[15px] border-white/0 group-hover:border-white/40 transition-all duration-500" />
@@ -176,7 +199,7 @@ export default function Home() {
 
           <div className="mt-24 text-center">
              <Link to="/interviews" className="inline-flex items-center gap-6 bg-secondary text-white px-12 py-6 text-[11px] font-bold uppercase tracking-[0.3em] hover:bg-accent transition-all shadow-2xl group rounded-full">
-                <span>View Complete Library</span>
+                <span>View More</span>
                 <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
              </Link>
           </div>
@@ -210,7 +233,7 @@ export default function Home() {
                   to={`/magazine/${mag.id}`}
                   className="group relative aspect-[3/4] overflow-hidden border border-white/10 shadow-2xl block cursor-pointer"
                 >
-                  <img src={mag.image} alt={mag.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src={mag.image} alt={mag.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center p-6 text-center space-y-4 pointer-events-none">
                     <span className="text-accent text-[8px] font-bold uppercase tracking-widest">{mag.edition}</span>
                     <h4 className="text-sm font-bold text-white leading-tight">{mag.title}</h4>

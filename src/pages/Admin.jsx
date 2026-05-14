@@ -8,7 +8,8 @@ import {
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+// import { supabase } from '../lib/supabase' // Removed Supabase
+
 
 export default function Admin() {
   const [session, setSession] = useState(null)
@@ -59,52 +60,67 @@ export default function Admin() {
     customData: ''
   })
   const [loadingStep, setLoadingStep] = useState('')
+  const [pastedImage, setPastedImage] = useState(null) // State for pasted file object
 
   useEffect(() => {
-    // Check for missing config (specifically for Vercel/Production issues)
-    if (supabase.supabaseUrl.includes('your-project.supabase.co')) {
-      setAuthError('Configuration Missing: Please ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your Vercel/Production environment variables.')
-      setAuthLoading(false)
-      return
+    // Check for session in localStorage
+    const savedSession = localStorage.getItem('admin_session')
+    if (savedSession) {
+      setSession(JSON.parse(savedSession))
+      fetchData()
     }
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setAuthLoading(false)
-      if (session) fetchData()
-    })
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
-      if (session) fetchData()
-    })
-
-    return () => subscription.unsubscribe()
+    setAuthLoading(false)
   }, [])
+
 
   const handleLogin = async (e) => {
     e.preventDefault()
     setAuthLoading(true)
     setAuthError(null)
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) setAuthError(error.message)
-    setAuthLoading(false)
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      
+      if (data.error) throw new Error(data.error)
+      
+      if (data.success) {
+        const sessionData = { user: data.user, token: data.token };
+        localStorage.setItem('admin_session', JSON.stringify(sessionData));
+        setSession(sessionData);
+        fetchData();
+      }
+    } catch (error) {
+      setAuthError(error.message)
+    } finally {
+      setAuthLoading(false)
+    }
   }
+
 
   useEffect(() => {
     setMobileMenuOpen(false)
   }, [activeTab])
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    localStorage.removeItem('admin_session')
     setSession(null)
   }
+
 
   const handleDelete = async (table, id) => {
     if (!window.confirm('Are you sure you want to delete this record?')) return
     try {
-      const { error } = await supabase.from(table).delete().eq('id', id)
-      if (error) throw error
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${apiUrl}?action=delete&table=${table}&id=${id}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
       fetchData() // Refresh
     } catch (err) {
       alert('Delete failed: ' + err.message)
@@ -152,6 +168,9 @@ export default function Admin() {
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
     
+    // Use pasted image if available and no new file was selected manually
+    const coverFile = (data.coverFile && data.coverFile.size > 0) ? data.coverFile : pastedImage;
+    
     try {
       const table = editingItem.type === 'interview' ? 'interviews' : 'magazines'
       let updateData = editingItem.type === 'interview' ? {
@@ -165,10 +184,10 @@ export default function Admin() {
         featured: formFields.featured
       }
 
-      // Check for new cover file
-      if (data.coverFile && data.coverFile.size > 0) {
+      // Check for new cover file (manual upload or paste)
+      if (coverFile) {
         setLoadingStep('Uploading new cover...')
-        const coverUrl = await uploadToCloudinary(data.coverFile)
+        const coverUrl = await uploadToHostinger(coverFile)
         if (editingItem.type === 'interview') {
           updateData.preview_url = coverUrl
         } else {
@@ -178,20 +197,35 @@ export default function Admin() {
 
       // Check for new PDF file
       if (data.pdfFile && data.pdfFile.size > 0) {
-        const pdfUrl = await uploadToCloudinary(data.pdfFile)
+        const pdfUrl = await uploadToHostinger(data.pdfFile)
         updateData.pdf_url = pdfUrl
       }
 
       setLoadingStep('Updating database...')
 
-      const { error } = await supabase
-        .from(table)
-        .update(updateData)
-        .eq('id', editingItem.id)
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const action = editingItem.type === 'interview' ? 'update_interview' : 'update_magazine'
       
-      setLoadingStep('Saving data...')
+      const payload = { 
+        id: editingItem.id,
+        ...updateData,
+        // Ensure all required fields are present even if they didn't change
+        pdf_url: updateData.pdf_url || editingItem.pdf_url || editingItem.pdf,
+        [editingItem.type === 'interview' ? 'preview_url' : 'image_url']: 
+            (editingItem.type === 'interview' ? updateData.preview_url : updateData.image_url) || 
+            (editingItem.type === 'interview' ? editingItem.preview_url : editingItem.image_url) || 
+            editingItem.image || editingItem.preview
+      }
+
+      const response = await fetch(`${apiUrl}?action=${action}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const resData = await response.json();
       
-      if (error) throw error
+      if (resData.error) throw new Error(resData.error)
+      
       setLoadingStep('Finalizing...')
       setFormSuccess('Updated successfully!')
       fetchData()
@@ -212,13 +246,16 @@ export default function Admin() {
 
   const handleLeadStatusUpdate = async (id, newStatus) => {
     try {
-      const { error } = await supabase
-        .from('leads')
-        .update({ status: newStatus })
-        .eq('id', id)
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=update_lead_status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus })
+      });
+      const data = await response.json();
+      if (data.error) throw new Error(data.error)
       
-      if (error) throw error
-      setLeads(prev => prev.map(l => l.id === id ? { ...l, status: newStatus } : l))
+      setLeads(prev => Array.isArray(prev) ? prev.map(l => l.id === id ? { ...l, status: newStatus } : l) : [])
     } catch (err) {
       console.error('Failed to update status:', err)
       alert('Failed to update status: ' + err.message)
@@ -228,28 +265,35 @@ export default function Admin() {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const [
-        { count: inqCount, data: inqData },
-        { count: intCount, data: intData },
-        { count: magCount, data: magData },
-        { count: leadsCount, data: leadsData }
-      ] = await Promise.all([
-        supabase.from('contacts').select('*', { count: 'exact' }).order('created_at', { ascending: false }),
-        supabase.from('interviews').select('*', { count: 'exact' }).order('created_at', { ascending: false }),
-        supabase.from('magazines').select('*', { count: 'exact' }).order('created_at', { ascending: false }),
-        supabase.from('leads').select('*', { count: 'exact' }).order('created_at', { ascending: false })
-      ])
+      const apiUrl = import.meta.env.VITE_API_URL;
+      
+      const [magRes, intRes, leadRes, contactRes] = await Promise.all([
+        fetch(`${apiUrl}?action=get_magazines`),
+        fetch(`${apiUrl}?action=get_interviews`),
+        fetch(`${apiUrl}?action=get_leads`),
+        fetch(`${apiUrl}?action=get_contacts`)
+      ]);
+
+      const magData = await magRes.json();
+      const intData = await intRes.json();
+      const leadData = await leadRes.json();
+      const contactData = await contactRes.json();
+
+      const magArray = Array.isArray(magData) ? magData : []
+      const intArray = Array.isArray(intData) ? intData : []
+      const leadArray = Array.isArray(leadData) ? leadData : []
+      const contactArray = Array.isArray(contactData) ? contactData : []
 
       setStats({
-        inquiries: inqCount || 0,
-        interviews: intCount || 0,
-        magazines: magCount || 0
+        inquiries: contactArray.length,
+        interviews: intArray.length,
+        magazines: magArray.length
       })
 
-      setInquiries(inqData || [])
-      setInterviews(intData || [])
-      setMagazines(magData || [])
-      setLeads(leadsData || [])
+      setMagazines(magArray)
+      setInterviews(intArray)
+      setInquiries(contactArray)
+      setLeads(leadArray)
     } catch (error) {
       console.error('Error fetching admin data:', error)
     } finally {
@@ -257,30 +301,37 @@ export default function Admin() {
     }
   }
 
-  const uploadToCloudinary = async (file) => {
-    // Check file size (10MB limit for unsigned uploads)
-    if (file.size > 10 * 1024 * 1024) {
-      throw new Error('File is too large! Cloudinary limit is 10MB. Please compress your PDF.')
-    }
-
-    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
-    
+  const uploadToHostinger = async (file) => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('upload_preset', uploadPreset)
 
-    const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/upload`,
-      {
-        method: 'POST',
-        body: formData,
-      }
-    )
+    const response = await fetch(`${apiUrl}?action=upload`, {
+      method: 'POST',
+      body: formData,
+    })
 
-    if (!response.ok) throw new Error('Cloudinary upload failed')
+    if (!response.ok) throw new Error('Hostinger upload failed')
     const data = await response.json()
-    return data.secure_url
+    if (data.error) throw new Error(data.error)
+    return data.url
+  }
+
+  const handlePaste = (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") !== -1) {
+        const blob = items[i].getAsFile();
+        if (blob) {
+          const file = new File([blob], "pasted-image.png", { type: blob.type });
+          setPastedImage(file);
+          setCoverPreview(URL.createObjectURL(file));
+          break;
+        }
+      }
+    }
   }
 
   const handleUpload = async (e, type) => {
@@ -292,40 +343,46 @@ export default function Admin() {
 
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
+    const coverFile = (data.coverFile && data.coverFile.size > 0) ? data.coverFile : pastedImage;
 
     try {
       let coverUrl = ''
       let pdfUrl = ''
 
       // 1. Upload Cover
-      if (data.coverFile && data.coverFile.size > 0) {
+      if (coverFile) {
         setLoadingStep('Uploading cover image...')
-        coverUrl = await uploadToCloudinary(data.coverFile)
+        coverUrl = await uploadToHostinger(coverFile)
       }
 
       // 2. Upload PDF
       if (data.pdfFile && data.pdfFile.size > 0) {
         setLoadingStep('Uploading PDF document...')
-        pdfUrl = await uploadToCloudinary(data.pdfFile)
+        pdfUrl = await uploadToHostinger(data.pdfFile)
       }
 
       setLoadingStep('Registering with database...')
+      const apiUrl = import.meta.env.VITE_API_URL;
 
-      // 3. Save to Database
+      // 3. Save to Database via Hostinger API
       if (type === 'interview') {
-        const { error } = await supabase
-          .from('interviews')
-          .insert([{
+        const response = await fetch(`${apiUrl}?action=add_interview`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             company: formFields.company,
             preview_url: coverUrl,
             pdf_url: pdfUrl,
             industry: formFields.customData ? `${formFields.industry}\n\n[Custom Fields]\n${formFields.customData}` : formFields.industry
-          }])
-        if (error) throw error
+          })
+        });
+        const resData = await response.json();
+        if (resData.error) throw new Error(resData.error);
       } else {
-        const { error } = await supabase
-          .from('magazines')
-          .insert([{
+        const response = await fetch(`${apiUrl}?action=add_magazine`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             title: formFields.title,
             edition: formFields.edition,
             image_url: coverUrl,
@@ -333,8 +390,10 @@ export default function Admin() {
             tag: formFields.tag,
             description: formFields.customData ? `${formFields.description}\n\n[Custom Fields]\n${formFields.customData}` : formFields.description,
             featured: formFields.featured
-          }])
-        if (error) throw error
+          })
+        });
+        const resData = await response.json();
+        if (resData.error) throw new Error(resData.error);
       }
 
       setLoadingStep('Refresh...')
@@ -937,7 +996,7 @@ export default function Admin() {
               animate={{ scale: 1, y: 0 }}
               className="bg-white w-full max-w-2xl rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl p-10 relative custom-scrollbar"
             >
-              <button onClick={() => { setIsModalOpen(false); setFormError(null); setFormSuccess(null); setCoverPreview(null); setPdfName(null); }} className="absolute top-6 right-6 text-gray-400 hover:text-secondary"><X /></button>
+              <button onClick={() => { setIsModalOpen(false); setFormError(null); setFormSuccess(null); setCoverPreview(null); setPdfName(null); setPastedImage(null); }} className="absolute top-6 right-6 text-gray-400 hover:text-secondary"><X /></button>
               
               <h2 className="text-3xl font-bold text-secondary uppercase tracking-tighter mb-8 font-sans">
                 {editingItem ? 'Edit' : 'New'} <span className="text-accent italic font-sans lowercase tracking-normal">{modalType}</span>
@@ -1062,14 +1121,18 @@ export default function Admin() {
                            if (file) setCoverPreview(URL.createObjectURL(file))
                          }}
                        />
-                       <div className="border-2 border-dashed border-gray-100 rounded-2xl p-8 text-center group-hover:border-accent transition-all group-hover:bg-accent/5 overflow-hidden relative min-h-[120px] flex flex-col items-center justify-center">
+                       <div 
+                         onPaste={handlePaste}
+                         className="border-2 border-dashed border-gray-100 rounded-2xl p-8 text-center group-hover:border-accent transition-all group-hover:bg-accent/5 overflow-hidden relative min-h-[120px] flex flex-col items-center justify-center outline-none focus:border-accent"
+                         tabIndex="0"
+                       >
                           {(coverPreview || editingItem?.image_url || editingItem?.preview_url) ? (
                             <img src={coverPreview || editingItem?.image_url || editingItem?.preview_url} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-20" />
                           ) : null}
                           <div className="relative z-10 pointer-events-none">
                             <Upload className="mx-auto mb-2 text-gray-300 group-hover:text-accent" />
                             <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400">
-                              {coverPreview || editingItem ? 'Change Image' : 'Click to upload image'}
+                              {coverPreview || editingItem ? 'Change Image' : 'Click or Paste Image'}
                             </p>
                           </div>
                           {coverPreview && (
@@ -1079,6 +1142,7 @@ export default function Admin() {
                                 e.preventDefault();
                                 e.stopPropagation(); 
                                 setCoverPreview(null);
+                                setPastedImage(null);
                                 if (coverInputRef.current) coverInputRef.current.value = '';
                               }}
                               className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full hover:bg-red-600 shadow-lg z-20 pointer-events-auto"

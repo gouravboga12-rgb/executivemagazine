@@ -10,18 +10,16 @@ export default function Edition() {
 
   const fetchMagazines = async () => {
     try {
-      const { data, error } = await supabase
-        .from('magazines')
-        .select('*')
-        .order('created_at', { ascending: false })
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=get_magazines`);
+      const data = await response.json();
       
-      if (error) throw error
       if (data) {
         setDynamicMagazines(data.map(item => ({
           id: item.id,
           title: item.title,
           month: item.edition,
-          issue: item.id.substring(0, 3).toUpperCase(),
+          issue: item.id.toString().substring(0, 3).toUpperCase(),
           cover: item.description,
           pages: 160,
           image: item.image_url,

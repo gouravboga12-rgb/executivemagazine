@@ -2,7 +2,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Maximize2, Globe, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { supabase } from '../lib/supabase'
+
+
 
 export default function MagazineViewer() {
   const { id } = useParams()
@@ -16,13 +17,11 @@ export default function MagazineViewer() {
     const fetchMagazine = async () => {
       setIsLoading(true)
       try {
-        const { data, error: fetchError } = await supabase
-          .from('magazines')
-          .select('*')
-          .eq('id', id)
-          .single()
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}?action=get_magazine&id=${id}`);
+        const data = await response.json();
         
-        if (fetchError || !data) {
+        if (data.error || !data) {
           setError(true)
         } else {
           setMagazine({
@@ -145,10 +144,11 @@ export default function MagazineViewer() {
           <div className="flex items-center gap-4">
             <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
 
+
             <a
-              href={magazine.pdf}
-              download
-              className="bg-accent text-white px-3 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20 flex items-center gap-2"
+              href={magazine?.pdf ? `${import.meta.env.VITE_API_URL}?action=download&file=${encodeURIComponent(magazine.pdf.split('/').pop())}` : '#'}
+              onClick={(e) => !magazine?.pdf && e.preventDefault()}
+              className={`${!magazine?.pdf ? 'opacity-50 cursor-not-allowed' : ''} bg-accent text-white px-3 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20 flex items-center gap-2`}
             >
               <Download size={14} className="md:hidden" />
               <span className="hidden md:inline">Download PDF</span>
@@ -180,14 +180,11 @@ export default function MagazineViewer() {
             <div className="relative w-full overflow-auto bg-gray-50 flex justify-center" style={{ height: 'calc(100vh - 120px)' }}>
               <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
                 <iframe
-                  src={`/pdf-viewer.html?file=${encodeURIComponent(magazine.pdf)}`}
+                  src={`${magazine.pdf}#toolbar=0`}
                   title={magazine.title}
                   className="w-full h-full border-none"
                 />
               </div>
-
-              {/* Overlay shadow for depth */}
-              <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.03)]" />
             </div>
 
             {/* In-Reader Context Actions */}

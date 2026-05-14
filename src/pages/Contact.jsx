@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, MessageCircle, ChevronRight, Globe } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+// import { supabase } from '../lib/supabase'
+
 import { motion } from 'framer-motion'
 
 export default function Contact() {
@@ -26,12 +27,16 @@ export default function Contact() {
 
     setStatus('sending')
     try {
-      // 2. Save to Supabase (Database)
-      const { error } = await supabase
-        .from('contacts')
-        .insert([formData])
+      // 2. Save to Hostinger (Database)
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=add_contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
       
-      if (error) throw error
+      if (data.error) throw new Error(data.error)
       
       setStatus('success')
       setFormData({ name: '', email: '', phone: '', organization: '', service: 'Editorial Interview', subject: '', message: '' })

@@ -1,8 +1,9 @@
-import { Download, Eye, FileText, ArrowRight, Search, ArrowLeft, ArrowUpRight, MessageCircle } from 'lucide-react'
+import { Download, Eye, FileText, ArrowRight, Search, ArrowLeft, ArrowUpRight, MessageCircle, AlertCircle } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+
+
 
 
 import { FIXED_INTERVIEWS } from '../lib/fixedInterviews'
@@ -11,17 +12,25 @@ export default function Interviews() {
   const [searchQuery, setSearchQuery] = useState('')
   const [dynamicInterviews, setDynamicInterviews] = useState([])
   const [status, setStatus] = useState(null)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const handleInquiry = async () => {
     setStatus('loading')
     try {
-      const { error } = await supabase.from('leads').insert([{
-        email: 'Direct Archive Request',
-        source_page: 'Interviews',
-        type: 'Archive Inquiry',
-        description: 'User requested access to full editorial archive.'
-      }])
-      if (error) throw error
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=add_lead`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: 'Direct Archive Request',
+          source_page: 'Interviews',
+          type: 'Archive Inquiry',
+          description: 'User requested access to full editorial archive.'
+        })
+      });
+      const data = await response.json();
+      if (data.error) throw new Error(data.error)
       setStatus('success')
     } catch (err) {
       console.error(err)
@@ -32,13 +41,17 @@ export default function Interviews() {
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const { data, error } = await supabase
-          .from('interviews')
-          .select('*')
-          .order('created_at', { ascending: false })
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}?action=get_interviews`)
+        const data = await response.json()
         
-        if (error) throw error
-        if (data) {
+        if (data.error) {
+          setError(data.error)
+          console.error('API Error:', data.error)
+          return
+        }
+
+        if (Array.isArray(data)) {
           const formatted = data.map(item => ({
             id: item.id,
             company: item.company,
@@ -47,6 +60,8 @@ export default function Interviews() {
             industry: item.industry
           }))
           setDynamicInterviews(formatted)
+        } else {
+          setError('Invalid data received from server')
         }
       } catch (err) {
         console.error('Failed to fetch interviews:', err)
@@ -55,17 +70,7 @@ export default function Interviews() {
     fetchInterviews()
   }, [])
 
-  // Prepare fixed interviews with correct mapping
-  const fixedMapped = FIXED_INTERVIEWS.map(item => ({
-    ...item,
-    preview: item.img, // Interviews.jsx uses 'preview' instead of 'img'
-    industry: item.tag
-  }))
-
-  const allInterviews = [
-    ...fixedMapped,
-    ...dynamicInterviews.filter(di => !fixedMapped.some(fi => fi.company.toLowerCase() === di.company.toLowerCase()))
-  ]
+  const allInterviews = dynamicInterviews
 
   const filteredInterviews = allInterviews.filter(item => 
     item.company.toLowerCase().includes(searchQuery.toLowerCase())
@@ -140,6 +145,19 @@ export default function Interviews() {
           </div>
         </div>
       </div>
+      {/* Error Display */}
+      {error && (
+        <div className="container mx-auto px-4 lg:px-8 mt-8">
+          <div className="bg-red-50 border border-red-200 text-red-600 p-6 rounded-3xl flex items-center gap-4 shadow-xl">
+            <AlertCircle size={24} />
+            <div>
+              <p className="font-bold uppercase tracking-widest text-[10px] mb-1">System Error</p>
+              <p className="text-sm font-medium">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Grid */}
       <div className="container mx-auto px-4 lg:px-8 relative z-20 mt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -160,8 +178,9 @@ export default function Interviews() {
                 className="relative aspect-[3/4] overflow-hidden bg-gray-50 border-b border-gray-100 block cursor-pointer"
               >
                 <img 
-                  src={item.preview} 
+                  src={item.preview || "https://images.unsplash.com/photo-1586339949916-3e9457bed613?q=80&w=2070&auto=format&fit=crop"} 
                   alt={item.company}
+                  loading="lazy"
                   className="w-full h-full object-contain bg-white group-hover:scale-105 transition-transform duration-1000"
                   onError={(e) => {
                     e.target.src = "https://images.unsplash.com/photo-1586339949916-3e9457bed613?q=80&w=2070&auto=format&fit=crop"

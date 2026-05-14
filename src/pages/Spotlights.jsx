@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+
+
 import { ArrowRight, Globe, Zap, Award } from 'lucide-react'
 import { spotlights } from '../lib/spotlightsData'
 

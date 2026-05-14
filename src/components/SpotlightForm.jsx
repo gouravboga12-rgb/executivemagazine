@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send, CheckCircle2, AlertCircle, Building2, User, Mail, Briefcase, MessageSquare, Globe } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+
+
 
 export default function SpotlightForm({ type = 'application', spotlightTitle, color }) {
   const [formData, setFormData] = useState({

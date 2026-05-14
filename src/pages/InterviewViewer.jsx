@@ -9,15 +9,40 @@ export default function InterviewViewer() {
   const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
   const [zoom, setZoom] = useState(100)
+  const [magazine, setMagazine] = useState(null)
+  const { pdfUrl: statePdf, title: stateTitle } = location.state || {}
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, [])
-  const { pdfUrl, title } = location.state || { 
-    pdfUrl: `/interview pages/${id}.pdf`,
-    title: id?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-  }
+    const fetchInterview = async () => {
+      if (statePdf) {
+        setMagazine({ pdf: statePdf, title: stateTitle })
+        setIsLoading(false)
+        return
+      }
+
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}?action=get_interview&id=${id}`);
+        const data = await response.json();
+        
+        if (data) {
+          setMagazine({
+            pdf: data.pdf_url,
+            title: data.company
+          })
+        }
+      } catch (err) {
+        console.error('Failed to fetch interview:', err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchInterview()
+  }, [id, statePdf, stateTitle])
+
+  const pdfUrl = magazine?.pdf
+  const title = magazine?.title
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -27,6 +52,14 @@ export default function InterviewViewer() {
       document.body.style.overflow = 'unset'
     }
   }, [id])
+
+  if (isLoading || !magazine) {
+    return (
+      <div className="h-screen bg-[#0a0a0a] flex flex-col items-center justify-center">
+        <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0a0a] flex flex-col overflow-hidden selection:bg-accent selection:text-white">
@@ -79,9 +112,9 @@ export default function InterviewViewer() {
             <div className="h-6 w-[1px] bg-white/10 mx-2 hidden md:block" />
 
             <a
-              href={pdfUrl}
-              download
-              className="bg-accent text-white px-3 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20 flex items-center gap-2"
+              href={pdfUrl ? `${import.meta.env.VITE_API_URL}?action=download&file=${encodeURIComponent(pdfUrl.split('/').pop())}` : '#'}
+              onClick={(e) => !pdfUrl && e.preventDefault()}
+              className={`${!pdfUrl ? 'opacity-50 cursor-not-allowed' : ''} bg-accent text-white px-3 md:px-8 py-2 md:py-3 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-secondary transition-all shadow-2xl shadow-accent/20 flex items-center gap-2`}
             >
               <Download size={14} className="md:hidden" />
               <span className="hidden md:inline">Download PDF</span>
@@ -144,7 +177,7 @@ export default function InterviewViewer() {
             <div className="relative w-full overflow-auto bg-gray-100 flex justify-center" style={{ height: 'calc(100vh - 100px)' }}>
               <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
                 <iframe
-                  src={`/pdf-viewer.html?file=${encodeURIComponent(pdfUrl)}`}
+                  src={`${pdfUrl}#toolbar=0`}
                   title={title}
                   className="w-full h-full border-none"
                 />

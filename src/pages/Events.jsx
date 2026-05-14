@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { supabase } from '../lib/supabase'
+
+
 import { 
   Calendar, MapPin, ChevronRight, X, Info, 
   TrendingUp, Zap, Target, Globe, Shield, 
