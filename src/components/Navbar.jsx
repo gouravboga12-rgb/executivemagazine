@@ -173,11 +173,10 @@ export default function Navbar() {
                     <div className="grid grid-cols-4 gap-8">
                       {hoveredLink === 'Interviews' ? (
                         priorityInterviews.map((item) => (
-                          <a 
+                          <Link 
                             key={item.id} 
-                            href={item.pdf}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            to={`/interview/${item.id}`}
+                            state={{ pdfUrl: item.pdf, title: item.company }}
                             className="group/item space-y-4"
                           >
                             <div className="aspect-[3/4] overflow-hidden bg-gray-50 border border-gray-100 relative shadow-sm group-hover/item:shadow-md transition-all">
@@ -188,7 +187,7 @@ export default function Navbar() {
                               <span className="text-[8px] font-bold uppercase tracking-widest text-accent">PDF Archive</span>
                               <h4 className="text-xs font-bold text-secondary leading-tight group-hover/item:text-accent transition-colors line-clamp-2">{item.company}</h4>
                             </div>
-                          </a>
+                          </Link>
                         ))
                       ) : hoveredLink === 'Events' ? (
                         events.slice(0, 4).map((event) => (
