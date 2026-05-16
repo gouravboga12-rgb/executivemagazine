@@ -42,9 +42,25 @@ if ($a === 'get_magazines') {
     exit;
 }
 
+if ($a === 'get_magazine') {
+    $id = $_GET['id'] ?? 0;
+    $s = $conn->prepare("SELECT * FROM magazines WHERE id = ?");
+    $s->execute([$id]);
+    echo json_encode($s->fetch(PDO::FETCH_ASSOC));
+    exit;
+}
+
 if ($a === 'get_interviews') {
     $s = $conn->query("SELECT * FROM interviews ORDER BY id DESC");
     echo json_encode($s->fetchAll(PDO::FETCH_ASSOC));
+    exit;
+}
+
+if ($a === 'get_interview') {
+    $id = $_GET['id'] ?? 0;
+    $s = $conn->prepare("SELECT * FROM interviews WHERE id = ?");
+    $s->execute([$id]);
+    echo json_encode($s->fetch(PDO::FETCH_ASSOC));
     exit;
 }
 

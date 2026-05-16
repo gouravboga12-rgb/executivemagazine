@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 
 import { FIXED_INTERVIEWS } from '../lib/fixedInterviews'
+import { getFullUrl } from '../lib/utils'
 
 export default function Interviews() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -55,8 +56,8 @@ export default function Interviews() {
           const formatted = data.map(item => ({
             id: item.id,
             company: item.company,
-            preview: item.preview_url,
-            pdf: item.pdf_url,
+            preview: getFullUrl(item.preview_url),
+            pdf: getFullUrl(item.pdf_url),
             industry: item.industry
           }))
           setDynamicInterviews(formatted)
@@ -174,7 +175,7 @@ export default function Interviews() {
             >
               <Link 
                 to={`/interview/${item.id}`}
-                state={{ pdfUrl: item.pdf, title: item.company }}
+                state={{ pdfUrl: item.pdf, title: item.company, preview: item.preview }}
                 className="relative aspect-[3/4] overflow-hidden bg-gray-50 border-b border-gray-100 block cursor-pointer"
               >
                 <img 
@@ -190,7 +191,7 @@ export default function Interviews() {
                 <div className="absolute inset-0 bg-secondary/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center pointer-events-none">
                   <div className="flex items-center space-x-3 bg-white text-secondary px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">
                     <Eye size={14} />
-                    <span>Open PDF</span>
+                    <span>View PDF Archive</span>
                   </div>
                 </div>
               </Link>
@@ -198,7 +199,7 @@ export default function Interviews() {
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div>
-                    <span className="text-accent text-[8px] font-bold uppercase tracking-widest mb-1 block">Full Feature</span>
+                    <span className="text-accent text-[8px] font-bold uppercase tracking-widest mb-1 block">PDF Archive</span>
                     <h3 className="text-lg font-bold text-secondary leading-tight group-hover:text-accent transition-colors">
                       {item.company}
                     </h3>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, User, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { getFullUrl } from '../lib/utils'
 import { articles } from '../lib/mockData'
 import { events } from '../lib/eventsData'
 import { spotlights } from '../lib/spotlightsData'
@@ -176,7 +177,11 @@ export default function Navbar() {
                           <Link 
                             key={item.id} 
                             to={`/interview/${item.id}`}
-                            state={{ pdfUrl: item.pdf, title: item.company }}
+                            state={{ 
+                              pdfUrl: getFullUrl(item.pdf), 
+                              title: item.company, 
+                              preview: getFullUrl(item.preview) 
+                            }}
                             className="group/item space-y-4"
                           >
                             <div className="aspect-[3/4] overflow-hidden bg-gray-50 border border-gray-100 relative shadow-sm group-hover/item:shadow-md transition-all">

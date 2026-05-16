@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Maximize2, Globe, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { getFullUrl } from '../lib/utils'
 
 
 
@@ -12,6 +13,16 @@ export default function MagazineViewer() {
   const [isLoading, setIsLoading] = useState(true)
   const [zoom, setZoom] = useState(100)
   const [error, setError] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const fetchMagazine = async () => {
@@ -28,8 +39,8 @@ export default function MagazineViewer() {
             id: data.id,
             title: data.title,
             subtitle: data.edition,
-            pdf: data.pdf_url,
-            image: data.image_url
+            pdf: getFullUrl(data.pdf_url),
+            image: getFullUrl(data.image_url)
           })
           setError(false)
         }
@@ -178,13 +189,45 @@ export default function MagazineViewer() {
 
             {/* Embedded Iframe Reader */}
             <div className="relative w-full overflow-auto bg-gray-50 flex justify-center" style={{ height: 'calc(100vh - 120px)' }}>
-              <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
-                <iframe
-                  src={`${magazine.pdf}#toolbar=0`}
-                  title={magazine.title}
-                  className="w-full h-full border-none"
-                />
-              </div>
+              {!isMobile ? (
+                <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
+                  <iframe
+                    src={`${magazine.pdf}#toolbar=0`}
+                    title={magazine.title}
+                    className="w-full h-full border-none"
+                  />
+                </div>
+              ) : (
+                <div className="w-full h-full relative flex flex-col items-center justify-center p-8 bg-[#1a1a1a]">
+                   {/* Mobile Cover Display */}
+                   <div className="relative w-full max-w-[300px] aspect-[3/4] shadow-2xl overflow-hidden mb-12">
+                      <img 
+                        src={magazine.image} 
+                        alt={magazine.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                   </div>
+                   
+                   <div className="text-center space-y-6">
+                      <h2 className="text-white font-serif text-2xl font-bold">{magazine.title}</h2>
+                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">{magazine.subtitle} • Digital Edition</p>
+                      
+                      <div className="pt-8">
+                        <a 
+                          href={magazine.pdf}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-4 bg-accent text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] shadow-2xl active:scale-95 transition-all"
+                        >
+                          <ExternalLink size={18} />
+                          Read Full Edition
+                        </a>
+                      </div>
+                      <p className="text-white/20 text-[8px] font-bold uppercase tracking-[0.3em] pt-4">Opens Directly in Native Viewer</p>
+                   </div>
+                </div>
+              )}
             </div>
 
             {/* In-Reader Context Actions */}

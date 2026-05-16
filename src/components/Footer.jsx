@@ -171,7 +171,7 @@ export default function Footer() {
 
         <div className="pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold">
           <div className="flex items-center space-x-12 mb-8 md:mb-0">
-             <span>&copy; {currentYear} Executives Media Group</span>
+             <span>&copy; {currentYear} Executives Media Group v1.2</span>
              <span className="hidden md:block">Published in London & New York</span>
           </div>
           <div className="flex space-x-10">

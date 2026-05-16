@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Printer, Maximize2, Globe, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { getFullUrl } from '../lib/utils'
 
 export default function InterviewViewer() {
   const { id } = useParams()
@@ -10,12 +11,26 @@ export default function InterviewViewer() {
   const [isLoading, setIsLoading] = useState(true)
   const [zoom, setZoom] = useState(100)
   const [magazine, setMagazine] = useState(null)
-  const { pdfUrl: statePdf, title: stateTitle } = location.state || {}
+  const [isMobile, setIsMobile] = useState(false)
+  const { pdfUrl: statePdf, title: stateTitle, preview: statePreview } = location.state || {}
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const fetchInterview = async () => {
       if (statePdf) {
-        setMagazine({ pdf: statePdf, title: stateTitle })
+        setMagazine({ 
+          pdf: getFullUrl(statePdf), 
+          title: stateTitle,
+          preview: statePreview ? getFullUrl(statePreview) : null
+        })
         setIsLoading(false)
         return
       }
@@ -27,8 +42,9 @@ export default function InterviewViewer() {
         
         if (data) {
           setMagazine({
-            pdf: data.pdf_url,
-            title: data.company
+            pdf: getFullUrl(data.pdf_url),
+            title: data.company,
+            preview: getFullUrl(data.preview_url)
           })
         }
       } catch (err) {
@@ -175,13 +191,45 @@ export default function InterviewViewer() {
             
             {/* Custom Iframe Reader */}
             <div className="relative w-full overflow-auto bg-gray-100 flex justify-center" style={{ height: 'calc(100vh - 100px)' }}>
-              <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
-                <iframe
-                  src={`${pdfUrl}#toolbar=0`}
-                  title={title}
-                  className="w-full h-full border-none"
-                />
-              </div>
+              {!isMobile ? (
+                <div style={{ width: `${zoom}%`, height: '100%', transition: 'width 0.3s ease' }}>
+                  <iframe
+                    src={`${magazine.pdf}#toolbar=0`}
+                    title={title}
+                    className="w-full h-full border-none"
+                  />
+                </div>
+              ) : (
+                <div className="w-full h-full relative flex flex-col items-center justify-center p-8 bg-[#1a1a1a]">
+                   {/* Mobile Cover Display */}
+                   <div className="relative w-full max-w-[300px] aspect-[3/4] shadow-2xl overflow-hidden mb-12 group">
+                      <img 
+                        src={magazine.preview || "https://images.unsplash.com/photo-1586339949916-3e9457bed613?q=80&w=2070&auto=format&fit=crop"} 
+                        alt={title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                   </div>
+                   
+                   <div className="text-center space-y-6">
+                      <h2 className="text-white font-serif text-2xl font-bold">{title}</h2>
+                      <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest">Digital Edition • Official Feature</p>
+                      
+                      <div className="pt-8">
+                        <a 
+                          href={magazine.pdf}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-4 bg-accent text-white px-10 py-5 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] shadow-2xl active:scale-95 transition-all"
+                        >
+                          <ExternalLink size={18} />
+                          Read Full Interview
+                        </a>
+                      </div>
+                      <p className="text-white/20 text-[8px] font-bold uppercase tracking-[0.3em] pt-4">Opens Directly in Native Viewer</p>
+                   </div>
+                </div>
+              )}
               
               {/* Subtle Inner Glow */}
               <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.05)]" />

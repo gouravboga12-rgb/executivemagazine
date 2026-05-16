@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
 import { FIXED_INTERVIEWS } from '../lib/fixedInterviews'
+import { getFullUrl } from '../lib/utils'
 
 export default function Home() {
   const [selectedOpinion, setSelectedOpinion] = useState(null)
@@ -70,8 +71,8 @@ export default function Home() {
           setDynamicInterviews(intData.map(item => ({
             id: item.id,
             company: item.company,
-            img: item.preview_url,
-            pdf: item.pdf_url,
+            img: getFullUrl(item.preview_url),
+            pdf: getFullUrl(item.pdf_url),
             tag: item.industry || 'Editorial'
           })))
         }
@@ -80,9 +81,9 @@ export default function Home() {
           setDynamicMagazines(magData.map(item => ({
             id: item.id,
             title: item.title,
-            image: item.image_url,
+            image: getFullUrl(item.image_url),
             edition: item.edition,
-            pdf: item.pdf_url
+            pdf: getFullUrl(item.pdf_url)
           })))
         }
       } catch (err) {
@@ -168,7 +169,7 @@ export default function Home() {
               >
                 <Link 
                   to={`/interview/${item.id}`}
-                  state={{ pdfUrl: item.pdf, title: item.company }}
+                  state={{ pdfUrl: item.pdf, title: item.company, preview: item.img }}
                   className="block space-y-6"
                 >
                   <div className="relative aspect-[3/4] overflow-hidden bg-gray-50 shadow-xl transition-all duration-700 group-hover:-translate-y-2 group-hover:shadow-2xl">
