@@ -1,42 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+
+// Hardcoded verified configuration
+const GSC_KEY = 'tXx5gG6MnlCGhmWuaPrJL9MewpqMaJLQ8TuJ95RsloE'
+const GA4_ID = '' // Left empty as requested to skip tracking scripts cleanly
+
+const DEFAULT_KEYWORDS = 'Executives Magazine, C-suite insights, corporate leaders, business strategy, global investment summits, founder interviews, tech startup profiles, executive lifestyles'
+const DEFAULT_DESCRIPTION = 'Executives Magazine is a premium C-suite corporate publication and strategic business intelligence portal. Read exclusive interviews with global industrial leaders, founder spotlights, and forward-looking economic analyses.'
 
 export default function SEO({ title, description, keywords, canonical }) {
   const location = useLocation()
-  const [settings, setSettings] = useState({
-    gsc_key: '',
-    ga4_id: '',
-    seo_keywords: '',
-    seo_description: ''
-  })
 
+  // Optional: GA4 tracking activation in case you add a Measurement ID in the future
   useEffect(() => {
-    // Fetch global SEO settings from database
-    const fetchSettings = async () => {
-      try {
-        const apiUrl = import.meta.env.VITE_API_URL
-        const res = await fetch(`${apiUrl}?action=get_settings`)
-        const data = await res.json()
-        if (data && !data.error) {
-          setSettings({
-            gsc_key: data.gsc_key || '',
-            ga4_id: data.ga4_id || '',
-            seo_keywords: data.seo_keywords || '',
-            seo_description: data.seo_description || ''
-          })
-        }
-      } catch (err) {
-        console.error('Failed to load SEO settings:', err)
-      }
-    }
-    fetchSettings()
-  }, [])
+    if (!GA4_ID) return
 
-  // Dynamic GA4 automated tracking
-  useEffect(() => {
-    if (!settings.ga4_id) return
-
-    // Inject Google Tag script dynamically if not already present
     const scriptId = 'google-analytics-gtag'
     let script = document.getElementById(scriptId)
     
@@ -44,7 +22,7 @@ export default function SEO({ title, description, keywords, canonical }) {
       script = document.createElement('script')
       script.id = scriptId
       script.async = true
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`
       document.head.appendChild(script)
 
       const inlineScript = document.createElement('script')
@@ -53,24 +31,21 @@ export default function SEO({ title, description, keywords, canonical }) {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '${settings.ga4_id}', { page_path: window.location.pathname });
+        gtag('config', '${GA4_ID}', { page_path: window.location.pathname });
       `
       document.head.appendChild(inlineScript)
     } else {
-      // Fire page view on route change if script already injected
       if (window.gtag) {
-        window.gtag('config', settings.ga4_id, { page_path: location.pathname })
+        window.gtag('config', GA4_ID, { page_path: location.pathname })
       }
     }
-  }, [settings.ga4_id, location.pathname])
+  }, [location.pathname])
 
   const defaultTitle = "Executives Magazine | Premium Business & Lifestyle"
-  const defaultDescription = settings.seo_description || "Executives Magazine is a premium digital editorial platform for global corporate intelligence, strategic business leadership, and executive lifestyle."
-  const defaultKeywords = settings.seo_keywords || "Executives Magazine, business leadership, C-suite, corporate strategy, executive lifestyle, global business leaders, CEO interviews, business analysis"
-
+  
   const displayTitle = title ? `${title} | Executives Magazine` : defaultTitle
-  const displayDescription = description || defaultDescription
-  const displayKeywords = keywords || defaultKeywords
+  const displayDescription = description || DEFAULT_DESCRIPTION
+  const displayKeywords = keywords || DEFAULT_KEYWORDS
   const displayCanonical = canonical || `https://executivesmagazine.com${location.pathname}`
 
   return (
@@ -81,8 +56,8 @@ export default function SEO({ title, description, keywords, canonical }) {
       <link rel="canonical" href={displayCanonical} />
       
       {/* Google Search Console site verification */}
-      {settings.gsc_key && (
-        <meta name="google-site-verification" content={settings.gsc_key} />
+      {GSC_KEY && (
+        <meta name="google-site-verification" content={GSC_KEY} />
       )}
 
       {/* Open Graph / Facebook */}

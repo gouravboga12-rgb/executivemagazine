@@ -32,15 +32,6 @@ export default function Admin() {
   const [interviews, setInterviews] = useState([])
   const [magazines, setMagazines] = useState([])
 
-  const [leads, setLeads] = useState([])
-  const [settings, setSettings] = useState({
-    gsc_key: '',
-    ga4_id: '',
-    seo_keywords: '',
-    seo_description: ''
-  })
-  const [settingsSuccess, setSettingsSuccess] = useState(false)
-  const [settingsLoading, setSettingsLoading] = useState(false)
   const coverInputRef = useRef(null)
   const pdfInputRef = useRef(null)
 
@@ -275,25 +266,17 @@ export default function Admin() {
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       
-      const [magRes, intRes, leadRes, contactRes, setRes] = await Promise.all([
+      const [magRes, intRes, leadRes, contactRes] = await Promise.all([
         fetch(`${apiUrl}?action=get_magazines`),
         fetch(`${apiUrl}?action=get_interviews`),
         fetch(`${apiUrl}?action=get_leads`),
-        fetch(`${apiUrl}?action=get_contacts`),
-        fetch(`${apiUrl}?action=get_settings`).catch(() => null)
+        fetch(`${apiUrl}?action=get_contacts`)
       ]);
 
       const magData = await magRes.json();
       const intData = await intRes.json();
       const leadData = await leadRes.json();
       const contactData = await contactRes.json();
-      
-      let setData = {}
-      if (setRes) {
-        try {
-          setData = await setRes.json()
-        } catch(e) {}
-      }
 
       const magArray = Array.isArray(magData) ? magData : []
       const intArray = Array.isArray(intData) ? intData : []
@@ -310,44 +293,10 @@ export default function Admin() {
       setInterviews(intArray)
       setInquiries(contactArray)
       setLeads(leadArray)
-
-      if (setData && !setData.error) {
-        setSettings({
-          gsc_key: setData.gsc_key || '',
-          ga4_id: setData.ga4_id || '',
-          seo_keywords: setData.seo_keywords || '',
-          seo_description: setData.seo_description || ''
-        })
-      }
     } catch (error) {
       console.error('Error fetching admin data:', error)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleSettingsSave = async (e) => {
-    e.preventDefault()
-    setSettingsLoading(true)
-    setSettingsSuccess(false)
-    try {
-      const apiUrl = import.meta.env.VITE_API_URL
-      const response = await fetch(`${apiUrl}?action=update_settings`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settings)
-      })
-      const data = await response.json()
-      if (data.success) {
-        setSettingsSuccess(true)
-        setTimeout(() => setSettingsSuccess(false), 3000)
-      } else {
-        throw new Error(data.error || 'Failed to save settings')
-      }
-    } catch (err) {
-      alert('Error saving settings: ' + err.message)
-    } finally {
-      setSettingsLoading(false)
     }
   }
 
@@ -587,8 +536,7 @@ export default function Admin() {
             { id: 'interviews', label: 'Interviews', icon: <FileText size={20} /> },
             { id: 'magazines', label: 'Editions', icon: <BookOpen size={20} /> },
             { id: 'leads', label: 'Growth Leads', icon: <TrendingUp size={20} /> },
-            { id: 'inquiries', label: 'Inquiries', icon: <MessageSquare size={20} /> },
-            { id: 'settings', label: 'SEO Settings', icon: <Settings size={20} /> }
+            { id: 'inquiries', label: 'Inquiries', icon: <MessageSquare size={20} /> }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -1028,85 +976,7 @@ export default function Admin() {
                 </div>
               )}
 
-              {activeTab === 'settings' && (
-                <div className="space-y-8">
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <h2 className="text-4xl font-black text-secondary uppercase tracking-tighter font-sans">SEO & Google Settings</h2>
-                      <p className="text-gray-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Manage Search Console, Web Analytics, and Metadata</p>
-                    </div>
-                  </div>
 
-                  <form onSubmit={handleSettingsSave} className="bg-white p-10 border border-gray-100 rounded-[32px] shadow-sm space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Google Search Console Key</label>
-                        <input
-                          type="text"
-                          value={settings.gsc_key}
-                          onChange={(e) => setSettings({ ...settings, gsc_key: e.target.value })}
-                          placeholder="e.g. google-site-verification code"
-                          className="w-full border-b border-gray-100 py-3 focus:outline-none focus:border-accent text-sm bg-white"
-                        />
-                        <p className="text-[9px] text-gray-300 uppercase tracking-wider">Paste the meta tag verification key provided by Search Console.</p>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Google Analytics 4 ID</label>
-                        <input
-                          type="text"
-                          value={settings.ga4_id}
-                          onChange={(e) => setSettings({ ...settings, ga4_id: e.target.value })}
-                          placeholder="e.g. G-XXXXXXXXXX"
-                          className="w-full border-b border-gray-100 py-3 focus:outline-none focus:border-accent text-sm bg-white"
-                        />
-                        <p className="text-[9px] text-gray-300 uppercase tracking-wider">Dynamic page tracker tracking ID for GA4 statistics.</p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Global Fallback SEO Keywords</label>
-                      <textarea
-                        rows="2"
-                        value={settings.seo_keywords}
-                        onChange={(e) => setSettings({ ...settings, seo_keywords: e.target.value })}
-                        placeholder="e.g. Executives Magazine, business leadership, C-suite insights"
-                        className="w-full border border-gray-100 p-4 focus:outline-none focus:border-accent rounded-xl resize-none text-xs bg-white"
-                      />
-                      <p className="text-[9px] text-gray-300 uppercase tracking-wider">Default comma-separated keywords for pages lacking dynamic descriptions.</p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Global Fallback SEO Description</label>
-                      <textarea
-                        rows="3"
-                        value={settings.seo_description}
-                        onChange={(e) => setSettings({ ...settings, seo_description: e.target.value })}
-                        placeholder="e.g. Premium digital editorial platform..."
-                        className="w-full border border-gray-100 p-4 focus:outline-none focus:border-accent rounded-xl resize-none text-xs bg-white"
-                      />
-                      <p className="text-[9px] text-gray-300 uppercase tracking-wider">Default site meta-description to display in Google listings.</p>
-                    </div>
-
-                    {settingsSuccess && (
-                      <div className="p-4 bg-green-50 text-green-600 rounded-2xl flex items-center gap-3 border border-green-100 text-xs font-bold uppercase tracking-widest">
-                        <CheckCircle2 size={16} />
-                        <span>SEO settings successfully deployed to Hostinger database!</span>
-                      </div>
-                    )}
-
-                    <button
-                      disabled={settingsLoading}
-                      type="submit"
-                      className={`px-12 py-5 text-[10px] font-bold uppercase tracking-[0.3em] transition-all rounded-full ${
-                        settingsLoading ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-secondary text-white hover:bg-accent shadow-xl cursor-pointer'
-                      }`}
-                    >
-                      {settingsLoading ? 'Saving...' : 'Save Configuration'}
-                    </button>
-                  </form>
-                </div>
-              )}
             </>
           )}
           </div>
