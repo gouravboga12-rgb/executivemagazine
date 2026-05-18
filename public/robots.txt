@@ -1,0 +1,10 @@
+# Robots.txt for Executives Magazine
+# Architecting search engine optimization paths
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api.php
+
+# Sitemap direction
+Sitemap: https://executivesmagazine.com/sitemap.xml

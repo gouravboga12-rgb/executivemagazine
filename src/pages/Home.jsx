@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Hero from '../components/Hero'
+import SEO from '../components/SEO'
 import SectionHeading from '../components/SectionHeading'
 import ArticleCard from '../components/ArticleCard'
 import { articles } from '../lib/mockData'
@@ -114,6 +115,11 @@ export default function Home() {
   
   return (
     <div className="pb-20">
+      <SEO 
+        title="Premium Business & Leadership Portal" 
+        description="Executives Magazine is the premium global journal of record for C-suite business strategy, leadership excellence, corporate intelligence, and executive lifestyle." 
+        keywords="Executives Magazine, business leadership, C-suite insights, CEO interviews, business analysis, global business leaders, executive lifestyle, board directors"
+      />
       {/* Hero Section */}
       <Hero article={featuredArticle} />
 

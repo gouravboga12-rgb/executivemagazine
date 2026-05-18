@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 ;
 import { 
@@ -46,6 +47,11 @@ const Opinion = () => {
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen pt-24 pb-20">
+      <SEO 
+        title="Executive Opinions & Intelligence" 
+        description="Explore in-depth columns, strategic forecasting, governance perspectives, and economic analyses written by global C-suite thought leaders."
+        keywords="executive opinions, C-suite columns, leadership essays, industrial governance, business policy forecasting"
+      />
       {/* Editorial Header */}
       <header className="container mx-auto px-4 lg:px-8 mb-20 text-center" data-aos="fade-down">
         <motion.div

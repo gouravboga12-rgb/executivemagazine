@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Printer, Maximize2, Globe, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { getFullUrl } from '../lib/utils'
+import SEO from '../components/SEO'
 
 export default function InterviewViewer() {
   const { id } = useParams()
@@ -79,6 +80,11 @@ export default function InterviewViewer() {
 
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0a0a] flex flex-col overflow-hidden selection:bg-accent selection:text-white">
+      <SEO 
+        title={`${title} Exclusive Profile`} 
+        description={`Read the exclusive corporate portfolio and strategic leadership profile of ${title} in the Executives Magazine digital archives.`}
+        keywords={`${title} interview, ${title} profile, executive strategy biography, C-suite archive`}
+      />
       {/* ── Cinematic Header ── */}
       <nav className="bg-[#111] border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between relative z-50">
         <div className="flex items-center gap-8">

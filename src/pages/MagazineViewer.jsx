@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Download, BookOpen, ExternalLink, Share2, Maximize2, Globe, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { getFullUrl } from '../lib/utils'
+import SEO from '../components/SEO'
 
 
 
@@ -112,6 +113,11 @@ export default function MagazineViewer() {
 
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0a0a] flex flex-col overflow-hidden selection:bg-accent selection:text-white">
+      <SEO 
+        title={`${magazine.title} — ${magazine.subtitle}`} 
+        description={`Read the full print publication issue of Executives Magazine titled ${magazine.title} (${magazine.subtitle}) in digital PDF reader format.`}
+        keywords={`Executives Magazine print edition, C-suite print archives, ${magazine.title} publication`}
+      />
       {/* ── Immersive Reader Header ── */}
       <nav className="bg-[#111] border-b border-white/5 py-4 px-6 md:px-12 flex items-center justify-between relative z-50">
         <div className="flex items-center gap-8">

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 
 import { 
@@ -112,6 +113,11 @@ export default function Business() {
 
   return (
     <div className="bg-white min-h-screen">
+      <SEO 
+        title="Business Strategy & Corporate Intelligence" 
+        description="Access structural intelligence on high-growth industries, global investment shifts, contextual e-commerce paradigms, and carbon-negative corporate policies."
+        keywords="global business intelligence, fintech startups study, sovereign AI investments, circular economy strategies, asynchronous workspace tools"
+      />
       {/* Premium Header */}
       <header className="pt-32 pb-20 bg-secondary relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10" />

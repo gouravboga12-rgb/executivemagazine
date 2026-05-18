@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import SEO from '../components/SEO'
 
 
 import { 
@@ -71,6 +72,11 @@ export default function Events() {
 
   return (
     <div className="pb-32 bg-white min-h-screen">
+      <SEO 
+        title="Executive Events & Global Summits" 
+        description="Stay updated with our calendar and analysis of global business forums, strategic leadership summits, fintech webinars, and economic policy events."
+        keywords="global business summits, fintech events calendar, executive forums, strategic policy webinars, economic conferences 2026"
+      />
       {/* Premium Editorial Header */}
       <section className="bg-white pt-24 pb-16 border-b border-gray-100" data-aos="fade-down">
         <div className="container mx-auto px-4 lg:px-8">

@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Send, MessageCircle, ChevronRight, Globe } from 'l
 // import { supabase } from '../lib/supabase'
 
 import { motion } from 'framer-motion'
+import SEO from '../components/SEO'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -53,6 +54,11 @@ export default function Contact() {
 
   return (
     <div className="pb-32 bg-white">
+      <SEO 
+        title="Contact & Collaborations" 
+        description="Connect with the Executives Magazine editorial board and global bureaus. Submit listing applications, interview inquiries, event sponsorships, and advertising brief requests."
+        keywords="contact Executives Magazine, submit editorial interview, corporate listing application, advertisement inquiry, event sponsorship, business networking"
+      />
       {/* Immersive Header - Light */}
       <header className="relative h-[50vh] flex items-center bg-gray-50 overflow-hidden border-b border-gray-100" data-aos="fade-down">
          <div className="absolute inset-0 opacity-40">
@@ -92,7 +98,7 @@ export default function Contact() {
                {[
                  { label: "Official Email", val: "connect@executivesmagazine.com", icon: <Mail size={18} /> },
                  { label: "Executive Line", val: "+91 70325 31253", icon: <Phone size={18} /> },
-                 { label: "Corporate HQ", val: "Hyderabad, India", icon: <MapPin size={18} /> }
+                 { label: "Corporate HQ", val: "India", icon: <MapPin size={18} /> }
                ].map((item, i) => (
                  <div key={i} className="flex items-start space-x-6 group">
                     <div className="p-3 bg-white text-accent rounded-sm group-hover:bg-accent group-hover:text-white transition-all shadow-sm">
@@ -243,9 +249,9 @@ export default function Contact() {
        <section className="mt-32 container mx-auto px-4 lg:px-8" data-aos="fade-up">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="border-l border-gray-200 pl-10 py-4 border-accent transition-colors">
-               <h4 className="text-2xl font-serif font-bold text-secondary mb-2">Hyderabad Headquarters</h4>
+               <h4 className="text-2xl font-serif font-bold text-secondary mb-2">India Headquarters</h4>
                <p className="text-[10px] font-bold uppercase tracking-widest text-accent mb-4">India Bureau</p>
-               <p className="text-sm text-gray-600 max-w-md">NO 201, C8FW+5GX, Nanakramguda Rd, Madhava Reddy Colony, Gachibowli, Nanakramguda, Hyderabad, Telangana 500032</p>
+               <p className="text-sm text-gray-600 max-w-md">NO 201, C8FW+5GX, Nanakramguda Rd, Madhava Reddy Colony, Gachibowli, Nanakramguda, Telangana, India</p>
             </div>
             <div className="border-l border-gray-200 pl-10 py-4 border-accent transition-colors">
                <h4 className="text-2xl font-serif font-bold text-secondary mb-2">London Bureau</h4>

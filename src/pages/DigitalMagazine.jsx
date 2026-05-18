@@ -2,6 +2,7 @@ import { BookOpen, Download, ChevronRight, Star, ArrowRight, Search, ArrowLeft, 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 // import { supabase } from '../lib/supabase'
 
 
@@ -63,6 +64,11 @@ export default function DigitalMagazine() {
 
   return (
     <div className="bg-white">
+      <SEO 
+        title="Digital Editions Archive" 
+        description="Browse the complete digital library of Executives Magazine print publications. Read and download collector issues detailing high-end global leadership."
+        keywords="Executives Magazine issues, print editions digital archive, C-suite collector books, leadership publications, PDF magazine issues"
+      />
       {/* ── Hero Section ── */}
       <section className="pt-40 pb-20 lg:pt-48 lg:pb-32 border-b border-gray-100">
         <div className="container mx-auto px-4 lg:px-8">

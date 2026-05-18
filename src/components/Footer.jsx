@@ -24,17 +24,22 @@ export default function Footer() {
 
     setStatus('sending')
     try {
-      // 2. Save to Supabase (Database)
-      const { error } = await supabase
-        .from('contacts')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          subject: 'Footer Inquiry'
-        }])
+      // 2. Save to Hostinger (Database)
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=add_contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          subject: 'Footer Inquiry',
+          service: 'General Inquiry',
+          phone: '',
+          organization: ''
+        })
+      });
+      const data = await response.json();
       
-      if (error) throw error
+      if (data.error) throw new Error(data.error)
       
       setStatus('success')
       setFormData({ name: '', email: '', message: '' })

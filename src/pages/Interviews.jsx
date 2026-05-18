@@ -2,6 +2,7 @@ import { Download, Eye, FileText, ArrowRight, Search, ArrowLeft, ArrowUpRight, M
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 
 
@@ -78,6 +79,11 @@ export default function Interviews() {
   )
   return (
     <div className="pb-32 bg-white min-h-screen">
+      <SEO 
+        title="Corporate Portfolios Archive" 
+        description="Search and access our global digital archive of high-end C-suite interviews, corporate profiles, and strategic business leadership records."
+        keywords="C-suite interviews, executive profiles, business leadership archive, corporate portfolios, industry intelligence records, CEOs PDF archive"
+      />
       {/* Hero */}
       <section className="bg-secondary py-32 text-white overflow-hidden relative" data-aos="fade-down">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/5 -skew-x-12 translate-x-1/4" />

@@ -22,18 +22,27 @@ export default function SpotlightForm({ type = 'application', spotlightTitle, co
     setStatus('sending')
 
     try {
-      // 1. Save to Supabase (Database)
-      // Note: Assuming a 'spotlight_inquiries' table exists or creating one
-      const { error } = await supabase
-        .from('spotlight_inquiries')
-        .insert([formData])
-
-      if (error && error.code !== 'PGRST116') { // Ignore table not found for demo purposes, or handle it
-         console.warn('Supabase insertion failed, continuing with WhatsApp:', error)
-      }
+      // 1. Save to Hostinger (Database)
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiUrl}?action=add_contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: '',
+          organization: formData.company,
+          service: formData.industry,
+          subject: `${formData.type === 'application' ? 'Spotlight Application' : 'Sponsorship'}: ${formData.spotlight} (${formData.title})`,
+          message: formData.message
+        })
+      });
+      const data = await response.json();
+      
+      if (data.error) throw new Error(data.error)
 
       // 2. Prepare WhatsApp message for real-time notification
-      const phoneNumber = "919000000000" // Admin phone
+      const phoneNumber = "917032531253" // Admin phone
       const whatsappMsg = `*New ${formData.type === 'application' ? 'Spotlight Application' : 'Sponsorship Inquiry'}*%0A%0A` +
         `*Spotlight:* ${formData.spotlight}%0A` +
         `*Name:* ${formData.name}%0A` +
@@ -44,8 +53,6 @@ export default function SpotlightForm({ type = 'application', spotlightTitle, co
         `*Message:* ${formData.message}`
       
       const whatsappURL = `https://wa.me/${phoneNumber}?text=${whatsappMsg}`
-      
-      // Open WhatsApp in new tab
       window.open(whatsappURL, '_blank')
 
       setStatus('success')

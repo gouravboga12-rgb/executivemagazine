@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 
 import { 
@@ -109,6 +110,11 @@ export default function AIInfo() {
 
   return (
     <div className="bg-white min-h-screen">
+      <SEO 
+        title="Artificial Intelligence Era Portal" 
+        description="A definitive C-suite resource exploring cognitive leadership, enterprise AI governance, autonomous workflows, and global compute data privacy."
+        keywords="enterprise AI strategy, AI ethics governance study, agentic workflows, human-machine orchestration, sovereign server security"
+      />
       {/* Premium Hero */}
       <section className="bg-secondary py-32 text-white relative overflow-hidden" data-aos="fade-down">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-5" />

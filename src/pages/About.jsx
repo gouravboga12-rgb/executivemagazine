@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function About() {
   const fadeInUp = {
@@ -16,6 +17,11 @@ export default function About() {
 
   return (
     <div className="pb-32 bg-white selection:bg-accent selection:text-white">
+      <SEO 
+        title="Our Manifesto & Legacy" 
+        description="Learn about the editorial mandate and manifesto of Executives Magazine, architecting the dialogue between today's corporate pioneers and tomorrow's visionaries."
+        keywords="about Executives Magazine, C-suite journal, corporate vision, corporate leaders editorial board, global business bureaus, Singapore APAC hub"
+      />
       {/* ── Cinematic Hero ── */}
       <section className="relative h-[90vh] flex items-center overflow-hidden bg-secondary" data-aos="fade-down">
         <div className="absolute inset-0 z-0">
