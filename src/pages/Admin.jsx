@@ -32,8 +32,10 @@ export default function Admin() {
   const [interviews, setInterviews] = useState([])
   const [magazines, setMagazines] = useState([])
 
+  const [leads, setLeads] = useState([])
   const coverInputRef = useRef(null)
   const pdfInputRef = useRef(null)
+
 
   const displayInterviews = interviews
   const displayMagazines = magazines
